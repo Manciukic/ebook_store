@@ -12,6 +12,7 @@ include "db_connect.php";
 
 <body>
     <?php include "header.php" ?>
+    <h1>We are experiencing problems. Try again later!</h1>
 </body>
 
 </html>

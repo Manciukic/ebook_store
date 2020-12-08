@@ -1,0 +1,171 @@
+html {
+    font-family: 'Roboto', sans-serif;
+}
+html, body {    
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+body {
+    background-color: #eceeee;
+}
+
+a {
+    text-decoration: none;
+    color: initial;
+}
+
+header {
+    background-color: #4A5759;
+    text-align: center;
+    padding: 2rem;
+}
+
+
+header h1, header h2 {
+    color: #bbb;
+    letter-spacing: 0.1rem;
+}
+
+header h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+header h2 {
+    margin-top: 1rem;
+}
+
+nav {
+    background-color: #B0C4B1;
+    padding: 1.5rem 2rem;
+}
+
+nav ul {
+    margin: 0;
+}
+
+nav li {
+    display: inline-block;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+nav a {
+    padding: 1rem 1.5rem;
+    color: #4A5759;
+}
+
+nav a:hover {
+    background-color: #DEDBD2;
+}
+
+main {
+    padding: 0 6rem;
+}
+
+.search-results {
+    text-decoration: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.search-results li {
+    display: inline-block;
+    text-align: center;
+    margin: 4rem;
+    width: 15rem;
+    border: 1px solid #4A5759;
+    background-color: #DEDBD2;
+    padding: 0.5rem;
+}
+
+.search-page h1 {
+    text-align: center;
+    color: #4d0a1a;
+    margin-top: 3rem;
+    margin-bottom: 0rem;
+}
+
+.book-search-entry p {
+    margin: 0.5rem;
+}
+
+.book-search-title, .book-search-author {
+    font-weight: bold;
+    color: #3D0814;
+}
+
+.book-search-title {
+    font-size: 1.2rem;
+}
+
+.book-search-price {
+    font-size: 1.2rem;
+}
+
+.book-page h1, .book-page h2{
+    text-align: center;
+}
+
+.book-title {
+    font-size: 3rem;
+}
+
+.book-title, .book-author {
+    color: #4d0a1a;
+    margin-bottom: 0.5rem;
+}
+
+.book-author {
+    font-size: 1.8rem;
+    margin-top: 0.5rem;
+}
+
+.book-genres {
+    margin-top: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    float: left;
+}
+
+.book-genres li {
+    display: inline-block;
+    margin: 1rem;
+}
+
+.book-genre {
+    padding: 1rem 1.5rem;
+    background-color: #DEDBD2;
+}
+
+.book-genre:hover {
+    background-color: #dacba1;
+}
+
+.book-buy {
+    margin-top: 2rem;
+    padding: 1rem 1.5rem;
+    font-size: 1.2rem;
+    background-color: #c3451c;
+    color: white;
+    float: right;
+}
+
+
+.book-buy:hover {
+    background-color: #A22522;
+}
+
+.description {
+    clear: both;
+    margin-top: 1.5rem;
+    font-size: 1.3rem;
+}
+
