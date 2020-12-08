@@ -15,4 +15,9 @@
         }
         ?>
     </ul>
+    <div class="menu-cart">
+        <a href="/cart.php">
+            View your cart
+        </a>
+    </div>
 </nav>

@@ -61,7 +61,7 @@ if (isset($_GET['id'])) {
             }
             ?>
         </ul>
-        <a href="#">
+        <a href="/cart.php?add=<?php echo $book['id']; ?>">
             <div class="book-buy">
                 Buy it for <?php echo number_format($book['price'], 2) ?> &#8364;
             </div>
