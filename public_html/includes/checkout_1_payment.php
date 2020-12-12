@@ -45,13 +45,17 @@ if (isset($_POST["card_id"]) || isset($_POST["card_number"])){
         }
 
         if (empty($errors)){
-            $insert_card_query = $mysqli->prepare(
-                "INSERT INTO credit_cards (`user_id`, `number`, `expiration`, `cvv`) 
-                    VALUES (?,?,?,?)"
-            );
-            $insert_card_query->bind_param("isss", $_SESSION['user_id'], $_POST["card_number"], $_POST["card_expiration"], $_POST["card_cvv"]);
-            $insert_card_query->execute();
-            $_SESSION['card_id'] = $mysqli->insert_id;
+            try{
+                $insert_card_query = $mysqli->prepare(
+                    "INSERT INTO credit_cards (`user_id`, `number`, `expiration`, `cvv`) 
+                        VALUES (?,?,?,?)"
+                );
+                $insert_card_query->bind_param("isss", $_SESSION['user_id'], $_POST["card_number"], $_POST["card_expiration"], $_POST["card_cvv"]);
+                $insert_card_query->execute();
+                $_SESSION['card_id'] = $mysqli->insert_id;
+            } catch (mysqli_sql_exception $exception) {
+                $errors[] = "This card already exists";
+            }
         }
     } else {
         $_SESSION['card_id'] = intval($_POST["card_id"]);
