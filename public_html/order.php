@@ -50,24 +50,25 @@ $order_id_str = str_pad($order["id"], 6, "0", STR_PAD_LEFT);
                 <th>
                     Author
                 </th>
+                <th>
+                </th>
                 <th class="cart-price">
                     Price
-                </th>
-                <th>
-                    Download
                 </th>
             </tr>
             <?php while ($row = $items->fetch_array()) { ?>
                 <tr>
                     <td class="cart-title"><?php echo $row['title']; ?></td>
                     <td class="cart-author"><?php echo $row['author']; ?></td>
+                    <td class="cart-download"><a href="download.php?id=<?php echo $row['id'] ?>">
+                        Download <span class="dl-icon">&#11015;</span></a>
+                    </td>
                     <td class="cart-price">
                         <?php
                         echo number_format($row['price'], 2);
                         ?>
                         &#8364;
                     </td>
-                    <td class="cart-download"><a href="download.php?id=<?php echo $row['id'] ?>">Download</a></td>
                 </tr>
             <?php } ?>
         </table>

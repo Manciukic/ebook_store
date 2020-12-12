@@ -227,6 +227,15 @@ main {
     margin-right: 0rem;
 }
 
+.cart-download a {
+    padding: 0.5rem 1rem;
+}
+
+.cart-download a:hover {
+    background-color: #A22522;
+    color: white;
+}
+
 .stage-form {
     width: fit-content;
     margin: auto;
