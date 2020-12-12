@@ -17,7 +17,7 @@ body {
 
 a {
     text-decoration: none;
-    color: initial;
+    color: inherit;
 }
 
 header {
@@ -150,7 +150,7 @@ main {
     background-color: #dacba1;
 }
 
-.book-buy {
+.book-buy-download {
     margin-top: 2rem;
     padding: 1rem 1.5rem;
     font-size: 1.2rem;
@@ -160,7 +160,7 @@ main {
 }
 
 
-.book-buy:hover {
+.book-buy-download:hover {
     background-color: #c3451c;
 }
 
@@ -240,7 +240,7 @@ main {
     width: max-content;
     margin: auto;
     margin-top: 3rem;
-    background-color: #dacba1;
+    background-color: #DEDBD2;
     text-align: center;
     padding: 2rem 1rem;
 }
@@ -306,4 +306,10 @@ main {
 
 .confirm-buttons > button {
     margin-top: 0.5rem;
+}
+
+.profile-page {
+    background-color: #DEDBD2;
+    margin: 5rem;
+    border: 1px solid black;
 }
