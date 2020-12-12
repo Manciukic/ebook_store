@@ -22,8 +22,8 @@ if (!isset($_SESSION["user_id"])){
     return;
 }
 
-$path = path_to_ebook_auth($_SESSION["user_id"], $_GET["id"]);
-if (!$path){
+$file = path_to_ebook_auth($_SESSION["user_id"], $_GET["id"]);
+if (!$file){
     // unauthorized
     $error_code=403;
     $error_msg="Nope";
@@ -32,12 +32,18 @@ if (!$path){
     return;
 }
 
-$abs_path = realpath($path);
-$filename = basename($path);
+$filename = basename($file);
 
-header('Content-Disposition: attachment; filename="'.$filename.'"');
-header('Content-Type: '.mime_content_type($filename));
-header('X-Sendfile: ' . $abs_path);
-
-// Apache will take care of delivering the file
+if (file_exists($file)) {
+    header('Content-Disposition: attachment; filename="'.$filename.'"');
+    header('Content-Type: '.mime_content_type($file));
+    header('Content-Length: ' . filesize($file));
+    readfile($file);
+    exit;
+} else {
+    $error_code = 500;
+    $error_msg = "It was not possible to retrieve your ebook. Try again later.";
+    include "includes/error.php";
+    exit;
+}
 ?>
