@@ -89,6 +89,6 @@ ALTER TABLE `order_ebook` ADD FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`
 
 ALTER TABLE `order_ebook` ADD FOREIGN KEY (`ebook_id`) REFERENCES `ebooks` (`id`);
 
-ALTER TABLE `users` ADD FOREIGN KEY (`id`) REFERENCES `secret_answers` (`user_id`);
-
 ALTER TABLE `secret_answers` ADD FOREIGN KEY (`question_id`) REFERENCES `secret_questions` (`id`);
+
+ALTER TABLE `secret_answers` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
