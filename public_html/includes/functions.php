@@ -1,6 +1,11 @@
 <?php
 include "db_connect.php";
 
+function get_all_genres(){
+    global $mysqli;
+    return $mysqli->query("SELECT * FROM genres ORDER BY name ASC");
+}
+
 function get_by_genre($genre)
 {
     global $mysqli;
@@ -75,4 +80,57 @@ function get_books($book_ids)
         return false;
     }
     return $cart;
+}
+
+function get_credit_cards($user_id)
+{
+    global $mysqli;
+    $card_query = $mysqli->prepare(
+        "SELECT CC.id AS id, SUBSTRING(CC.number, 12, 4) AS last_digits, CC.expiration AS expiration
+            FROM credit_cards CC
+            WHERE CC.user_id = ?"
+    );
+    $card_query->bind_param("i", $user_id);
+    $card_query->execute();
+    return $card_query->get_result();
+}
+
+function get_credit_card($card_id){
+    global $mysqli;
+    $card_query = $mysqli->prepare(
+        "SELECT CC.id AS id, SUBSTRING(CC.number, 12, 4) AS last_digits, CC.expiration AS expiration
+            FROM credit_cards CC
+            WHERE CC.id = ?"
+    );
+    $card_query->bind_param("i", $card_id);
+    $card_query->execute();
+    return $card_query->get_result();
+}
+
+function get_order($order_id, $user_id)
+{
+    global $mysqli;
+    $order_query = $mysqli->prepare("
+        SELECT O.id AS id, UNIX_TIMESTAMP(O.time) AS time, O.price AS price, SUBSTRING(CC.number, 12, 4) AS cc_last_digits
+        FROM orders O
+            INNER JOIN credit_cards CC ON (O.credit_card_id = CC.id)
+        WHERE O.id=? AND O.user_id=?
+    ");
+    $order_query->bind_param("ii", $order_id, $user_id);
+    $order_query->execute();
+    return $order_query->get_result();
+}
+
+function get_ebooks_from_order($order_id)
+{
+    global $mysqli;
+    $order_ebook_query = $mysqli->prepare("
+        SELECT E.id AS id, E.title AS title, E.author AS author, OE.price AS price
+        FROM ebooks E 
+            INNER JOIN order_ebook OE ON (E.id = OE.ebook_id)
+        WHERE OE.order_id=?
+    ");
+    $order_ebook_query->bind_param("i", $order_id);
+    $order_ebook_query->execute();
+    return $order_ebook_query->get_result();
 }

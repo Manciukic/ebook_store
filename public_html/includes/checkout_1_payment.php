@@ -41,15 +41,7 @@ if (isset($_POST["card_id"])){
     include "includes/checkout_2_confirmation.php";
 }
 
-
-$card_query = $mysqli->prepare(
-    "SELECT CC.id AS id, SUBSTRING(CC.number, 12, 4) AS last_digits, CC.expiration AS expiration
-        FROM credit_cards CC
-        WHERE CC.user_id = ?"
-);
-$card_query->bind_param("i", $_SESSION['user_id']);
-$card_query->execute();
-$card_result = $card_query->get_result();
+$card_result = get_credit_cards($_SESSION['user_id']);
 
 ?>
 

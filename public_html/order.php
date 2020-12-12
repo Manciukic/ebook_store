@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "includes/db_connect.php";
+include "includes/functions.php";
 
 if (!isset($_GET["id"])){
     include "includes/error.php";
@@ -12,15 +12,7 @@ if (!isset($_SESSION["user_id"])){
     return;
 }
 
-$order_query = $mysqli->prepare("
-        SELECT O.id AS id, UNIX_TIMESTAMP(O.time) AS time, O.price AS price, SUBSTRING(CC.number, 12, 4) AS cc_last_digits
-        FROM orders O
-            INNER JOIN credit_cards CC ON (O.credit_card_id = CC.id)
-        WHERE O.id=? AND O.user_id=?
-    ");
-$order_query->bind_param("ii", $_GET["id"], $_SESSION["user_id"]);
-$order_query->execute();
-$order_query_result = $order_query->get_result();
+$order_query_result = get_order($_GET["id"], $_SESSION["user_id"]);
 
 if ($order_query_result->num_rows === 0){
     include "includes/error.php";
@@ -29,15 +21,7 @@ if ($order_query_result->num_rows === 0){
 
 $order = $order_query_result->fetch_array();
 
-$order_ebook_query = $mysqli->prepare("
-        SELECT E.id AS id, E.title AS title, E.author AS author, OE.price AS price
-        FROM ebooks E 
-            INNER JOIN order_ebook OE ON (E.id = OE.ebook_id)
-        WHERE OE.order_id=?
-    ");
-$order_ebook_query->bind_param("i", $order["id"]);
-$order_ebook_query->execute();
-$items = $order_ebook_query->get_result();
+$items = get_ebooks_from_order($order["id"]);
 $order_id_str = str_pad($order["id"], 6, "0", STR_PAD_LEFT);
 ?>
 

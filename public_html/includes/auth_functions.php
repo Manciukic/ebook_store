@@ -5,7 +5,7 @@
                 FROM users U
                 WHERE (U.username = ? OR U.email = ?) AND U.password = ?"
         );
-        // TODO hash password
+        // TODO hash password   
         $login_query->bind_param("sss", $user, $user, $password);
         $login_query->execute();
         $login_result = $login_query->get_result();

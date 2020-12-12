@@ -74,14 +74,7 @@ if (isset($_POST["action"])){
     }
 }
 
-$card_query = $mysqli->prepare(
-    "SELECT CC.id AS id, SUBSTRING(CC.number, 12, 4) AS last_digits, CC.expiration AS expiration
-        FROM credit_cards CC
-        WHERE CC.id = ?"
-);
-$card_query->bind_param("i", $_SESSION['card_id']);
-$card_query->execute();
-$card_result = $card_query->get_result();
+$card_result = get_credit_card($_SESSION['card_id']);
 
 if ($card_result->num_rows === 0){
     // Card not found

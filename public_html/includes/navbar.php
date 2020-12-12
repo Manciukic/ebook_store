@@ -1,7 +1,7 @@
 <nav>
     <ul>
         <?php
-        $genres = $mysqli->query("SELECT * FROM genres ORDER BY name ASC");
+        $genres = get_all_genres();
         if ($genres) {
             while ($row = $genres->fetch_array()) {
         ?>
