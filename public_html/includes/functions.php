@@ -134,3 +134,16 @@ function get_ebooks_from_order($order_id)
     $order_ebook_query->execute();
     return $order_ebook_query->get_result();
 }
+
+function get_user($user_id){
+    global $mysqli;
+    $user_query = $mysqli->prepare("
+        SELECT username, full_name, email
+        FROM users
+        WHERE id = ?
+    ");
+    $user_query->bind_param("i", $user_id);
+    $user_query->execute();
+    $user_result = $user_query->get_result();
+    return $user_result ? $user_result->fetch_array() : false; //TODO
+}
