@@ -48,7 +48,7 @@ $cart_total = 0;
 
 <head>
     <title>
-        Books by genre "<?php echo $genre['name'] ?>"
+        Cart
     </title>
     <?php include "includes/include.php" ?>
 </head>
