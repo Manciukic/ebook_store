@@ -1,12 +1,13 @@
 <?php
 session_start();
 include "includes/db_connect.php";
+
+if (!isset($_SESSION['items'])) {
+    $_SESSION['items'] = array();
+}
+
 if (isset($_GET['add']) && is_numeric($_GET['add'])) {
     // Adding a new item to the cart
-    if (!isset($_SESSION['items'])) {
-        $_SESSION['items'] = array();
-    }
-
     $book_id = $_GET['add'];
     if (!in_array($book_id, $_SESSION['items'])) {
         array_push($_SESSION['items'], $book_id);
@@ -15,10 +16,6 @@ if (isset($_GET['add']) && is_numeric($_GET['add'])) {
 
 if (isset($_GET['remove']) && is_numeric($_GET['remove'])) {
     // Removing a new item from the cart
-    if (!isset($_SESSION['items'])) {
-        $_SESSION['items'] = array();
-    }
-
     $book_id = $_GET['remove'];
     $index = array_search($book_id, $_SESSION['items']);
     if ($index != false) {
@@ -31,15 +28,16 @@ $book_ids = $_SESSION['items'];
 $nbooks =  count($book_ids);
 $book_ids_query = implode(',', array_fill(0, $nbooks, '?'));
 
-$stmt = $mysqli->prepare("
-        SELECT *
-        FROM ebooks
-        WHERE id IN (" . $book_ids_query . ")
-    ");
-$stmt->bind_param(str_repeat('i', $nbooks), ...$book_ids);
-$stmt->execute();
-$cart = $stmt->get_result();
-
+if ($nbooks > 0){
+    $stmt = $mysqli->prepare("
+            SELECT *
+            FROM ebooks
+            WHERE id IN (" . $book_ids_query . ")
+        ");
+    $stmt->bind_param(str_repeat('i', $nbooks), ...$book_ids);
+    $stmt->execute();
+    $cart = $stmt->get_result();
+}
 $cart_total = 0;
 ?>
 
@@ -70,7 +68,7 @@ $cart_total = 0;
                     Price
                 </th>
             </tr>
-            <?php while ($row = $cart->fetch_array()) { ?>
+            <?php while ($nbooks > 0 && ($row = $cart->fetch_array())) { ?>
                 <tr>
                     <td class="cart-remove"><a href="cart.php?remove=<?php echo $row['id']; ?>">&#10006;</a></td>
                     <td class="cart-title"><?php echo $row['title']; ?></td>
