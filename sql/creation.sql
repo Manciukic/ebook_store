@@ -1,4 +1,5 @@
-CREATE DATABASE EbookStore;
+CREATE DATABASE EbookStore 
+  COLLATE 'utf8_general_ci';
 USE EbookStore;
 
 CREATE TABLE `users` (
