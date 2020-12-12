@@ -226,3 +226,48 @@ main {
 .cart-buy-button a {
     margin-right: 0rem;
 }
+
+.login-form {
+    width: fit-content;
+    margin: auto;
+    margin-top: 3rem;
+    background-color: #dacba1;
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.login-form > input {
+    display: block;
+    margin: 0.5rem 1rem;
+    padding: 1rem 1.5rem;
+    width: 15rem;
+}
+
+.login-form button {
+    background-color: #A22522;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    padding: 1rem 1.5rem;
+    margin-top: 0.5rem;
+    width: 18rem;
+}
+
+.login-form button:hover {
+    background-color: #c3451c;
+}
+
+.login-error-container {
+    text-align: center;
+    width: 100%;
+}
+
+.login-error {
+    width: fit-content;
+    margin: auto;
+    margin-top: 3rem;
+    font-size: 1.2rem;
+    color: white;
+    background-color: #A22522;
+    padding: 1rem 3rem;
+}
