@@ -23,7 +23,8 @@ CREATE TABLE `credit_cards` (
   `user_id` int,
   `number` varchar(255),
   `expiration` varchar(255),
-  `cvv` varchar(3)
+  `cvv` varchar(3),
+  CONSTRAINT unique_card UNIQUE (user_id, number)
 );
 
 CREATE TABLE `ebooks` (
