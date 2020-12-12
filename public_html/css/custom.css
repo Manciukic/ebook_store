@@ -280,7 +280,7 @@ main {
 }
 
 .stage-error {
-    width: fit-content;
+    width: max-content;
     margin: auto;
     margin-top: 3rem;
     font-size: 1.2rem;
