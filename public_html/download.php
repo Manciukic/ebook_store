@@ -10,7 +10,7 @@ if (!isset($_GET["id"])){
     $error_code=400;
     $error_msg="No book ID provided";
     include "includes/error.php";
-    return;
+    exit;
 }
 
 if (!isset($_SESSION["user_id"])){
@@ -19,7 +19,7 @@ if (!isset($_SESSION["user_id"])){
     $error_msg="Nope";
 
     include "includes/error.php";
-    return;
+    exit;
 }
 
 $file = path_to_ebook_auth($_SESSION["user_id"], $_GET["id"]);
@@ -29,7 +29,7 @@ if (!$file){
     $error_msg="Nope";
 
     include "includes/error.php";
-    return;
+    exit;
 }
 
 $filename = basename($file);

@@ -6,7 +6,7 @@ if (empty($_SESSION['items'])){
     $error_code=400;
     $error_msg="Empty cart";
     include "includes/error.php";
-    return;
+    exit;
 }
 
 if (!isset($_SESSION['user_id'])) {
@@ -15,7 +15,7 @@ if (!isset($_SESSION['user_id'])) {
     $error_code=403;
     $error_msg="You need to be logged in to see this page";
     include "includes/error.php";
-    return;
+    exit;
 }
 
 if (!isset($_SESSION['card_id'])) {
@@ -24,7 +24,7 @@ if (!isset($_SESSION['card_id'])) {
     $error_code=400;
     $error_msg="No credit card selected";
     include "includes/error.php";
-    return;
+    exit;
 }
 
 $_SESSION['stage'] = 2;
@@ -72,11 +72,11 @@ if (isset($_POST["action"])){
         unset($_SESSION["items"]);
         unset($_SESSION["card_id"]);
         header("Location: order.php?id=$order_id");
-        return;
+        exit;
     } else{
         $_SESSION['stage'] = 0;
         header("Location: cart.php");
-        return;
+        exit;
     }
 }
 
@@ -88,7 +88,7 @@ if ($card_result->num_rows === 0){
     $error_code=400;
     $error_msg="Invalid credit card";
     include "includes/error.php";
-    return;
+    exit;
 }
 
 $card = $card_result->fetch_array();
