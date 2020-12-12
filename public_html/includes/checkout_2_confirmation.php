@@ -3,6 +3,8 @@
 // check if user has items in cart
 if (empty($_SESSION['items'])){
     // empty cart: how the hell did he get here?
+    $error_code=400;
+    $error_msg="Empty cart";
     include "includes/error.php";
     return;
 }
@@ -10,6 +12,8 @@ if (empty($_SESSION['items'])){
 if (!isset($_SESSION['user_id'])) {
     // not logged in, wtf ?
 
+    $error_code=403;
+    $error_msg="You need to be logged in to see this page";
     include "includes/error.php";
     return;
 }
@@ -17,6 +21,8 @@ if (!isset($_SESSION['user_id'])) {
 if (!isset($_SESSION['card_id'])) {
     // no card inserted, wtf ?
 
+    $error_code=400;
+    $error_msg="No credit card selected";
     include "includes/error.php";
     return;
 }
@@ -79,6 +85,8 @@ $card_result = get_credit_card($_SESSION['card_id']);
 if ($card_result->num_rows === 0){
     // Card not found
 
+    $error_code=400;
+    $error_msg="Invalid credit card";
     include "includes/error.php";
     return;
 }

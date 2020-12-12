@@ -3,6 +3,8 @@
 // check if user has items in cart
 if (empty($_SESSION['items'])) {
     // empty cart: how the hell did he get here?
+    $error_code=400;
+    $error_msg="Empty cart";
     include "includes/error.php";
     return;
 }

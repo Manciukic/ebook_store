@@ -5,10 +5,16 @@ if (isset($_GET['id'])) {
     $book_id = $_GET['id'];
     $book = get_book($book_id);
     if (!$book) {
+        $error_code=404;
+        $error_msg="Book ".$_GET['id']." not found";
         include "includes/error.php";
         exit;
     }
     $genre_result = get_book_genres($book_id);
+} else {
+    $error_code=400;
+    $error_msg="No book ID provided";
+    include "includes/error.php";
 }
 ?>
 
