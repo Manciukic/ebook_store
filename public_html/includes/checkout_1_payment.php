@@ -43,6 +43,7 @@ if (isset($_POST["card_id"])){
     }
 
     include "includes/checkout_2_confirmation.php";
+    return;
 }
 
 $card_result = get_credit_cards($_SESSION['user_id']);
