@@ -1,6 +1,6 @@
 <header>
 
-    <a href="/">
+    <a href="index.php">
         <h1>
             SecureLibrary
         </h1>
