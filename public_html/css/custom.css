@@ -227,7 +227,16 @@ main {
     margin-right: 0rem;
 }
 
-.login-form {
+.cart-download a {
+    padding: 0.5rem 1rem;
+}
+
+.cart-download a:hover {
+    background-color: #A22522;
+    color: white;
+}
+
+.stage-form {
     width: fit-content;
     margin: auto;
     margin-top: 3rem;
@@ -236,33 +245,41 @@ main {
     padding: 2rem 1rem;
 }
 
-.login-form > input {
+.stage-form input, .stage-form select, .stage-form button {
     display: block;
     margin: 0.5rem 1rem;
     padding: 1rem 1.5rem;
     width: 15rem;
 }
 
-.login-form button {
+.stage-form button {
     background-color: #A22522;
     color: white;
     border: none;
     font-size: 1rem;
-    padding: 1rem 1.5rem;
-    margin-top: 0.5rem;
+    width: 18rem;
+    display: block;
+    margin-top: 1.5rem;
+}
+
+.stage-form select {
+    display: block;
+    background-color: white;
+    border: 1px solid black;
+    color: black;
     width: 18rem;
 }
 
-.login-form button:hover {
+.stage-form button:hover {
     background-color: #c3451c;
 }
 
-.login-error-container {
+.stage-error-container {
     text-align: center;
     width: 100%;
 }
 
-.login-error {
+.stage-error {
     width: fit-content;
     margin: auto;
     margin-top: 3rem;
@@ -270,4 +287,23 @@ main {
     color: white;
     background-color: #A22522;
     padding: 1rem 3rem;
+}
+
+.card-hidden {
+    display: none;
+}
+
+.confirm-purchase-text {
+    display: block;
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+}
+
+.confirm-credit-card {
+    display: block;
+    padding: 0.5rem;
+}
+
+.confirm-buttons > button {
+    margin-top: 0.5rem;
 }
