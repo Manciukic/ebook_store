@@ -72,7 +72,7 @@ $cart_total = 0;
             </tr>
             <?php while ($row = $cart->fetch_array()) { ?>
                 <tr>
-                    <td class="cart-remove"><a href="/cart.php?remove=<?php echo $row['id']; ?>">&#10006;</a></td>
+                    <td class="cart-remove"><a href="cart.php?remove=<?php echo $row['id']; ?>">&#10006;</a></td>
                     <td class="cart-title"><?php echo $row['title']; ?></td>
                     <td class="cart-author"><?php echo $row['author']; ?></td>
                     <td class="cart-price">

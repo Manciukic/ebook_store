@@ -51,7 +51,7 @@ if (isset($_GET['genre'])) {
                 while ($row = $result->fetch_array()) {
             ?>
                     <li>
-                        <a href="<?php echo '/book.php?id=' . $row['id']; ?>">
+                        <a href="<?php echo 'book.php?id=' . $row['id']; ?>">
 
                             <div class="book-search-entry">
                                 <p class="book-search-title">

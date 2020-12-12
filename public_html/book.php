@@ -51,7 +51,7 @@ if (isset($_GET['id'])) {
         <ul class="book-genres">
             <?php while($genre = $genre_result->fetch_array()){ ?>
             <li>
-                <a href="<?php echo '/search.php?genre='.$genre['id']; ?>">
+                <a href="<?php echo 'search.php?genre='.$genre['id']; ?>">
                     <div class="book-genre">
                         <?php echo $genre['name']; ?>
                     </div>
@@ -61,7 +61,7 @@ if (isset($_GET['id'])) {
             }
             ?>
         </ul>
-        <a href="/cart.php?add=<?php echo $book['id']; ?>">
+        <a href="cart.php?add=<?php echo $book['id']; ?>">
             <div class="book-buy">
                 Buy it for <?php echo number_format($book['price'], 2) ?> &#8364;
             </div>
