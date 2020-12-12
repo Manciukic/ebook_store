@@ -237,7 +237,7 @@ main {
 }
 
 .stage-form {
-    width: fit-content;
+    width: max-content;
     margin: auto;
     margin-top: 3rem;
     background-color: #dacba1;
