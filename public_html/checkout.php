@@ -15,7 +15,12 @@ if (!isset($_SESSION['stage']) || $_SESSION['stage'] == 0){
 
     include "includes/checkout_2_confirmation.php";
 } else {
-    include "includes/error.php";
+    // wtf? Send user back to first stage
+    error_log("checkout: undefined stage ".$_SESSION['stage']." resetting to first stage.");
+
+    unset($_SESSION['stage']);
+
+    include "includes/checkout_0_login.php";
 }
 ?>
 

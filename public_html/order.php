@@ -3,20 +3,27 @@ session_start();
 require_once "includes/functions.php";
 
 if (!isset($_GET["id"])){
+    $error_code=400;
+    $error_msg="No order ID provided";
     include "includes/error.php";
-    return;
+    exit;
 }
 
 if (!isset($_SESSION["user_id"])){
+    $error_code=403;
+    $error_msg="You're not logged in";
+
     include "includes/error.php";
-    return;
+    exit;
 }
 
 $order_query_result = get_order($_GET["id"], $_SESSION["user_id"]);
 
 if ($order_query_result->num_rows === 0){
+    $error_code=404;
+    $error_msg="Order not found";
     include "includes/error.php";
-    return;
+    exit;
 }
 
 $order = $order_query_result->fetch_array();

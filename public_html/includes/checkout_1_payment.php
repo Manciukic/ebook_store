@@ -3,15 +3,18 @@
 // check if user has items in cart
 if (empty($_SESSION['items'])) {
     // empty cart: how the hell did he get here?
+    $error_code=400;
+    $error_msg="Empty cart";
     include "includes/error.php";
-    return;
+    exit;
 }
 
 if (!isset($_SESSION['user_id'])) {
     // not logged in, wtf ?
-
+    $error_code=403;
+    $error_msg="You need to be logged in to see this page";
     include "includes/error.php";
-    return;
+    exit;
 }
 
 $_SESSION['stage'] = 1;
@@ -22,9 +25,10 @@ if (isset($_POST["card_id"])) {
     if ($_POST["card_id"] == "") {
         if (!(isset($_POST["card_number"]) && isset($_POST["card_expiration"]) && isset($_POST["card_cvv"]))) {
             // Missing card information
-
+            $error_code=400;
+            $error_msg="Bad Request: you need to provide all card data";
             include "includes/error.php";
-            return;
+            exit;
         }
 
         $insert_card_query = $mysqli->prepare(
@@ -39,7 +43,7 @@ if (isset($_POST["card_id"])) {
     }
 
     include "includes/checkout_2_confirmation.php";
-    return;
+    exit;
 }
 
 $card_result = get_credit_cards($_SESSION['user_id']);

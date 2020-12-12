@@ -8,6 +8,8 @@ if (isset($_GET['genre'])) {
     $result = get_by_genre($genre_id);
     $genre = get_genre_name($genre_id);
     if (!$genre) {
+        $error_code=404;
+        $error_msg="Genre not found";
         include "includes/error.php";
         exit;
     }

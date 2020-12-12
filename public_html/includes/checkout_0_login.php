@@ -3,14 +3,16 @@
 // check if user has items in cart
 if (empty($_SESSION['items'])) {
     // empty cart: how the hell did he get here?
+    $error_code=400;
+    $error_msg="Empty cart";
     include "includes/error.php";
-    return;
+    exit;
 }
 
 if (isset($_SESSION['user_id'])) {
     // User is already logged in: skip to stage 1
     include "includes/checkout_1_payment.php";
-    return;
+    exit;
 }
 
 require_once "includes/auth_functions.php";
@@ -24,7 +26,7 @@ if (isset($_POST['user']) && isset($_POST['password'])) {
     if ($user_id) {
         $_SESSION['user_id'] = $user_id;
         include "includes/checkout_1_payment.php";
-        return;
+        exit;
     } else {
         $error = "Invalid username or password";
     }

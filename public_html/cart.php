@@ -83,11 +83,13 @@ $cart_total = 0;
                 </span>
                 &#8364;
             </p>
-            <div class="cart-buy-button">
-                <a href="checkout.php">
-                    Buy now!
-                </a>
-            </div>
+            <?php if (!empty($book_ids)){ ?>
+                <div class="cart-buy-button">
+                    <a href="checkout.php">
+                        Buy now!
+                    </a>
+                </div>
+            <?php } ?>
         </div>
     </main>
 </body>
