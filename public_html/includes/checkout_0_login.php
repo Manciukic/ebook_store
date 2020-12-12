@@ -46,12 +46,12 @@ if (isset($_POST['user']) && isset($_POST['password'])) {
 
     <main>
         <?php if ($error) { ?>
-            <div class="login-error-container">
-                <p class="login-error"><?php echo $error ?></p>
+            <div class="stage-error-container">
+                <p class="stage-error"><?php echo $error ?></p>
             </div>
         <?php } ?>
 
-        <form action="checkout.php" method="post" class="login-form">
+        <form action="checkout.php" method="post" class="stage-form">
             <label for="user">Username:</label>
             <input type="text" name="user">
             <label for="password">Password:</label>
