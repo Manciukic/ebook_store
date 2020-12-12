@@ -22,7 +22,8 @@ CREATE TABLE `credit_cards` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
   `user_id` int,
   `number` varchar(255),
-  `expiration` varchar(255)
+  `expiration` varchar(255),
+  `cvv` varchar(3)
 );
 
 CREATE TABLE `ebooks` (
