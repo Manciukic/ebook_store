@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "includes/db_connect.php";
+include "includes/functions.php";
 
 if (!isset($_SESSION['items'])) {
     $_SESSION['items'] = array();
@@ -18,26 +18,14 @@ if (isset($_GET['remove']) && is_numeric($_GET['remove'])) {
     // Removing a new item from the cart
     $book_id = $_GET['remove'];
     $index = array_search($book_id, $_SESSION['items']);
-    if ($index != false) {
+    if ($index !== false) {
         unset($_SESSION['items'][$index]);
     }
 }
 
 // Create a prepared statement based on the number of books I need
 $book_ids = $_SESSION['items'];
-$nbooks =  count($book_ids);
-$book_ids_query = implode(',', array_fill(0, $nbooks, '?'));
-
-if ($nbooks > 0){
-    $stmt = $mysqli->prepare("
-            SELECT *
-            FROM ebooks
-            WHERE id IN (" . $book_ids_query . ")
-        ");
-    $stmt->bind_param(str_repeat('i', $nbooks), ...$book_ids);
-    $stmt->execute();
-    $cart = $stmt->get_result();
-}
+$cart = get_books($book_ids);
 $cart_total = 0;
 ?>
 
@@ -68,20 +56,24 @@ $cart_total = 0;
                     Price
                 </th>
             </tr>
-            <?php while ($nbooks > 0 && ($row = $cart->fetch_array())) { ?>
-                <tr>
-                    <td class="cart-remove"><a href="cart.php?remove=<?php echo $row['id']; ?>">&#10006;</a></td>
-                    <td class="cart-title"><?php echo $row['title']; ?></td>
-                    <td class="cart-author"><?php echo $row['author']; ?></td>
-                    <td class="cart-price">
-                        <?php
-                        $cart_total += $row['price'];
-                        echo number_format($row['price'], 2);
-                        ?>
-                        &#8364;
-                    </td>
-                </tr>
-            <?php } ?>
+
+            <?php
+            if ($cart) {
+                while ($row = $cart->fetch_array()) { ?>
+                    <tr>
+                        <td class="cart-remove"><a href="cart.php?remove=<?php echo $row['id']; ?>">&#10006;</a></td>
+                        <td class="cart-title"><?php echo $row['title']; ?></td>
+                        <td class="cart-author"><?php echo $row['author']; ?></td>
+                        <td class="cart-price">
+                            <?php
+                            $cart_total += $row['price'];
+                            echo number_format($row['price'], 2);
+                            ?>
+                            &#8364;
+                        </td>
+                    </tr>
+            <?php }
+            } ?>
         </table>
         <div class="cart-total">
             <p class="cart-total-message">

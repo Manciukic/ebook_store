@@ -1,27 +1,12 @@
 <?php
-include "includes/db_connect.php";
+include "includes/functions.php";
+
 
 if (isset($_GET['genre'])) {
     $genre_id = $_GET['genre'];
 
-    $query = $mysqli->prepare(
-        "SELECT B.id, B.title, B.author, B.price
-            FROM ebooks B INNER JOIN ebook_genre EG ON B.id = EG.ebook_id
-            WHERE EG.genre_id = ? "
-    );
-    $query->bind_param("i", $genre_id);
-    $query->execute();
-    $result = $query->get_result();
-
-    $genre_query = $mysqli->prepare(
-        "SELECT G.name
-            FROM genres G 
-            WHERE G.id = ?"
-    );
-    $genre_query->bind_param("i", $genre_id);
-    $genre_query->execute();
-    $genre_result = $genre_query->get_result();
-    $genre = $genre_result->fetch_array();
+    $result = get_by_genre($genre_id);
+    $genre = get_genre_name($genre_id);
     if (!$genre) {
         include "includes/error.php";
         exit;
