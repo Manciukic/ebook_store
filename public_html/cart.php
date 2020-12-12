@@ -92,7 +92,7 @@ $cart_total = 0;
                 &#8364;
             </p>
             <div class="cart-buy-button">
-                <a href="#">
+                <a href="checkout.php">
                     Buy now!
                 </a>
             </div>
