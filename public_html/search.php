@@ -1,5 +1,5 @@
 <?php
-include "db_connect.php";
+include "includes/db_connect.php";
 
 if (isset($_GET['genre'])) {
     $genre_id = $_GET['genre'];
@@ -23,7 +23,7 @@ if (isset($_GET['genre'])) {
     $genre_result = $genre_query->get_result();
     $genre = $genre_result->fetch_array();
     if (!$genre) {
-        include "error.php";
+        include "includes/error.php";
         exit;
     }
 }
@@ -36,11 +36,11 @@ if (isset($_GET['genre'])) {
     <title>
         Books by genre "<?php echo $genre['name'] ?>"
     </title>
-    <?php include "include.php" ?>
+    <?php include "includes/include.php" ?>
 </head>
 
 <body>
-    <?php include "header.php" ?>
+    <?php include "includes/header.php" ?>
     <main class="search-page">
         <h1>
             Books by genre "<?php echo $genre['name'] ?>"

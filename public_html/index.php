@@ -1,5 +1,5 @@
 <?php
-include "db_connect.php";
+include "includes/db_connect.php";
 ?>
 
 <!DOCTYPE html>
@@ -7,11 +7,11 @@ include "db_connect.php";
 
 <head>
     <title> E-book shop </title>
-    <?php include "include.php" ?>
+    <?php include "includes/include.php" ?>
 </head>
 
 <body>
-    <?php include "header.php" ?>
+    <?php include "includes/header.php" ?>
 </body>
 
 </html>

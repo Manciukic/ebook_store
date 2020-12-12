@@ -9,4 +9,4 @@
         </h2>
     </a>
 </header>
-<?php include "navbar.php" ?>
+<?php include "includes/navbar.php" ?>

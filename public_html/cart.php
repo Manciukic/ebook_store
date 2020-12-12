@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "db_connect.php";
+include "includes/db_connect.php";
 if (isset($_GET['add']) && is_numeric($_GET['add'])) {
     // Adding a new item to the cart
     if (!isset($_SESSION['items'])) {
@@ -50,11 +50,11 @@ $cart_total = 0;
     <title>
         Books by genre "<?php echo $genre['name'] ?>"
     </title>
-    <?php include "include.php" ?>
+    <?php include "includes/include.php" ?>
 </head>
 
 <body>
-    <?php include "header.php" ?>
+    <?php include "includes/header.php" ?>
     <main class="cart-page">
         <h1>Your current cart</h1>
         <table class="cart-table">

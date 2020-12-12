@@ -1,5 +1,5 @@
 <?php
-include "db_connect.php";
+include "includes/db_connect.php";
 
 if (isset($_GET['id'])) {
     $book_id = $_GET['id'];
@@ -14,7 +14,7 @@ if (isset($_GET['id'])) {
     $book_result = $book_query->get_result();
     $book = $book_result->fetch_array();
     if (!$book) {
-        include "error.php";
+        include "includes/error.php";
         exit;
     }
 
@@ -37,11 +37,11 @@ if (isset($_GET['id'])) {
     <title>
         <?php echo $book['title'] ?>
     </title>
-    <?php include "include.php" ?>
+    <?php include "includes/include.php" ?>
 </head>
 
 <body>
-    <?php include "header.php" ?>
+    <?php include "includes/header.php" ?>
     <main class="book-page">
         <h1 class="book-title"><?php echo $book['title'] ?></h1>
         <h2 class="book-author"><span class="book-author-name">
