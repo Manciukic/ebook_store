@@ -73,10 +73,10 @@ $card_result = $card_query->get_result();
     <?php while ($card = $card_result->fetch_array()) { ?>
         <input type="radio" name="card_id" value="<?php echo $card["id"] ?>">**** **** **** <?php echo $card["last_digits"] ?> (<?php echo $card["expiration"] ?>)<br>
     <?php } ?>
-    <input type="radio" name="card_id" value="">Other card:
-    <input type="text" name="card_number" />
-    <input type="text" name="card_expiration" />
-    <input type="password" name="card_cvv" />
+    <input type="radio" name="card_id" value="">Other card:<br/>
+    Number: <input type="text" name="card_number" /><br/>
+    Expiration: <input type="text" name="card_expiration" /><br/>
+    CVV: <input type="password" name="card_cvv" /><br/>
     <input type="submit" value="Pay" />
     </form>
 </body>
