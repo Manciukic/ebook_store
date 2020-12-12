@@ -13,7 +13,7 @@ if (isset($_SESSION['user_id'])) {
     return;
 }
 
-include "includes/auth_functions.php";
+require_once "includes/auth_functions.php";
 
 $_SESSION['stage'] = 0;
 

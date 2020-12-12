@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "includes/functions.php";
+require_once "includes/functions.php";
 
 if (!isset($_SESSION['stage']) || $_SESSION['stage'] == 0){
     // first stage of checkout: login

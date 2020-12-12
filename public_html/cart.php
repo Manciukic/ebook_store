@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "includes/functions.php";
+require_once "includes/functions.php";
 
 if (!isset($_SESSION['items'])) {
     $_SESSION['items'] = array();
