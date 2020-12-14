@@ -313,3 +313,124 @@ main {
     margin: 5rem;
     border: 1px solid black;
 }
+
+
+
+
+body{
+    margin: 0 auto;
+    background-repeat: no-repeat;
+    background-size: 100% 720px;
+}
+
+.form-page{
+    width: 670px;
+    height: 950px;
+    margin: 0 auto;
+    background-color: rgba(110, 116, 140,1);
+    margin-top: 130px;
+    margin-bottom:50px;
+}
+main[type="login"]{
+    height:400px;
+    width:400px;
+}
+.form-page div,h1{
+    text-align:center;
+}
+h1{
+    color:#bbb;
+}
+.loginInput{
+    margin-top: 30px;
+    height: 45px;
+    width: 200px;
+    font-size: 18px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding-left: 40px;
+}
+.registrationInput{
+    margin-top: 30px;
+    height: 45px;
+    width: 200px;
+    font-size: 18px;
+    margin-bottom: 20px;
+    margin-left: 4%;
+    background-color: #fff;
+    padding-left: 40px;
+
+}
+.control{
+    position:relative;
+    left:1%;
+    border:none;
+    font-size: 14px;
+    color:red;
+    background-color: rgba(110, 116, 140,1);
+    visibility:visible;
+    text-align:center;
+    outline:none;
+    cursor:default;
+}
+.error {
+    margin-top: 30px;
+    height: 45px;
+    width: 200px;
+    font-size: 18px;
+    margin-bottom: 20px;
+    margin-left: 4%;
+    background-color: rgba(255, 225, 225, 1);
+    padding-left: 40px;
+    border:groove;
+    border-width:1px;
+    border-color:red;
+
+}
+
+select{
+    margin-top: 30px;
+    height: 45px;
+    width: 400px;
+    font-size: 18px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    padding-left: 10px;
+}
+.form-input::before{
+    content: "\f007";
+    font-family: "FontAwesome";
+    padding-left: 07px;
+    padding-top: 40px;
+    position: absolute;
+    font-size: 35px;
+    color: #2980b9;
+}
+/*
+.form-input:nth-child(2)::before{
+	content: "\f023";
+}*/
+
+.control-log{
+    color:red;
+    display:none;
+}
+
+
+.btn-form{
+    padding: 15px 25px;
+    border: none;
+    background-color: #27ae60;
+    color: #fff;
+    cursor:pointer;
+}
+.btn-form:hover{
+    color:gold;
+}
+
+
+
+
+
+
+
