@@ -170,16 +170,28 @@ main {
     font-size: 1.3rem;
 }
 
-.menu-cart a, .cart-buy-button a{
+.menu-cart {
+    margin-right: 3rem;
+}
+
+.menu-cart a, .cart-buy-button a, .profile-links a{
     background-color: #A22522;
     float: right;
     padding: 1rem 1.5rem;
-    margin-right: 4rem;
+    margin-right: 1rem;
     color: white;
     font-size: 1.2rem;
 }
 
-.menu-cart a:hover, .cart-buy-button a:hover {
+.profile-links {
+    margin-top: 3rem;
+}
+
+.profile-links a {
+    float: none;
+}
+
+.menu-cart a:hover, .cart-buy-button a:hover, .profile-links a:hover {
     background-color: #c3451c;
 }
 
@@ -237,7 +249,9 @@ main {
 }
 
 .stage-form {
-    width: max-content;
+    width: intrinsic;           
+    width: -moz-max-content;   
+    width: -webkit-max-content;
     margin: auto;
     margin-top: 3rem;
     background-color: #DEDBD2;
@@ -280,7 +294,9 @@ main {
 }
 
 .stage-error {
-    width: max-content;
+    width: intrinsic;           
+    width: -moz-max-content;   
+    width: -webkit-max-content;
     margin: auto;
     margin-top: 3rem;
     font-size: 1.2rem;
@@ -311,7 +327,10 @@ main {
 .profile-page {
     background-color: #DEDBD2;
     margin: 5rem;
+    padding-bottom: 3rem;
     border: 1px solid black;
+    text-align: center;
+    color: #3D0814;
 }
 
 
@@ -427,10 +446,3 @@ select{
 .btn-form:hover{
     color:gold;
 }
-
-
-
-
-
-
-

@@ -1,7 +1,6 @@
 <?php
 require_once "includes/functions.php";
 require_once "includes/auth_functions.php";
-session_start();
 
 if (isset($_GET['id'])) {
     $book_id = $_GET['id'];
@@ -55,7 +54,9 @@ if (isset($_GET['id'])) {
         <a href="cart.php?add=<?php echo $book['id']; ?>">
             <?php
             $book_path = false;
+            if(isset($_SESSION['user_id'])){
                 $book_path = path_to_ebook_auth($_SESSION['user_id'], $book['id']);
+            }
             
             ?>
             <div class="book-buy-download">

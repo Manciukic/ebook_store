@@ -17,8 +17,10 @@
 
 <body>
     <?php include "includes/header.php" ?>
-    <h1><?php echo $error_code ?></h1>
-    <h2><?php echo $error_msg ?></h2>
+    <main class="search-page">
+        <h1>Error <?php echo $error_code ?></h1>
+        <h2><?php echo $error_msg ?></h2>
+    </main>
 </body>
 
 </html>

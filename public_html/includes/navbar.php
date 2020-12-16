@@ -16,8 +16,11 @@
         ?>
     </ul>
     <div class="menu-cart">
+        <a href="profile.php">
+            Profile
+        </a>
         <a href="cart.php">
-            View your cart
+            View cart
         </a>
     </div>
 </nav>

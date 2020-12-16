@@ -85,7 +85,7 @@ $card_result = get_credit_cards($_SESSION['user_id']);
     <?php include "includes/header.php" ?>
 
     <?php if (!empty($errors)) { ?>
-        <div>
+        <div class="stage-error">
             <h3>Please fix these errors</h3>
             <ul>
                 <?php foreach($errors as $error_msg){ ?>
