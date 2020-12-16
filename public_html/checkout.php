@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once "includes/functions.php";
 
 if (!isset($_SESSION['stage']) || $_SESSION['stage'] == 0){

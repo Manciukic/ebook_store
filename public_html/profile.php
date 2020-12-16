@@ -1,5 +1,6 @@
 <?php
 require_once "includes/functions.php";
+session_start();
 
 if (isset($_SESSION['user_id'])) {
     $user = get_user($_SESSION['user_id']);
