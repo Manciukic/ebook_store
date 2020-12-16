@@ -1,59 +1,44 @@
 <?php
-	$ERRORS = array(
-		"invalid" => "Your credentials are invalid.",
-		"default" => "There was an error during login. Please try later."
-	)
+$ERRORS = array(
+	"invalid" => "Your credentials are invalid.",
+	"default" => "There was an error during login. Please try later."
+)
 ?>
 <!DOCTYPE html>
 <html>
 
 <head>
 	<title> Login Form </title>
-    <?php include "includes/functions.php" ?>
-    <?php include "includes/include.php" ?>
+	<?php include "includes/functions.php" ?>
+	<?php include "includes/include.php" ?>
 
 
 </head>
+
 <body>
 
-    <?php include "includes/header.php" ?>
-    <main class="form-page" type="login">
-	<br>
-	<h1>
-            Login 
-        </h1>
-		<form action="./authentication.php" name="form_login" method="post">
-			<div class="form-input">
-				<input class="loginInput" name="username" placeholder="Username"/>
-			</div>
-			<div class="form-input">
-				<input class="loginInput" name="password" type="password" placeholder="Password"/>
-			</div>
-            <div class="form-input">
+	<?php include "includes/header.php" ?>
+	<main class="form-page" type="login">
 
-                <span class="control-log" id="emtpyFieldsLog">Fill all the fields!</span>
-            </div>
-            <br>
-			<br>
-			<?php
-				if (isset($_GET['error'])){
-					$error_msg = $ERRORS[$_GET['error']] ?? $ERRORS["default"];
-					echo '<div style="color:red";>';
-					echo '<span>' . $error_msg . '</span>';
-                    echo '</div>';
-                    echo '<br><br>';
-				}
-			?>  
-			<div class="form-input">
-				<input  type="submit" value="Sign in" class="btn-form"/>
+		<?php
+		if (isset($_GET['error'])) {
+			$error_msg = $ERRORS[$_GET['error']] ?? $ERRORS["default"];
+		?>
+			<div class="stage-error-container">
+				<p class="stage-error"><?php echo $error_msg ?></p>
 			</div>
-			<br>
-            <div class="form-input">
-                <a href="./registration_form.php" > Not registered yet? Click here!</a>
-            </div>
-
+		<?php } ?>
+		<form action="./authentication.php" name="form_login" method="post" class="stage-form">
+			<h1>
+				Login
+			</h1>
+			<input class="loginInput" name="username" placeholder="Username" />
+			<input class="loginInput" name="password" type="password" placeholder="Password" />
+			<span class="control-log" id="emtpyFieldsLog">Fill all the fields!</span>
+			<button type="submit" value="Sign in" class="btn-form">Sign in</button>
+			<a href="./registration_form.php"> Not registered yet? Click here!</a>
 		</form>
-    </main>
+	</main>
 </body>
 
 <script src="js/event_handler_login.js"> </script>
