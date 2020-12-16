@@ -25,7 +25,7 @@ if (isset($_SESSION['user_id'])) {
         <?php if (isset($error) && $error) { ?>
             <h1>Not logged in</h1>
             <div class="profile-links">
-                <a href="login.php">
+                <a href="login_form.php">
                     Login
                 </a>
             </div>
