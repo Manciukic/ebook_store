@@ -11,8 +11,7 @@ function send_log(){
     document.getElementById("emtpyFieldsLog").style.display="none";
     return true;
 }
-form.onsubmit=new Function("return send_log()");
-
+form.oninput = send_log;
 
 
 
