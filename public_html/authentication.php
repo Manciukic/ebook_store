@@ -18,7 +18,7 @@
 
     $numRow = mysqli_num_rows($result);
     if ($numRow == 0)
-   	header('location: ./login_form.php?errorMessage=Your credentials are invalid.');
+   	    header('location: ./login_form.php?error=invalid');
     else{
         $userRow = $result->fetch_assoc();
         $userId = $userRow['id'];

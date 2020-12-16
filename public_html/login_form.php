@@ -1,4 +1,9 @@
-
+<?php
+	$ERRORS = array(
+		"invalid" => "Your credentials are invalid.",
+		"default" => "There was an error during login. Please try later."
+	)
+?>
 <!DOCTYPE html>
 <html>
 
@@ -31,9 +36,10 @@
             <br>
 			<br>
 			<?php
-				if (isset($_GET['errorMessage'])){
+				if (isset($_GET['error'])){
+					$error_msg = $ERRORS[$_GET['error']] ?? $ERRORS["default"];
 					echo '<div style="color:red";>';
-					echo '<span>' . $_GET['errorMessage'] . '</span>';
+					echo '<span>' . $error_msg . '</span>';
                     echo '</div>';
                     echo '<br><br>';
 				}
