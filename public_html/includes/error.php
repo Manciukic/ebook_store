@@ -22,3 +22,8 @@
 </body>
 
 </html>
+
+<?php
+// Forcefully exit in case caller forgot to
+exit;
+?>

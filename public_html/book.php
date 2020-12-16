@@ -17,6 +17,7 @@ if (isset($_GET['id'])) {
     $error_code = 400;
     $error_msg = "No book ID provided";
     include "includes/error.php";
+    exit;
 }
 ?>
 
