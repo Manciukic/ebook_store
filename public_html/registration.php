@@ -4,13 +4,16 @@ include  "includes/functions.php";
 include "includes/sessionUtil.php";
 
 if(!isset($_POST['username'])||
-    !isset($_POST['name'])||
-    !isset($_POST['password'])||
-    !isset($_POST['email'])||
-    !isset($_POST['answer'])||
-    !isset($_POST['customedQuestion'])){
+        !isset($_POST['name'])||
+        !isset($_POST['password'])||
+        !isset($_POST['email'])||
+        !isset($_POST['answer'])||
+        !isset($_POST['customedQuestion'])){
 
-        header('location: includes/error.php');
+    $error_code=400;
+    $error_msg="Provide all parameters.";
+    include "includes/error.php";
+    exit;
 
 }
 
@@ -38,7 +41,10 @@ switch ($defaultQuestion) {
 
 if(($customedQuestion =="" && $questionIndex==-1)|| ($customedQuestion !="" && $questionIndex!=-1))  {      //Check wether the user has selected only one secret question
 
-    header('location: includes/error.php');
+    $error_code=400;
+    $error_msg="No secret answer provided.";
+    include "includes/error.php";
+    exit;
 
 }
 
@@ -60,7 +66,10 @@ $result = $queryText->get_result();
 $userRow = $result->fetch_assoc();
 
 if(!$userRow){
-    header('location: includes/error.php');
+    $error_code=500;
+    $error_msg="There was an error creating this user. Please try again later.";
+    include "includes/error.php";
+    exit;
 }
 $userId = $userRow['id'];
 
