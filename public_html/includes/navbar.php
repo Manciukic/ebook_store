@@ -17,7 +17,7 @@
     </ul>
     <div class="menu-cart">
         <a href="profile.php">
-            Profile
+            Account
         </a>
         <a href="cart.php">
             View cart
