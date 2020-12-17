@@ -73,7 +73,15 @@ $cart_total = 0;
                         </td>
                     </tr>
             <?php }
-            } ?>
+            } 
+            
+            if($cart_total == 0){ ?>
+            <tr>
+                <td colspan="4">Cart is empty</td>
+            </tr>
+            <?php }
+            ?>
+
         </table>
         <div class="cart-total">
             <p class="cart-total-message">
