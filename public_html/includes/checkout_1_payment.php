@@ -5,8 +5,8 @@ if (empty($_SESSION['items'])) {
     // empty cart: how the hell did he get here?
 
     unset($_SESSION["stage"]);
-    $error_code=400;
-    $error_msg="Empty cart";
+    $error_code = 400;
+    $error_msg = "Empty cart";
     include "includes/error.php";
     exit;
 }
@@ -15,8 +15,8 @@ if (!isset($_SESSION['user_id'])) {
     // not logged in, wtf ?
 
     unset($_SESSION["stage"]);
-    $error_code=403;
-    $error_msg="You need to be logged in to see this page";
+    $error_code = 403;
+    $error_msg = "You need to be logged in to see this page";
     include "includes/error.php";
     exit;
 }
@@ -26,9 +26,9 @@ require_once "includes/validation_functions.php";
 
 $errors = array();
 
-if (isset($_POST["card_id"]) || isset($_POST["card_number"])){
-    if (empty($_POST["card_id"])){
-        if (!(isset($_POST["card_number"]) && isset($_POST["card_expiration"]) && isset($_POST["card_cvv"]))){
+if (isset($_POST["card_id"]) || isset($_POST["card_number"])) {
+    if (empty($_POST["card_id"])) {
+        if (!(isset($_POST["card_number"]) && isset($_POST["card_expiration"]) && isset($_POST["card_cvv"]))) {
             $errors[] = "Plase fill all card information";
         } else {
             $card_number_valid = validate_card_number($_POST["card_number"]);
@@ -44,8 +44,8 @@ if (isset($_POST["card_id"]) || isset($_POST["card_number"])){
                 $errors[] = $card_cvv_valid;
         }
 
-        if (empty($errors)){
-            try{
+        if (empty($errors)) {
+            try {
                 $insert_card_query = $mysqli->prepare(
                     "INSERT INTO credit_cards (`user_id`, `number`, `expiration`, `cvv`) 
                         VALUES (?,?,?,?)"
@@ -61,7 +61,7 @@ if (isset($_POST["card_id"]) || isset($_POST["card_number"])){
         $_SESSION['card_id'] = intval($_POST["card_id"]);
     }
 
-    if (empty($errors)){
+    if (empty($errors)) {
         include "includes/checkout_2_confirmation.php";
         exit;
     } // in case of error re-display page with errors
@@ -88,20 +88,24 @@ $card_result = get_credit_cards($_SESSION['user_id']);
         <div class="stage-error">
             <h3>Please fix these errors</h3>
             <ul>
-                <?php foreach($errors as $error_msg){ ?>
+                <?php foreach ($errors as $error_msg) { ?>
                     <li> <?php echo $error_msg ?> </li>
                 <?php } ?>
             </ul>
         </div>
     <?php } ?>
-    
+
     <!-- TODO riepilogo -->
 
 
     <form action="checkout.php" method="post" class="stage-form">
         <label for="card_id">Choose your payment method:</label>
         <select name="card_id" onselect="" onchange="showAddCard(this)">
-            <?php while ($card = $card_result->fetch_array()) { ?>
+            <?php
+            $n_cards = 0;
+            while ($card = $card_result->fetch_array()) {
+                $n_cards += 1;
+            ?>
                 <option value="<?php echo $card["id"] ?>">
                     **** **** **** <?php echo $card["last_digits"] ?> (<?php echo $card["expiration"] ?>)
                 </option>
@@ -110,7 +114,7 @@ $card_result = get_credit_cards($_SESSION['user_id']);
                 Add a new card
             </option>
         </select>
-        <div class="hidden" id="new-card-details">
+        <div class=<?php $n_cards == 0 ? "" : "hidden" ?> id="new-card-details">
             <label for="card_number">Number:</label>
             <input type="text" name="card_number" />
             <label for="card_expiration">Expiration:</label>
