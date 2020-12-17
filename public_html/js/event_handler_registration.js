@@ -2,28 +2,35 @@
 
 function checkPasswordSecurity()
 {
-
-    var form=document.form_registration;
-    if(form.password.value.length==0)
-        form.passwordCounter.style="visibility:hidden";
-
-    else if(form.password.value.length<5)
-    {
-        form.passwordCounter.value="very weak";
-        form.passwordCounter.setAttribute('style','visibility:visible;');
+    var form = document.form_registration
+    var passwordCounter = document.getElementById('password-counter');
+    resetClassesPassword(passwordCounter);
+    if(form.password.value.length == 0){
+        passwordCounter.classList.add('hidden');
+        return;
     }
-    else if(form.password.value.length<7)
+    else if(form.password.value.length < 5)
     {
-        form.passwordCounter.value="weak";
-        form.passwordCounter.setAttribute('style','visibility:visible;');
-        form.passwordCounter.style.color="#f5e413";
+        passwordCounter.textContent = "very weak";
+        passwordCounter.classList.add('pw-very-weak')
+    }
+    else if(form.password.value.length < 7)
+    {
+        passwordCounter.textContent = "weak";
+        passwordCounter.classList.add('pw-weak')
     }
     else{
-        form.passwordCounter.value="strong";
-        form.passwordCounter.setAttribute('style','visibility:visible;');
-        form.passwordCounter.style.color="#9ef513";
+        passwordCounter.textContent="strong";
+        passwordCounter.classList.add('pw-strong')
     }
+    passwordCounter.classList.remove('hidden')
 
+}
+
+function resetClassesPassword(passwordCounter){
+    passwordCounter.classList.remove('pw-very-weak')
+    passwordCounter.classList.remove('pw-weak')
+    passwordCounter.classList.remove('pw-strong')
 }
 
 
@@ -61,7 +68,7 @@ function registrate(){
         document.getElementById("regControl").style.display="inline";
         return false
     }
-    if(selectedDefaultQuestion.options[selectedDefaultQuestion.selectedIndex].value!="" && form.customedQuestion.value!=""){
+    if(selectedDefaultQuestion.options[selectedDefaultQuestion.selectedIndex].value!="new" && form.customedQuestion.value!=""){
 
         document.getElementById("regControl").textContent="Select just one secret question!";
         document.getElementById("regControl").style.display="inline";
@@ -75,26 +82,29 @@ function registrate(){
 function invalidHandler(field){
 
     var form=document.form_registration;
+    var controlRepassword = document.getElementById('control_repassword')
     if(field.name=="repassword")			//Check if password and repassword match
     {
         if (form.password.value != form.repassword.value)
         {
             form.repassword.className = "registrationInput";
-            form.controlRepassword.setAttribute('style','visibility:visible;');
-            form.controlRepassword.value="The passwords don't match!";
+            controlRepassword.classList.remove('hidden')
+            controlRepassword.textContent="The passwords don't match!";
             return;
+        } else {
+            controlRepassword.classList.add('hidden')
         }
 
     }
     if (field.validity.patternMismatch || field.validity.typeMismatch)
     {
         field.className = "error";
-        document.getElementById("control_"+field.name).setAttribute('style','visibility:visible;');
-        document.getElementById("control_"+field.name).value="Invalid input";
+        document.getElementById("control_"+field.name).classList.remove('hidden');
+        document.getElementById("control_"+field.name).textContent="Invalid input";
         return;
     }
     field.className = "registrationInput";
-    document.getElementById("control_"+field.name).setAttribute('style','visibility:hidden;');
+    document.getElementById("control_"+field.name).classList.add('hidden');
 
 }
 
@@ -106,7 +116,7 @@ function initializeRegistrationHandler()
     {
         if(form.elements[i].className=="registrationInput")
         {
-            form.elements[i].onblur=new Function("invalidHandler(this);");
+            form.elements[i].oninput=new Function("invalidHandler(this);");
         }
     }
     form.password.onkeyup=new Function("checkPasswordSecurity();");

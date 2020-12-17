@@ -110,7 +110,7 @@ $card_result = get_credit_cards($_SESSION['user_id']);
                 Add a new card
             </option>
         </select>
-        <div class="card-hidden" id="new-card-details">
+        <div class="hidden" id="new-card-details">
             <label for="card_number">Number:</label>
             <input type="text" name="card_number" />
             <label for="card_expiration">Expiration:</label>
