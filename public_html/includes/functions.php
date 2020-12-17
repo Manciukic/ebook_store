@@ -159,5 +159,22 @@ function get_orders($user_id)
     ");
     $order_query->bind_param("i", $user_id);
     $order_query->execute();
-    return $order_query->get_result();;
+    return $order_query->get_result();
+}
+
+function get_all_ebooks($user_id){
+    global $mysqli;
+    $ebooks_query = $mysqli->prepare("
+    SELECT title, author, order_id, ebook_id
+    FROM orders O
+        INNER JOIN order_ebook OE
+        ON OE.order_id = O.id
+        INNER JOIN ebooks E
+        ON E.id = OE.ebook_id
+    WHERE O.user_id = ?
+    ORDER BY title ASC
+    ");
+    $ebooks_query->bind_param('i', $user_id);
+    $ebooks_query->execute();
+    return $ebooks_query->get_result();
 }
