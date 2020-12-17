@@ -45,7 +45,7 @@ if (!$orders) {
         <h1>
             <?php echo $user['username']; ?>'s orders
         </h1>
-        <table class="cart-table">
+        <table class="table">
             <tr>
                 <th>
                     Order
@@ -70,7 +70,7 @@ if (!$orders) {
                     <td>Order #<?php echo $order["id"] ?></td>
                     <td><?php echo date("d-m-Y H:i:s", $order["time"]); ?></td>
                     <td>**** **** **** <?php echo $order["cc_last_digits"] ?></td>
-                    <td class="cart-download">
+                    <td class="cart-link">
                         <a href="order.php?id=<?php echo $order['id'] ?>">
                             Details &#187;</a>
                     </td>
@@ -79,7 +79,7 @@ if (!$orders) {
             <?php }
             if ($n_orders == 0) { ?>
                 <tr>
-                    <td> No orders have been completed yet</td>
+                    <td colspan="5"> No orders have been completed yet</td>
                 </tr>
             <?php } ?>
         </table>

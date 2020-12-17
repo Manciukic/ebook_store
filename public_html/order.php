@@ -49,7 +49,7 @@ $order_id_str = str_pad($order["id"], 6, "0", STR_PAD_LEFT);
             Order #<?php echo $order_id_str ?> 
             (<?php echo date("H:i:s d-m-Y", $order["time"]); ?>)
         </h1>
-        <table class="cart-table">
+        <table class="table">
             <tr>
                 <th>
                     Title
@@ -67,7 +67,7 @@ $order_id_str = str_pad($order["id"], 6, "0", STR_PAD_LEFT);
                 <tr>
                     <td class="cart-title"><?php echo $row['title']; ?></td>
                     <td class="cart-author"><?php echo $row['author']; ?></td>
-                    <td class="cart-download"><a href="download.php?id=<?php echo $row['id'] ?>">
+                    <td class="cart-link"><a href="download.php?id=<?php echo $row['id'] ?>">
                         Download <span class="dl-icon">&#11015;</span></a>
                     </td>
                     <td class="cart-price">

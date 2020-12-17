@@ -199,7 +199,7 @@ main {
     clear: both;
 }
 
-.cart-table {
+.table {
     margin-top: 2rem;
     padding: 2rem;
     width: 100%;
@@ -208,15 +208,15 @@ main {
     background-color: #DEDBD2;
 }
 
-.cart-price, .cart-table th.cart-price {
+.cart-price, .table th.cart-price {
     text-align: right;
 }
 
-.cart-table th{
+.table th{
     text-align: left;
 }
 
-.cart-table th, td {
+.table th, td {
     padding: 0.5rem 1rem;
 }
 
@@ -239,11 +239,11 @@ main {
     margin-right: 0rem;
 }
 
-.cart-download a {
+.cart-link a {
     padding: 0.5rem 1rem;
 }
 
-.cart-download a:hover {
+.cart-link a:hover {
     background-color: #A22522;
     color: white;
 }

@@ -44,7 +44,7 @@ if (isset($_SESSION['user_id'])) {
                     View all orders
                 </a>
                 <a href="library.php">
-                    Your ebooks
+                    Your library
                 </a>
             </div>
         <?php

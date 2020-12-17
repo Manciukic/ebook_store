@@ -43,7 +43,7 @@ $cart_total = 0;
     <?php include "includes/header.php" ?>
     <main class="cart-page">
         <h1>Your current cart</h1>
-        <table class="cart-table">
+        <table class="table">
             <tr>
                 <th class="cart-remove"></th>
                 <th>
@@ -77,6 +77,7 @@ $cart_total = 0;
             
             if($cart_total == 0){ ?>
             <tr>
+                <td></td>
                 <td colspan="4">Cart is empty</td>
             </tr>
             <?php }

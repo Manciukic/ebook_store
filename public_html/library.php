@@ -45,7 +45,7 @@ if (!$ebooks) {
         <h1>
             <?php echo $user['username']; ?>'s library
         </h1>
-        <table class="cart-table">
+        <table class="table">
             <tr>
                 <th>
                     Title
@@ -67,15 +67,15 @@ if (!$ebooks) {
                 <tr>
                     <td><?php echo $ebook["title"] ?></td>
                     <td><?php echo $ebook["author"] ?></td>
-                    <td class="cart-download">
+                    <td class="cart-link">
                         <a href="order.php?id=<?php echo $ebook['order_id'] ?>">
                             Order details &#187;</a>
                     </td>
-                    <td class="cart-download">
+                    <td class="cart-link">
                         <a href="book.php?id=<?php echo $ebook['ebook_id'] ?>">
                             Book details &#187;</a>
                     </td>
-                    <td class="cart-download"><a href="download.php?id=<?php echo $ebook['ebook_id'] ?>">
+                    <td class="cart-link"><a href="download.php?id=<?php echo $ebook['ebook_id'] ?>">
                         Download <span class="dl-icon">&#11015;</span></a>
                     </td>
                 </tr>
