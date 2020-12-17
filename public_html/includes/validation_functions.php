@@ -30,7 +30,7 @@ function validate_card_expiration($exp){
     $curr_year = intval(date("Y"));
     if ($year < $curr_year){
         return "Expiration is before current date";
-    } elseif ($year == $curr_year && month < curr_month){
+    } elseif ($year == $curr_year && $month < $curr_month){
         return "Expiration is before current date";
     }
 
