@@ -147,3 +147,17 @@ function get_user($user_id){
     $user_result = $user_query->get_result();
     return $user_result ? $user_result->fetch_array() : false; //TODO
 }
+
+function get_orders($user_id)
+{
+    global $mysqli;
+    $order_query = $mysqli->prepare("
+        SELECT O.id AS id, UNIX_TIMESTAMP(O.time) AS time, O.price AS price, SUBSTRING(CC.number, 13, 4) AS cc_last_digits
+        FROM orders O
+            INNER JOIN credit_cards CC ON (O.credit_card_id = CC.id)
+        WHERE O.user_id=?
+    ");
+    $order_query->bind_param("i", $user_id);
+    $order_query->execute();
+    return $order_query->get_result();;
+}
