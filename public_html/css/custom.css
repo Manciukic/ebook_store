@@ -325,7 +325,7 @@ main {
     margin-top: 0.5rem;
 }
 
-.profile-page {
+.profile-page, .error-page {
     background-color: #DEDBD2;
     margin: 5rem;
     padding-bottom: 3rem;
