@@ -1,7 +1,11 @@
 <?php
-    function login($mysqli, $email, $password) {
+    require_once "includes/sessionUtil.php";
+    require_once "db_connect.php";
+
+    function login($email, $password) {
+        global $mysqli;
         $login_query = $mysqli->prepare(
-            "SELECT U.id
+            "SELECT U.id, U.email
                 FROM users U
                 WHERE U.email = ? AND U.password = ?"
         );
@@ -9,11 +13,12 @@
         $login_query->bind_param("ss", $email, $password);
         $login_query->execute();
         $login_result = $login_query->get_result();
-        $user_row = $login_result->fetch_row();
+        $user_row = $login_result->fetch_array();
         if ($user_row){
-            return $user_row[0];
+            setSession($user_row['email'], $user_row['id']);
+            return $user_row;
         } else {
-            return null;
+            return false;
         }
     } 
 

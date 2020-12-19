@@ -24,9 +24,8 @@ $_SESSION['stage'] = 0;
 $error = null;
 
 if (isset($_POST['user']) && isset($_POST['password'])) {
-    $user_id = login($mysqli, $_POST['user'], $_POST['password']);
-    if ($user_id) {
-        $_SESSION['user_id'] = $user_id;
+    $user = login($_POST['user'], $_POST['password']);
+    if ($user) {
         include "includes/checkout_1_payment.php";
         exit;
     } else {
