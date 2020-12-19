@@ -148,6 +148,19 @@ function get_user($user_id){
     return $user_result ? $user_result->fetch_array() : false; //TODO
 }
 
+function get_user_by_email($email){
+    global $mysqli;
+    $user_query = $mysqli->prepare("
+        SELECT id, full_name
+        FROM users
+        WHERE email = ?
+    ");
+    $user_query->bind_param("s", $email);
+    $user_query->execute();
+    $user_result = $user_query->get_result();
+    return $user_result ? $user_result->fetch_array() : false; //TODO
+}
+
 function get_orders($user_id)
 {
     global $mysqli;

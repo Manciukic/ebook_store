@@ -109,11 +109,32 @@ try {
             exit;
         }
         $mysqli->commit();
-    }
 } catch (mysqli_sql_exception $exception) {
     $mysqli->rollback();
 
-    throw $exception; // TODO ?
+    if ($exception->getCode() == 1062){ // duplicate entry
+        // notify real user
+        $real_user = get_user_by_email($email);
+        $msg = "Dear ".$real_user["full_name"].",\n" .
+                "there was an attempt to register your email address in the " .
+                "ebook store. \n " . 
+                "If it was you, we would like to inform you that you already" .
+                "own an account and you can recover your password from a " . 
+                "link on the login form.\n" . 
+                "If it wasn't you, then someone is trying to hack into your " .
+                "account. You should not click any suspect links or send any " .
+                "of the links received from the Ebook Store to another " .
+                "person.\n" .
+                "Thank you for using the Ebook Store,\n" .
+                "one of our automated penguins";
+        mail($email, "Ebook Store: Security alert", $msg);
+    }
+
+    error_log("SQL Error creating user(".$exception->getCode()."): ".$exception->getMessage());
+    $error_code=500;
+    $error_msg="There was an error creating this user. Please try again later.";
+    include "includes/error.php";
+    exit;
 }
 
 session_start();

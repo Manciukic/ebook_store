@@ -8,7 +8,8 @@ CREATE TABLE `users` (
   `full_name` varchar(255),
   `email` varchar(255),
   `failed_login_attempts` int,
-  `disabled_until` timestamp
+  `disabled_until` timestamp,
+  CONSTRAINT unique_email UNIQUE (email)
 );
 
 CREATE TABLE `recovery_links` (
