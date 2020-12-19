@@ -45,49 +45,75 @@ if(($customedQuestion =="" && $questionIndex==-1)|| ($customedQuestion !="" && $
     exit;
 
 }
+/* Start transaction */
+$mysqli->begin_transaction();
 
-$queryText = $mysqli->prepare(      //Insert credentials in users table
-    "INSERT INTO users(password,email,full_name) VALUES(?,?,?)"
-);
-$queryText->bind_param("sss", $password,$email,$name);
-if (!$result = $queryText->execute()) {
-    echo "Execute failed: (" . $result->errno . ") " . $result->error;
-}
-
-$queryText = $mysqli->prepare(      //To retrieve the user's id
-    "select * from users where email=?"
-);
-$queryText->bind_param("s", $email);
-
-$queryText->execute();
-$result = $queryText->get_result();
-$userRow = $result->fetch_assoc();
-
-if(!$userRow){
-    $error_code=500;
-    $error_msg="There was an error creating this user. Please try again later.";
-    include "includes/error.php";
-    exit;
-}
-$userId = $userRow['id'];
-
-if($questionIndex==-1) {            //Insert answer to customed question into secret_answers
-    $queryText = $mysqli->prepare(
-        "INSERT INTO secret_answers(answer,custom_question,user_id) VALUES(?,?,?)"
+try {
+    $queryText = $mysqli->prepare(      //Insert credentials in users table
+        "INSERT INTO users(password,email,full_name) VALUES(?,?,?)"
     );
-    $queryText->bind_param("sss", $answer,$customedQuestion,$userId);
+    $queryText->bind_param("sss", $password,$email,$name);
     if (!$result = $queryText->execute()) {
-        echo "Execute failed: (" . $result->errno . ") " . $result->error;
+        error_log("Insert user failed: (".$result->errno.") ".$result->error);
+        $mysqli->rollback();
+        $error_code=500;
+        $error_msg="There was an error creating this user. Please try again later.";
+        include "includes/error.php";
+        exit;
+
     }
-}
-else{       //Insert answer to default question into secret_answers
-    $queryText = $mysqli->prepare(
-        "INSERT INTO secret_answers(answer,question_id,user_id) VALUES(?,?,?)"
+
+    $queryText = $mysqli->prepare(      //To retrieve the user's id
+        "select * from users where email=?"
     );
-    $queryText->bind_param("sss", $answer,$questionIndex,$userId);
-    if (!$result = $queryText->execute()) {
-        echo "Execute failed: (" . $result->errno . ") " . $result->error;
+    $queryText->bind_param("s", $email);
+
+    $queryText->execute();
+    $result = $queryText->get_result();
+    $userRow = $result->fetch_assoc();
+
+    if(!$userRow){
+        $mysqli->rollback();
+        $error_code=500;
+        $error_msg="There was an error creating this user. Please try again later.";
+        include "includes/error.php";
+        exit;
     }
+    $userId = $userRow['id'];
+
+    if($questionIndex==-1) {            //Insert answer to customed question into secret_answers
+        $queryText = $mysqli->prepare(
+            "INSERT INTO secret_answers(answer,custom_question,user_id) VALUES(?,?,?)"
+        );
+        $queryText->bind_param("sss", $answer,$customedQuestion,$userId);
+        if (!$result = $queryText->execute()) {
+            error_log("Insert custom answer failed: (".$result->errno.") ".$result->error);
+            $mysqli->rollback();
+            $error_code=500;
+            $error_msg="There was an error creating this user. Please try again later.";
+            include "includes/error.php";
+            exit;
+        }
+    }
+    else{       //Insert answer to default question into secret_answers
+        $queryText = $mysqli->prepare(
+            "INSERT INTO secret_answers(answer,question_id,user_id) VALUES(?,?,?)"
+        );
+        $queryText->bind_param("sss", $answer,$questionIndex,$userId);
+        if (!$result = $queryText->execute()) {
+            error_log("Insert secret answer failed: (".$result->errno.") ".$result->error);
+            $mysqli->rollback();
+            $error_code=500;
+            $error_msg="There was an error creating this user. Please try again later.";
+            include "includes/error.php";
+            exit;
+        }
+        $mysqli->commit();
+    }
+} catch (mysqli_sql_exception $exception) {
+    $mysqli->rollback();
+
+    throw $exception; // TODO ?
 }
 
 session_start();
