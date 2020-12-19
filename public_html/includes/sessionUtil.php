@@ -1,8 +1,8 @@
 <?php
 	
-	function setSession($username, $userId){
+	function setSession($email, $userId){
 		$_SESSION['user_id'] = $userId;
-		$_SESSION['username'] = $username;
+		$_SESSION['user_email'] = $email;
 	}
 /*
 	function isLogged(){		//

@@ -4,7 +4,6 @@ USE EbookStore;
 
 CREATE TABLE `users` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
-  `username` varchar(255),
   `password` varchar(255),
   `full_name` varchar(255),
   `email` varchar(255),

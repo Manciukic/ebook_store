@@ -33,7 +33,7 @@ if (isset($_SESSION['user_id'])) {
         } else {
         ?>
             <h1>
-                User profile: <?php echo $user['username']; ?>
+                User profile: <?php echo $user['full_name']; ?>
             </h1>
             <h2>
                 <?php echo $user['full_name']; ?> - <?php echo $user['email']; ?>

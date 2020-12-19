@@ -138,7 +138,7 @@ function get_ebooks_from_order($order_id)
 function get_user($user_id){
     global $mysqli;
     $user_query = $mysqli->prepare("
-        SELECT username, full_name, email
+        SELECT full_name, email
         FROM users
         WHERE id = ?
     ");

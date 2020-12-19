@@ -1,6 +1,6 @@
 # TODO 
  - [ ] Authentication
-    - [ ] Remove username (email only registration) `R`
+    - [x] Remove username (email only registration) `R`
     - [ ] Confirm newly registered account (active user field in users table
          and new registration link table is needed). Send email alert to
          existing users if their email is inserted `R`

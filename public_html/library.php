@@ -43,7 +43,7 @@ if (!$ebooks) {
     <?php include "includes/header.php" ?>
     <main class="cart-page">
         <h1>
-            <?php echo $user['username']; ?>'s library
+            <?php echo $user['full_name']; ?>'s library
         </h1>
         <table class="table">
             <tr>

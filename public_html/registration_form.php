@@ -16,9 +16,9 @@
                 Registration
             </h1>
             <div class="form-field">
-                <label for="username">Username</label>
-                <input class="registrationInput" name="username" placeholder="Username" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}" />
-                <p id="control_username" class="field-error hidden"></p>
+                <label for="email">Email</label>
+                <input class="registrationInput" name="email" placeholder="Email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" />
+                <p id="control_email" class="field-error hidden"></p>
             </div>
             <div class="form-field">
                 <label for="password">Password</label>
@@ -36,11 +36,6 @@
                 <label for="name">Name</label>
                 <input class="registrationInput" name="name" placeholder="Full name" />
                 <p id="control_name" class="field-error hidden"></p>
-            </div>
-            <div class="form-field">
-                <label for="email">Email</label>
-                <input class="registrationInput" name="email" placeholder="Email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" />
-                <p id="control_email" class="field-error hidden"></p>
             </div>
             <div class="form-field">
                 <label for="defaultQuestion">Secret question</label>

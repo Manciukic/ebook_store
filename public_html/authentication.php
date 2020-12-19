@@ -3,15 +3,15 @@
     include "includes/functions.php";
     include "includes/sessionUtil.php";
  
-    $username = $_POST['username'];
+    $email = $_POST['email'];
     $password = $_POST['password'];
 
     $queryText = $mysqli->prepare(
             "SELECT *
                 FROM users 
-                WHERE username = ? and password = ? "
+                WHERE email = ? and password = ? "
             );
-    $queryText->bind_param("ss", $username,$password);
+    $queryText->bind_param("ss", $email, $password);
 
     $queryText->execute();
     $result = $queryText->get_result();
@@ -23,7 +23,7 @@
         $userRow = $result->fetch_assoc();
         $userId = $userRow['id'];
         session_start();
-        setSession($username, $userId);
+        setSession($email, $userId);
         header('location: ./index.php');
     }
 ?>

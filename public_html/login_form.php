@@ -32,7 +32,7 @@ $ERRORS = array(
 			<h1>
 				Login
 			</h1>
-			<input class="loginInput" name="username" placeholder="Username" />
+			<input class="loginInput" name="email" placeholder="Email" />
 			<input class="loginInput" name="password" type="password" placeholder="Password" />
 			<span class="control-log" id="emtpyFieldsLog">Fill all the fields!</span>
 			<button type="submit" value="Sign in" class="btn-form">Sign in</button>

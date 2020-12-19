@@ -3,8 +3,7 @@
 include  "includes/functions.php";
 include "includes/sessionUtil.php";
 
-if(!isset($_POST['username'])||
-        !isset($_POST['name'])||
+if(!isset($_POST['name'])||
         !isset($_POST['password'])||
         !isset($_POST['email'])||
         !isset($_POST['answer'])||
@@ -17,7 +16,6 @@ if(!isset($_POST['username'])||
 
 }
 
-$username = $_POST['username'];
 $name = $_POST['name'];
 $email = $_POST['email'];
 $password = $_POST['password'];
@@ -49,17 +47,17 @@ if(($customedQuestion =="" && $questionIndex==-1)|| ($customedQuestion !="" && $
 }
 
 $queryText = $mysqli->prepare(      //Insert credentials in users table
-    "INSERT INTO users(username,password,email,full_name) VALUES(?,?,?,?)"
+    "INSERT INTO users(password,email,full_name) VALUES(?,?,?)"
 );
-$queryText->bind_param("ssss", $username,$password,$email,$name);
+$queryText->bind_param("sss", $password,$email,$name);
 if (!$result = $queryText->execute()) {
     echo "Execute failed: (" . $result->errno . ") " . $result->error;
 }
 
 $queryText = $mysqli->prepare(      //To retrieve the user's id
-    "select * from users where username=?"
+    "select * from users where email=?"
 );
-$queryText->bind_param("s", $username);
+$queryText->bind_param("s", $email);
 
 $queryText->execute();
 $result = $queryText->get_result();
@@ -93,7 +91,7 @@ else{       //Insert answer to default question into secret_answers
 }
 
 session_start();
-setSession($username, $userId);
+setSession($email, $userId);
 header('location: ./index.php');
 
 ?>
