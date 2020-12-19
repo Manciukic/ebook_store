@@ -108,7 +108,9 @@ try {
             include "includes/error.php";
             exit;
         }
-        $mysqli->commit();
+    }
+
+    $mysqli->commit();
 } catch (mysqli_sql_exception $exception) {
     $mysqli->rollback();
 
