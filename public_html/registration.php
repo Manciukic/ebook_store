@@ -8,7 +8,8 @@ if(!isset($_POST['username'])||
         !isset($_POST['password'])||
         !isset($_POST['email'])||
         !isset($_POST['answer'])||
-        !isset($_POST['customedQuestion'])){
+        !isset($_POST['customedQuestion'])||
+        !isset($_POST['defaultQuestion'])){
 
     $error_code=400;
     $error_msg="Provide all parameters.";
