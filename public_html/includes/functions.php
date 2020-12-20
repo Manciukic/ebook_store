@@ -138,11 +138,24 @@ function get_ebooks_from_order($order_id)
 function get_user($user_id){
     global $mysqli;
     $user_query = $mysqli->prepare("
-        SELECT username, full_name, email
+        SELECT full_name, email
         FROM users
         WHERE id = ?
     ");
     $user_query->bind_param("i", $user_id);
+    $user_query->execute();
+    $user_result = $user_query->get_result();
+    return $user_result ? $user_result->fetch_array() : false; //TODO
+}
+
+function get_user_by_email($email){
+    global $mysqli;
+    $user_query = $mysqli->prepare("
+        SELECT id, full_name
+        FROM users
+        WHERE email = ?
+    ");
+    $user_query->bind_param("s", $email);
     $user_query->execute();
     $user_result = $user_query->get_result();
     return $user_result ? $user_result->fetch_array() : false; //TODO

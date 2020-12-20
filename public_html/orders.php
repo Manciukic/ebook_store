@@ -43,7 +43,7 @@ if (!$orders) {
     <?php include "includes/header.php" ?>
     <main class="cart-page">
         <h1>
-            <?php echo $user['username']; ?>'s orders
+            <?php echo $user['full_name']; ?>'s orders
         </h1>
         <table class="table">
             <tr>
