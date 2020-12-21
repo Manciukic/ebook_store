@@ -1,12 +1,12 @@
 # TODO 
  - [ ] Authentication
     - [x] Remove username (email only registration) `R`
-    - [ ] Confirm newly registered account (active user field in users table
+    - [x] Confirm newly registered account (active user field in users table
          and new registration link table is needed). Send email alert to
          existing users if their email is inserted `R`
-    - [ ] If users tries to log but has not confirmed email, resend confirmation
+    - [x] If users tries to log but has not confirmed email, resend confirmation
          email. `R`
-    - [ ] Show "resend confirmation email" button `R`
+    - [ ] ~~ Show "resend confirmation email" button `R` ~~
     - [ ] Account locking on 5 consecutive failed attempts `Z`
     - [ ] Hash password with BCRYPT (see password_hash PHP function) `Z`
     - [ ] Log-out `Z`

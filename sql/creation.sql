@@ -9,10 +9,17 @@ CREATE TABLE `users` (
   `email` varchar(255),
   `failed_login_attempts` int,
   `disabled_until` timestamp,
+  `activated` boolean default false,
   CONSTRAINT unique_email UNIQUE (email)
 );
 
 CREATE TABLE `recovery_links` (
+  `user_id` int PRIMARY KEY,
+  `link` varchar(255),
+  `expiration` timestamp
+);
+
+CREATE TABLE `activation_links` (
   `user_id` int PRIMARY KEY,
   `link` varchar(255),
   `expiration` timestamp
@@ -75,6 +82,8 @@ CREATE TABLE `secret_answers` (
 );
 
 ALTER TABLE `recovery_links` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+ALTER TABLE `activation_links` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 ALTER TABLE `credit_cards` ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 

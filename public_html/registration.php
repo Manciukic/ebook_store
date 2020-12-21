@@ -111,7 +111,20 @@ try {
         }
     }
 
+    $activation_link = create_activation_link($userId);
+
+    if (!$activation_link){
+        error_log("Error creating activation link");
+        $mysqli->rollback();
+        $error_code=500;
+        $error_msg="There was an error creating this user. Please try again later.";
+        include "includes/error.php";
+        exit;
+    }
+
     $mysqli->commit();
+
+    send_activation_link($userId, $activation_link);
 } catch (mysqli_sql_exception $exception) {
     $mysqli->rollback();
 
@@ -131,17 +144,30 @@ try {
                 "Thank you for using the Ebook Store,\n" .
                 "one of our automated penguins";
         mail($email, "Ebook Store: Security alert", $msg);
+        // continue as if nothing happened
+    } else {
+        error_log("SQL Error creating user(".$exception->getCode()."): ".$exception->getMessage());
+        $error_code=500;
+        $error_msg="There was an error creating this user. Please try again later.";
+        include "includes/error.php";
+        exit;
     }
-
-    error_log("SQL Error creating user(".$exception->getCode()."): ".$exception->getMessage());
-    $error_code=500;
-    $error_msg="There was an error creating this user. Please try again later.";
-    include "includes/error.php";
-    exit;
 }
 
-session_start();
-setSession($email, $userId);
-header('location: ./index.php');
-
 ?>
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> E-book shop </title>
+    <?php include "includes/include.php" ?>
+</head>
+
+<body>
+    <?php include "includes/header.php" ?>
+    <h1>Registration saved. We sent you an email to activate your account.</h1>
+</body>
+
+</html>
