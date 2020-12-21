@@ -259,6 +259,60 @@ function check_activation_link($link){
     return $result ? $result->fetch_array() : false;
 }
 
+function create_recovery_link($user_id){
+    global $mysqli;
+    $rand_str = random_string(64);
+    $query = $mysqli->prepare(
+        "REPLACE INTO recovery_links(user_id,link,expiration) VALUES(?,?, DATE_ADD(NOW(), INTERVAL 1 DAY))"
+    );
+    $query->bind_param("is", $user_id, $rand_str);
+    if (!$query->execute()) {
+        return false;
+    } else {
+        return $rand_str;
+    }
+}
+
+
+function send_recovery_link($user_id, $link=null){
+    if ($link === null){
+        $link = create_recovery_link($user_id);
+        if (!$link){
+            return false;
+        }
+    }
+    $user = get_user($user_id);
+    if (!$user){
+        return false;
+    }
+
+    $msg = "Dear ".$user["full_name"].",\n" .
+            "you are receiving this email because you requested " .
+            "the recovery of your Ebook Store account.\n" . 
+            "Following the link below, which expires in 24 hours, " .
+            "will allow you to reset your password.\n" . 
+            "$BASE_URL/recover.php?link=$link\n" .
+            "Thank you for using the Ebook Store,\n" .
+            "one of our automated penguins";
+
+    mail($user["email"], "Ebook Store: Account Recovery", $msg);
+}
+
+function check_recovery_link($link){
+    global $mysqli;
+    $query = $mysqli->prepare("
+        SELECT U.id AS id, U.email AS email, U.full_name AS full_name
+        FROM recovery_links RL 
+            INNER JOIN users U on U.id = RL.user_id
+        WHERE RL.link = ? AND RL.expiration > NOW() AND U.activated"
+    );
+    $query->bind_param("s", $link);
+    if(!$query->execute())
+        return false;
+    $result = $query->get_result();
+    return $result ? $result->fetch_array() : false;
+}
+
 function get_questions(){
     global $mysqli;
     $query = $mysqli->prepare("

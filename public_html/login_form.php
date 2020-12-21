@@ -36,6 +36,7 @@ $ERRORS = array(
 			<input class="loginInput" name="email" placeholder="Email" />
 			<input class="loginInput" name="password" type="password" placeholder="Password" />
 			<span class="control-log" id="emtpyFieldsLog">Fill all the fields!</span>
+			<div><a href="./recover.php"> Have you lost your password?</a></div>
 			<button type="submit" value="Sign in" class="btn-form">Sign in</button>
 			<a href="./registration_form.php"> Not registered yet? Click here!</a>
 		</form>
