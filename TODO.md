@@ -12,9 +12,10 @@
     - [ ] Log-out `Z`
     - [ ] Add reCAPTCHA v2 `Z`
     - [ ] Fix hard-coded security question `M`
-    - [ ] Add server-side controls to login and registration form `M`
+    - [ ] ~~ Add server-side controls to login and registration form `M` ~~
     - [ ] Change password `M`
     - [ ] Recover password `M`
+    - [ ] Unique "standard" login page in checkout
  - [ ] Order
     - [ ] Client-side validation of credit card attributes `R`
     - [x] Check duplicate credit card number
