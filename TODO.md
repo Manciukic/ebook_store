@@ -11,7 +11,7 @@
     - [ ] Hash password with BCRYPT (see password_hash PHP function) `Z`
     - [ ] Log-out `Z`
     - [ ] Add reCAPTCHA v2 `Z`
-    - [ ] Fix hard-coded security question `M`
+    - [x] Fix hard-coded security question `M`
     - [ ] ~~ Add server-side controls to login and registration form `M` ~~
     - [ ] Change password `M`
     - [ ] Recover password `M`

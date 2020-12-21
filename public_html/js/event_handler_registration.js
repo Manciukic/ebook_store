@@ -40,7 +40,7 @@ function registrate(){
     var form=document.form_registration;
     for(var i=0;i < form.elements.length;i++)
     {
-        if(form.elements[i].name!="customedQuestion" && form.elements[i].name!="defaultQuestion"){
+        if(form.elements[i].name!="customedQuestion" && form.elements[i].name!="secretQuestion"){
             if(form.elements[i].className=="registrationInput" && (form.elements[i].value==""))			//Verify wether the fields are empty or not
             {
                 document.getElementById("regControl").textContent="Fill all the fields!";
@@ -61,14 +61,14 @@ function registrate(){
 
     }
 
-    var selectedDefaultQuestion=form.defaultQuestion;
-    if(selectedDefaultQuestion.options[selectedDefaultQuestion.selectedIndex].value==="" && form.customedQuestion.value==""){
+    var selectedSecretQuestion=form.secretQuestion;
+    if(selectedSecretQuestion.options[selectedSecretQuestion.selectedIndex].value==="" && form.customedQuestion.value==""){
 
         document.getElementById("regControl").textContent="Select a secret question!";
         document.getElementById("regControl").style.display="inline";
         return false
     }
-    if(selectedDefaultQuestion.options[selectedDefaultQuestion.selectedIndex].value!="new" && form.customedQuestion.value!=""){
+    if(selectedSecretQuestion.options[selectedSecretQuestion.selectedIndex].value!="new" && form.customedQuestion.value!=""){
 
         document.getElementById("regControl").textContent="Select just one secret question!";
         document.getElementById("regControl").style.display="inline";

@@ -1,9 +1,16 @@
+<?php
+    require_once("includes/functions.php");
+    $questions = get_questions();
+    if(!$questions){
+        include "includes/error.php";
+    }
+?>
+
 <!DOCTYPE html>
 <html>
 
 <head>
     <title> Registration Form </title>
-    <?php include "includes/functions.php" ?>
     <?php include "includes/include.php" ?>
 
 </head>
@@ -42,13 +49,18 @@
                 <p id="control_name" class="field-error hidden"></p>
             </div>
             <div class="form-field">
-                <label for="defaultQuestion">Secret question</label>
-                <select name="defaultQuestion" onchange="showCustomSecretQuestion(this)">
+                <label for="secretQuestion">Secret question</label>
+                <select name="secretQuestion" onchange="showCustomSecretQuestion(this)">
                     <option disabled selected>Select a secret question</option>
                     <option value="new">Write your own question</option>
-                    <option>What's your mother's last name?</option>
-                    <option>In what city did your parents meet?</option>
-                    <option>What was the name of your primary school?</option>
+                    <?php
+                        while($question = $questions->fetch_array()){ ?>
+                            <option value="<?php echo $question['id'] ?>">
+                                <?php echo $question['question'] ?>
+                            </option>
+                    <?php
+                        }
+                    ?>
                 </select>
             </div>
             <div class="hidden" id="new-question">

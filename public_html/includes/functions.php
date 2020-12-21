@@ -259,4 +259,31 @@ function check_activation_link($link){
     return $result ? $result->fetch_array() : false;
 }
 
+function get_questions(){
+    global $mysqli;
+    $query = $mysqli->prepare("
+        SELECT id, question
+        FROM secret_questions;
+    ");
+    if(!$query->execute()){
+        return false;
+    }
+    return $query->get_result();
+}
+
+function get_question($question_id){
+    global $mysqli;
+    $query = $mysqli->prepare("
+        SELECT id, question
+        FROM secret_questions
+        WHERE id = ?;
+    ");
+    $query->bind_param("i", $question_id);
+    if(!$query->execute()){
+        return false;
+    }
+    $result = $query->get_result();
+    return $result ? $result->fetch_array() : false;
+}
+
 ?>

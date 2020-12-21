@@ -8,7 +8,7 @@ if(!isset($_POST['name'])||
         !isset($_POST['email'])||
         !isset($_POST['answer'])||
         !isset($_POST['customedQuestion'])||
-        !isset($_POST['defaultQuestion'])){
+        !isset($_POST['secretQuestion'])){
 
     $error_code=400;
     $error_msg="Provide all parameters.";
@@ -22,7 +22,7 @@ $email = $_POST['email'];
 $password = $_POST['password'];
 $answer = $_POST['answer'];
 $customedQuestion = $_POST['customedQuestion'];
-$defaultQuestion = $_POST['defaultQuestion'];
+$secretQuestion = $_POST['secretQuestion'];
 
 
 
@@ -50,28 +50,25 @@ if ( !preg_match("/^[a-zA-Z\s]+$/", $name) ){
     exit;
 }
 
-switch ($defaultQuestion) {
-        case "What's your mother's last name?":
-            $questionIndex=0;
-    break;
-        case "In what city did your parents meet?":
-            $questionIndex=1;
-    break;
-        case "What was the name of your primary school?":
-            $questionIndex=2;
-    break;
-        default:
-            $questionIndex=-1;
-    }
 
-if(($customedQuestion =="" && $questionIndex==-1)|| ($customedQuestion !="" && $questionIndex!=-1))  {      //Check wether the user has selected only one secret question
-
-    $error_code=400;
-    $error_msg="No secret answer provided.";
+// Secret question validation
+if( 
+    $secretQuestion != "new" && !get_question($secretQuestion)
+    || $secretQuestion == "new" && $customedQuestion == ""
+    )
+{
+    $error_code = 400;
+    $error_msg = "No secret question provided.";
     include "includes/error.php";
     exit;
-
 }
+
+if($secretQuestion == "new"){
+    $questionIndex = -1;
+} else {
+    $questionIndex = $secretQuestion;
+}
+
 /* Start transaction */
 $mysqli->begin_transaction();
 
