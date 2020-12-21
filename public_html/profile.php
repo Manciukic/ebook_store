@@ -40,12 +40,19 @@ if (isset($_SESSION['user_id'])) {
             </h2>
 
             <div class="profile-links">
-                <a href="orders.php">
-                    View all orders
-                </a>
-                <a href="library.php">
-                    Your library
-                </a>
+                <div class="profile-links-group">
+                    <a href="orders.php">
+                        View all orders
+                    </a>
+                    <a href="library.php">
+                        Your library
+                    </a>
+                </div>
+                <div class="profile-links-group">
+                    <a href="password_change.php">
+                        Change password
+                    </a>
+                </div>
             </div>
         <?php
         }
