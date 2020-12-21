@@ -54,9 +54,10 @@ if (isset($_GET['id'])) {
         </ul>
         <a href="cart.php?add=<?php echo $book['id']; ?>">
             <?php
-            $book_path = false;
-                $book_path = path_to_ebook_auth($_SESSION['user_id'], $book['id']);
-            
+                $book_path = false;
+                if(isset($_SESSION['user_id'])){
+                    $book_path = path_to_ebook_auth($_SESSION['user_id'], $book['id']);
+                }
             ?>
             <div class="book-buy-download">
                 <?php
