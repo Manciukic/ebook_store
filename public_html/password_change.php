@@ -53,7 +53,6 @@ if (
     } catch (mysqli_sql_exception $exception) {
         $result = false;
     }
-    $mysqli->commit();
 
     if (!$result) {
         $mysqli->rollback();
@@ -61,7 +60,10 @@ if (
         $error_msg = "There was an error while changing the password. Please try again later.";
         include "includes/error.php";
         exit;
+    } else {
+        $mysqli->commit();
     }
+
     $msg = "Dear " . $user['full_name'] . ",\n" .
         "the password for you account on Ebook Store " .
         "has been changed successfully.\n" .
