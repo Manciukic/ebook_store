@@ -12,8 +12,8 @@
     - [ ] Log-out `Z`
     - [ ] Add reCAPTCHA v2 `Z`
     - [x] Fix hard-coded security question `M`
-    - [ ] ~~ Add server-side controls to login and registration form `M` ~~
-    - [ ] Change password `M`
+    - [-]  Add server-side controls to login and registration form `M`
+    - [x] Change password `M`
     - [ ] Recover password `M`
     - [ ] Unique "standard" login page in checkout
  - [ ] Order
