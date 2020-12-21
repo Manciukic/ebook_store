@@ -17,24 +17,28 @@
             </h1>
             <div class="form-field">
                 <label for="email">Email</label>
-                <input class="registrationInput" name="email" placeholder="Email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" />
+                <?php   
+                    // Note: browsers automatically check email type inputs to look like a proper email address. 
+                    // The pattern is used as an additional check and, in this case, it is needed to ensure we have a tld part too
+                ?>
+                <input type="email" class="registrationInput" name="email" placeholder="Email" pattern="^[a-zA-Z0-9\-\_\.\+]+@[a-zA-Z0-9\-\_\.\+]+(\.[a-zA-Z0-9\-\_\.\+]+)+$"/>
                 <p id="control_email" class="field-error hidden"></p>
             </div>
             <div class="form-field">
                 <label for="password">Password</label>
                 <div class="password-field password-strength">
-                    <input class="registrationInput" name="password" placeholder="Password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}" />
+                    <input class="registrationInput" name="password" placeholder="Password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,127}" />
                     <p id="password-counter" class="field-error hidden"></p>
                 </div>
                 <p id="control_password" class="field-error hidden"></p>
             </div>
             <div class="form-field">
-                <input class="registrationInput" name="repassword" type="password" placeholder="Repassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}" />
+                <input class="registrationInput" name="repassword" type="password" placeholder="Repassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,127}" />
                 <p id="control_repassword" class="field-error hidden"></p>
             </div>
             <div class="form-field">
                 <label for="name">Name</label>
-                <input class="registrationInput" name="name" placeholder="Full name" />
+                <input class="registrationInput" name="name" placeholder="Full name" pattern="^[a-zA-Z\s]+$" />
                 <p id="control_name" class="field-error hidden"></p>
             </div>
             <div class="form-field">

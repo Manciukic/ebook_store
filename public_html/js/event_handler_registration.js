@@ -112,7 +112,7 @@ function initializeRegistrationHandler()
 {
     var form=document.form_registration;
 
-    for(var i=0;i <form.elements.length;i++)
+    for(var i=0; i <form.elements.length; i++)
     {
         if(form.elements[i].className=="registrationInput")
         {

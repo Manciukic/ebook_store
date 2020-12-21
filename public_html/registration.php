@@ -24,6 +24,32 @@ $answer = $_POST['answer'];
 $customedQuestion = $_POST['customedQuestion'];
 $defaultQuestion = $_POST['defaultQuestion'];
 
+
+
+// Email validation
+if ( !filter_var($email, FILTER_VALIDATE_EMAIL) ) {
+    $error_code = 400;
+    $error_msg = "Email is not valid";
+    include "includes/error.php";
+    exit;
+}
+
+// Password security validation
+if ( !preg_match("/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,127}/", $password)){
+    $error_code = 400;
+    $error_msg = "Password is not valid. A number, a lowercase and an uppercase char are needed. Password length can be 6 to 127";
+    include "includes/error.php";
+    exit;
+}
+
+// Name validation
+if ( !preg_match("/^[a-zA-Z\s]+$/", $name) ){
+    $error_code = 400;
+    $error_msg = "Valid names may only contain characters and spaces";
+    include "includes/error.php";
+    exit;
+}
+
 switch ($defaultQuestion) {
         case "What's your mother's last name?":
             $questionIndex=0;
@@ -53,7 +79,7 @@ try {
     $queryText = $mysqli->prepare(      //Insert credentials in users table
         "INSERT INTO users(password,email,full_name) VALUES(?,?,?)"
     );
-    $queryText->bind_param("sss", $password,$email,$name);
+    $queryText->bind_param("sss", $password, $email, $name);
     if (!$result = $queryText->execute()) {
         error_log("Insert user failed: (".$result->errno.") ".$result->error);
         $mysqli->rollback();
