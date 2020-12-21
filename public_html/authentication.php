@@ -6,9 +6,12 @@
     session_start();
     $user = login($_POST['email'], $_POST['password']);
 
-    if ($user){
-        header('location: ./index.php');
-    } else {
+    if (!$user){
         header('location: ./login_form.php?error=invalid');
+    } elseif (!$user["activated"]) {
+        send_activation_link($user["id"]);
+        header('location: ./login_form.php?error=inactive');
+    } else {
+        header('location: ./index.php');
     }
 ?>

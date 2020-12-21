@@ -1,6 +1,7 @@
 <?php
 $ERRORS = array(
 	"invalid" => "Your credentials are invalid.",
+	"inactive" => "Your account is not activated. We sent you a new activation link.",
 	"default" => "There was an error during login. Please try later."
 )
 ?>

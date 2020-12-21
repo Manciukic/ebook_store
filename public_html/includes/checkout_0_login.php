@@ -25,11 +25,14 @@ $error = null;
 
 if (isset($_POST['user']) && isset($_POST['password'])) {
     $user = login($_POST['user'], $_POST['password']);
-    if ($user) {
+    if (!$user) {
+        $error = "Invalid username or password";
+    } elseif (!$user["activated"]) {
+        send_activation_link($user["id"]);
+        $error = "Your account is not activated. We sent you a new activation link.";
+    } else { 
         include "includes/checkout_1_payment.php";
         exit;
-    } else {
-        $error = "Invalid username or password";
     }
 }
 ?>

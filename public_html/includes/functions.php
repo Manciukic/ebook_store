@@ -1,5 +1,6 @@
 <?php
-require_once "db_connect.php";
+require_once "includes/db_connect.php";
+require_once "includes/settings.php";
 
 function get_all_genres(){
     global $mysqli;
@@ -191,3 +192,71 @@ function get_all_ebooks($user_id){
     $ebooks_query->execute();
     return $ebooks_query->get_result();
 }
+
+function random_string($len, $alphabet='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ') { 
+    global $mysqli;
+    $randomString = ''; 
+  
+    for ($i = 0; $i < $len; $i++) { 
+        $index = rand(0, strlen($alphabet) - 1); 
+        $randomString .= $alphabet[$index]; 
+    } 
+  
+    return $randomString; 
+} 
+
+function create_activation_link($user_id){
+    global $mysqli;
+    $rand_str = random_string(64);
+    $query = $mysqli->prepare(
+        "REPLACE INTO activation_links(user_id,link,expiration) VALUES(?,?, DATE_ADD(NOW(), INTERVAL 1 DAY))"
+    );
+    $query->bind_param("is", $user_id, $rand_str);
+    if (!$query->execute()) {
+        return false;
+    } else {
+        return $rand_str;
+    }
+}
+
+function send_activation_link($user_id, $link=null){
+    if ($link === null){
+        $link = create_activation_link($user_id);
+        if (!$link){
+            return false;
+        }
+    }
+    $user = get_user($user_id);
+    if (!$user){
+        return false;
+    }
+
+    $msg = "Dear ".$user["full_name"].",\n" .
+            "thank you for registering in our Ebook Store. Your account is " .
+            "not activated yet. In order to do so, you need to visit the " . 
+            "following link within 24 hours. If the link expires, we can " .
+            "send you a new one, just login in the Ebook Store with your " . 
+            "credentials.\n" . 
+            "$BASE_URL/activate.php?link=$link\n" .
+            "Thank you for using the Ebook Store,\n" .
+            "one of our automated penguins";
+
+    mail($user["email"], "Ebook Store: Account Activation", $msg);
+}
+
+function check_activation_link($link){
+    global $mysqli;
+    $query = $mysqli->prepare("
+        SELECT U.id AS id, U.email AS email, U.full_name AS full_name
+        FROM activation_links AL 
+            INNER JOIN users U on U.id = AL.user_id
+        WHERE AL.link = ? AND AL.expiration > NOW() AND NOT U.activated"
+    );
+    $query->bind_param("s", $link);
+    if(!$query->execute())
+        return false;
+    $result = $query->get_result();
+    return $result ? $result->fetch_array() : false;
+}
+
+?>

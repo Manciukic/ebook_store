@@ -1,11 +1,12 @@
 <?php
     require_once "includes/sessionUtil.php";
-    require_once "db_connect.php";
+    require_once "includes/db_connect.php";
+    require_once "includes/functions.php";
 
     function login($email, $password) {
         global $mysqli;
         $login_query = $mysqli->prepare(
-            "SELECT U.id, U.email
+            "SELECT U.id, U.email, U.activated
                 FROM users U
                 WHERE U.email = ? AND U.password = ?"
         );
@@ -15,7 +16,9 @@
         $login_result = $login_query->get_result();
         $user_row = $login_result->fetch_array();
         if ($user_row){
-            setSession($user_row['email'], $user_row['id']);
+            if ($user_row['activated']){
+                setSession($user_row['email'], $user_row['id']);
+            }
             return $user_row;
         } else {
             return false;
