@@ -116,11 +116,11 @@ $card_result = get_credit_cards($_SESSION['user_id']);
         </select>
         <div class="<?php echo ($n_cards == 0) ?"" : "hidden" ?>" id="new-card-details">
             <label for="card_number">Number:</label>
-            <input type="text" name="card_number" />
+            <input type="text" name="card_number" pattern="^[0-9]{16}$"/>
             <label for="card_expiration">Expiration:</label>
-            <input type="text" name="card_expiration" />
+            <input type="text" name="card_expiration" pattern="^((0[0-9])|(1[0-2]))\/[0-9]{2}$"/>
             <label for="card_cvv">CVV:</label>
-            <input type="password" name="card_cvv" />
+            <input type="password" name="card_cvv" pattern="^[0-9]{3}$"/>
         </div>
         <button type="submit">Pay</button>
     </form>
