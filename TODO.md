@@ -23,3 +23,5 @@
     - [x] User profile page
     - [x] Owned e-books page
     - [x] Orders page
+    - [ ] Escape all user-inserted fields with htmlspecialchars before writing
+         them to HTML page.
