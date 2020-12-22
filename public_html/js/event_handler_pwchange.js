@@ -21,3 +21,29 @@ function check_match(repeated_field, primary_field_id) {
         control_repeated_field.classList.add('hidden')
     }
 }
+
+function update_security(pw_field, security_field_id){
+    var security_field = document.getElementById(security_field_id);
+    var pw_len = pw_field.value.length;
+
+    if(pw_len == 0){
+        security_field.classList.add('hidden');
+        return;
+    } else {
+        security_field.classList.remove("pw-very-weak");
+        security_field.classList.remove("pw-weak");
+        security_field.classList.remove("pw-strong");
+    }
+    
+    if(pw_len < 5 ){
+        security_field.textContent = "very weak";
+        security_field.classList.add('pw-very-weak')
+    } else if (pw_len < 7){
+        security_field.textContent = "weak";
+        security_field.classList.add('pw-weak')
+    } else {
+        security_field.textContent="strong";
+        security_field.classList.add('pw-strong')
+    }
+    security_field.classList.remove('hidden');
+}
