@@ -17,7 +17,8 @@
     - [x] Recover password `M`
     - [ ] Unique "standard" login page in checkout
  - [ ] Order
-    - [ ] Client-side validation of credit card attributes `R`
+    - [x] Client-side validation of credit card attributes `R`
+    - [ ] Use same style for credit card form
     - [x] Check duplicate credit card number
  - [ ] Other
     - [x] User profile page
