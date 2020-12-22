@@ -40,28 +40,17 @@ if (
         exit;
     }
 
-
-    $mysqli->begin_transaction();
-    try {
-        $query = $mysqli->prepare("
-                UPDATE users
-                SET password = ?
-                WHERE id = ?
-            ");
-        $query->bind_param("si", $new_password, $_SESSION['user_id']);
-        $result = $query->execute();
-    } catch (mysqli_sql_exception $exception) {
-        $result = false;
-    }
-
-    if (!$result) {
-        $mysqli->rollback();
+    $query = $mysqli->prepare("
+            UPDATE users
+            SET password = ?
+            WHERE id = ?
+        ");
+    $query->bind_param("si", $new_password, $_SESSION['user_id']);
+    if (!$query->execute()){
         $error_code = 500;
         $error_msg = "There was an error while changing the password. Please try again later.";
         include "includes/error.php";
         exit;
-    } else {
-        $mysqli->commit();
     }
 
     $msg = "Dear " . $user['full_name'] . ",\n" .
