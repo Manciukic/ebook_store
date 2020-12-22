@@ -35,15 +35,16 @@ if ( !filter_var($email, FILTER_VALIDATE_EMAIL) ) {
 }
 
 // Password security validation
-if ( !preg_match("/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,127}/", $password)){
+if ( !preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,127}$/", $password)){
     $error_code = 400;
     $error_msg = "Password is not valid. A number, a lowercase and an uppercase char are needed. Password length can be 6 to 127";
     include "includes/error.php";
     exit;
 }
 
-// Name validation
-if ( !preg_match("/^[a-zA-Z\s]+$/", $name) ){
+// Name validation: filter out dangerous or safe-to-filter characters
+// Human names are unpredictable (yes, Elon, I'm talking to you >.< )
+if (!preg_match("/^[^\^<,\"@\/\{\}\(\)\*\$%\?=>:\|;#]+$/i", $name)){
     $error_code = 400;
     $error_msg = "Valid names may only contain characters and spaces";
     include "includes/error.php";

@@ -20,7 +20,7 @@ if (
     $new_password = $_POST['new_password'];
 
     // validate new password
-    if (!preg_match("/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,127}/", $new_password)) {
+    if (!preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,127}$/", $new_password)) {
         $error_code = 400;
         $error_msg = "Password is not valid. A number, a lowercase and an uppercase char are needed. Password length can be 6 to 127";
         include "includes/error.php";
