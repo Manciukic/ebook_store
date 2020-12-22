@@ -83,47 +83,58 @@ $card_result = get_credit_cards($_SESSION['user_id']);
 
 <body>
     <?php include "includes/header.php" ?>
+    <main class="form-page">
+        <?php if (!empty($errors)) { ?>
+            <div class="stage-error">
+                <h3>Please fix these errors</h3>
+                <ul>
+                    <?php foreach ($errors as $error_msg) { ?>
+                        <li> <?php echo $error_msg ?> </li>
+                    <?php } ?>
+                </ul>
+            </div>
+        <?php } ?>
 
-    <?php if (!empty($errors)) { ?>
-        <div class="stage-error">
-            <h3>Please fix these errors</h3>
-            <ul>
-                <?php foreach ($errors as $error_msg) { ?>
-                    <li> <?php echo $error_msg ?> </li>
+        <!-- TODO riepilogo -->
+
+
+        <form action="checkout.php" method="post" class="stage-form">
+            <label for="card_id">Choose your payment method:</label>
+            <select name="card_id" onselect="" onchange="showAddCard(this)">
+                <?php
+                $n_cards = 0;
+                while ($card = $card_result->fetch_array()) {
+                    $n_cards += 1;
+                ?>
+                    <option value="<?php echo $card["id"] ?>">
+                        **** **** **** <?php echo $card["last_digits"] ?> (<?php echo $card["expiration"] ?>)
+                    </option>
                 <?php } ?>
-            </ul>
-        </div>
-    <?php } ?>
-
-    <!-- TODO riepilogo -->
-
-
-    <form action="checkout.php" method="post" class="stage-form">
-        <label for="card_id">Choose your payment method:</label>
-        <select name="card_id" onselect="" onchange="showAddCard(this)">
-            <?php
-            $n_cards = 0;
-            while ($card = $card_result->fetch_array()) {
-                $n_cards += 1;
-            ?>
-                <option value="<?php echo $card["id"] ?>">
-                    **** **** **** <?php echo $card["last_digits"] ?> (<?php echo $card["expiration"] ?>)
+                <option value="">
+                    Add a new card
                 </option>
-            <?php } ?>
-            <option value="">
-                Add a new card
-            </option>
-        </select>
-        <div class="<?php echo ($n_cards == 0) ?"" : "hidden" ?>" id="new-card-details">
-            <label for="card_number">Number:</label>
-            <input type="text" name="card_number" pattern="^[0-9]{16}$"/>
-            <label for="card_expiration">Expiration:</label>
-            <input type="text" name="card_expiration" pattern="^((0[0-9])|(1[0-2]))\/[0-9]{2}$"/>
-            <label for="card_cvv">CVV:</label>
-            <input type="password" name="card_cvv" pattern="^[0-9]{3}$"/>
-        </div>
-        <button type="submit">Pay</button>
-    </form>
+            </select>
+            <div class="<?php echo ($n_cards == 0) ? "" : "hidden" ?>" id="new-card-details">
+                <div class="form-field">
+                    <label for="card_number">Number:</label>
+                    <input type="text" name="card_number" pattern="^[0-9]{16}$" oninput="validate(this)"/>
+                    <p id="control_card_number" class="field-error hidden"></p>
+                </div>
+                <div class="form-field">
+                    <label for="card_expiration">Expiration:</label>
+                    <input type="text" name="card_expiration" pattern="^((0[0-9])|(1[0-2]))\/[0-9]{2}$" oninput="validate(this)" />
+                    <p id="control_card_expiration" class="field-error hidden"></p>
+                </div>
+                <div class="form-field">
+                    <label for="card_cvv">CVV:</label>
+                    <input type="password" name="card_cvv" pattern="^[0-9]{3}$" oninput="validate(this)" />
+                    <p id="control_card_cvv" class="field-error hidden"></p>
+                </div>
+            </div>
+            <button type="submit">Pay</button>
+        </form>
+    </main>
+    <script src="./js/event_handler_validation.js"> </script>
 </body>
 
 </html>
