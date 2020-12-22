@@ -121,7 +121,7 @@ if (
         }
         ?>
     </main>
-    <script src="js/event_handler_pwchange.js"></script>
+    <script src="js/event_handler_validation.js"></script>
 </body>
 
 </html>
