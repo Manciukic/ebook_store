@@ -142,7 +142,7 @@ if (!$logged_in && isset($_POST['new_password']) && isset($_POST['link'])) {
         }
             ?>
             </main>
-            <script src="js/event_handler_pwchange.js"></script>
+            <script src="js/event_handler_validation.js"></script>
 </body>
 
 </html>

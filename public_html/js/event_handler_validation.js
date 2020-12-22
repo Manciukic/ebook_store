@@ -4,7 +4,7 @@ function validate(field) {
     if (field.validity.patternMismatch || field.validity.typeMismatch) {
         field.classList.add("error");
         control_field.classList.remove('hidden');
-        control_field.textContent = "Invalid password";
+        control_field.textContent = "Invalid input";
     } else {
         field.classList.remove("error");
         control_field.classList.add('hidden');
