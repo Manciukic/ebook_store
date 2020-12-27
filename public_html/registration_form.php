@@ -12,6 +12,7 @@ if (!$questions) {
 <head>
     <title> Registration Form </title>
     <?php include "includes/include.php" ?>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 </head>
 
@@ -75,6 +76,12 @@ if (!$questions) {
                 <p id="control_answer" class="field-error hidden"></p>
             </div>
 
+            <div class="account_creation">
+                <div class="form-group">
+                    <div class="g-recaptcha"  data-sitekey="6LdDwBUaAAAAANeJEiFAqlhPazr46ZbrFog4NO74"</div>
+
+                </div>
+            </div>
             <div class="form-field">
                 <span class="control-log" id="regControl" contenteditable="true"></span>
             </div>
@@ -84,6 +91,49 @@ if (!$questions) {
         </form>
     </main>
 </body>
+
+
+<?php
+
+if(isset($_POST['submit']))
+{
+
+    function CheckCaptcha($userResponse) {
+        $fields_string = '';
+        $fields = array(
+            'secret' => '6LdDwBUaAAAAACkdiBc9YlDpTnKwbJe9OnpHugWi',
+            'response' => $userResponse
+        );
+        foreach($fields as $key=>$value)
+            $fields_string .= $key . '=' . $value . '&';
+        $fields_string = rtrim($fields_string, '&');
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify');
+        curl_setopt($ch, CURLOPT_POST, count($fields));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, True);
+
+        $res = curl_exec($ch);
+        curl_close($ch);
+
+        return json_decode($res, true);
+    }
+
+
+    // Call the function CheckCaptcha
+    $result = CheckCaptcha($_POST['g-recaptcha-response']);
+
+    if ($result['success']) {
+        //If the user has checked the Captcha box
+        echo "Captcha verified Successfully";
+
+    } else {
+        // If the CAPTCHA box wasn't checked
+        echo '<script>alert("Error Message");</script>';
+    }
+}
+?>
 
 <script src="./js/event_handler_registration.js"> </script>
 <script src="./js/event_handler_validation.js"> </script>

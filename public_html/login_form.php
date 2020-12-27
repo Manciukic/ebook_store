@@ -2,6 +2,7 @@
 $ERRORS = array(
 	"invalid" => "Your credentials are invalid.",
 	"inactive" => "Your account is not activated. We sent you a new activation link.",
+	"disabled" => "Your account has been temporarly disabled. Try later.",
 	"default" => "There was an error during login. Please try later."
 )
 ?>
@@ -12,7 +13,6 @@ $ERRORS = array(
 	<title> Login Form </title>
 	<?php include "includes/functions.php" ?>
 	<?php include "includes/include.php" ?>
-
 
 </head>
 

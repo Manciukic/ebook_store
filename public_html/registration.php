@@ -8,7 +8,8 @@ if(!isset($_POST['name'])||
         !isset($_POST['email'])||
         !isset($_POST['answer'])||
         !isset($_POST['customedQuestion'])||
-        !isset($_POST['secretQuestion'])){
+        !isset($_POST['secretQuestion'])||
+        !isset($_POST['g-recaptcha-response'])){
 
     $error_code=400;
     $error_msg="Provide all parameters.";
@@ -74,6 +75,7 @@ if($secretQuestion == "new"){
 $mysqli->begin_transaction();
 
 try {
+    $password=password_hash($password, PASSWORD_BCRYPT);    //Password hashing using BCRYPT
     $queryText = $mysqli->prepare(      //Insert credentials in users table
         "INSERT INTO users(password,email,full_name) VALUES(?,?,?)"
     );
@@ -177,6 +179,35 @@ try {
         exit;
     }
 }
+
+// Captcha
+$userResponse=$_POST['g-recaptcha-response'];
+
+$fields_string = '';
+$fields = array(
+            'secret' => '6LdDwBUaAAAAACkdiBc9YlDpTnKwbJe9OnpHugWi',
+            'response' => $userResponse
+        );
+foreach ($fields as $key => $value)
+    $fields_string .= $key . '=' . $value . '&';
+$fields_string = rtrim($fields_string, '&');
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify');
+curl_setopt($ch, CURLOPT_POST, count($fields));
+curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, True);
+
+$res = curl_exec($ch);
+curl_close($ch);
+$result= json_decode($res, true);
+if (!$result['success']) {
+    $error_code = 400;
+    $error_msg = "Captcha was not correctly solved";
+    include "includes/error.php";
+    exit;
+}
+
 
 ?>
 

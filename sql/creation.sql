@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS EbookStore;
 CREATE DATABASE EbookStore 
   COLLATE 'utf8_general_ci';
 USE EbookStore;
@@ -7,8 +8,8 @@ CREATE TABLE `users` (
   `password` varchar(255),
   `full_name` varchar(255),
   `email` varchar(255),
-  `failed_login_attempts` int,
-  `disabled_until` timestamp,
+  `failed_login_attempts` int default 0,
+  `disabled_until` timestamp NULL default NULL,
   `activated` boolean default false,
   CONSTRAINT unique_email UNIQUE (email)
 );

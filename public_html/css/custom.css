@@ -89,7 +89,7 @@ main {
     padding: 0.5rem;
 }
 
-.search-page h1, .cart-page h1 {
+.search-page h1, .cart-page h1, .logout-page h1 {
     text-align: center;
     color: #4d0a1a;
     margin-top: 3rem;
@@ -330,7 +330,7 @@ main {
     margin-top: 0.5rem;
 }
 
-.profile-page, .error-page {
+.profile-page, .error-page, .logout-page {
     background-color: #DEDBD2;
     margin: 5rem;
     padding-bottom: 3rem;

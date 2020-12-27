@@ -52,6 +52,9 @@ if (isset($_SESSION['user_id'])) {
                     <a href="password_change.php">
                         Change password
                     </a>
+                    <a href="logout.php">
+                        Logout
+                    </a>
                 </div>
             </div>
         <?php
