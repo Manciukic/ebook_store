@@ -220,6 +220,7 @@ function create_activation_link($user_id){
 }
 
 function send_activation_link($user_id, $link=null){
+    global $BASE_URL;
     if ($link === null){
         $link = create_activation_link($user_id);
         if (!$link){
@@ -275,6 +276,7 @@ function create_recovery_link($user_id){
 
 
 function send_recovery_link($user_id, $link=null){
+    global $BASE_URL;
     if ($link === null){
         $link = create_recovery_link($user_id);
         if (!$link){
