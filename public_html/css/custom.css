@@ -113,7 +113,7 @@ main {
     font-size: 1.2rem;
 }
 
-.book-page h1, .book-page h2{
+.book-page h1, .book-page h2 {
     text-align: center;
 }
 
@@ -330,7 +330,7 @@ main {
     margin-top: 0.5rem;
 }
 
-.profile-page, .error-page, .logout-page {
+.profile-page, .error-page, .logout-page, .generic-page {
     background-color: #DEDBD2;
     margin: 5rem;
     padding-bottom: 3rem;
