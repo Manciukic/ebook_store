@@ -7,7 +7,7 @@
         global $mysqli;
         //$password=password_hash($password, PASSWORD_BCRYPT);    //Password hashing using BCRYPT
         $login_query = $mysqli->prepare(
-            "SELECT *
+            "SELECT *, UNIX_TIMESTAMP(U.disabled_until) AS disabled_until_tc
                 FROM users U
                 WHERE U.email = ?"
         );
@@ -17,46 +17,52 @@
         $login_result = $login_query->get_result();
         $user_row = $login_result->fetch_array();
 
+        $user_row['enabled'] = $user_row["disabled_until_tc"] ? ($user_row["disabled_until_tc"] < time()) : true;
+        error_log(strtotime($user_row["disabled_until"])." <? ".time());
+
         if ($user_row) {    //Check wether the email exists
             if (password_verify($password,$user_row['password'])){  //Check wether the password is correct
-                if ($user_row['activated'] && !$user_row['disabled_until']) {   //Set the session only if the user is activated and not disabled
+                if ($user_row['activated'] && $user_row['enabled']) {   //Set the session only if the user is activated and not disabled
                     setSession($user_row['email'], $user_row['id']);
+                    if ($user_row['failed_login_attempts'] >= 1){
+                        $reset_attempts_query = $mysqli->prepare(
+                            "UPDATE users
+                            SET failed_login_attempts=0
+                            WHERE email = ?"
+                            );
+                        $reset_attempts_query->bind_param("s",  $email);
+                        $reset_attempts_query->execute();
+                    }
                 }
                 return $user_row;
             }
             else {
+                if ($user_row['enabled']){
+                    if ($user_row['failed_login_attempts']+1 >= 5){
+                        $lock_query = $mysqli->prepare(
+                                "UPDATE users
+                                SET disabled_until= DATE_ADD(CURRENT_TIMESTAMP(), INTERVAL 5 MINUTE),
+                                    failed_login_attempts = 0
+                                WHERE email = ?"
+                                );
+                        $lock_query->bind_param("s",  $email);
+                        $lock_query->execute();
 
-                if ($user_row['failed_login_attempts']>=4){
-                    $lock_query = $mysqli->prepare(
-                               "UPDATE users
-                            SET
-                            disabled_until= DATE_ADD(CURRENT_TIMESTAMP(), INTERVAL 5 MINUTE)
-                            WHERE email = ?;
-                            #DROP EVENT IF EXISTS account_unlocker;
-                            #CREATE EVENT account_unlocker
-                            #ON SCHEDULE AT CURRENT_TIMESTAMP + INTERVAL 5 MINUTE
-                            #DO UPDATE users u
-                            #SET u.disabled_until = NULL
-                            #AND
-                            #u.failed_login_attempts=0
-                            #WHERE u.email = ?;"
+                        mail($email, "Failed login attempts", "OMG there are ".($user_row['failed_login_attempts']+1)." failed login attempts");
+                    } else {
+                        $new_attempt_query = $mysqli->prepare(  //number of failed attempts is increased
+                                "UPDATE users
+                                    SET
+                                    failed_login_attempts=failed_login_attempts+1              
+                                    WHERE email = ?"
                             );
-                    $lock_query->bind_param("s",  $email);
-                    $lock_query->execute();
+                        $new_attempt_query->bind_param("s", $email);
+                        $new_attempt_query->execute();
+                    }
                 }
-                $new_attempt_query = $mysqli->prepare(  //number of failed attempts is increased
-                        "UPDATE users
-                            SET
-                            failed_login_attempts=failed_login_attempts+1              
-                            WHERE email = ?"
-                    );
-                $new_attempt_query->bind_param("s", $email);
-                $new_attempt_query->execute();
-
             }
         }
         return false;
-
     } 
 
     function path_to_ebook_auth($user_id, $ebook_id){
