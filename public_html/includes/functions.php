@@ -2,17 +2,6 @@
 require_once "includes/db_connect.php";
 require_once "includes/settings.php";
 
-function refValues($arr){
-    if (strnatcmp(phpversion(),'5.3') >= 0) //Reference is required for PHP 5.3+
-    {
-        $refs = array();
-        foreach($arr as $key => $value)
-            $refs[$key] = &$arr[$key];
-        return $refs;
-    }
-    return $arr;
-}
-
 function get_all_genres(){
     global $mysqli;
     return $mysqli->query("SELECT * FROM genres ORDER BY name ASC");
@@ -85,14 +74,7 @@ function get_books($book_ids)
             FROM ebooks
             WHERE id IN (" . $book_ids_query . ")
         ");
-        //$stmt->bind_param(str_repeat('i', $nbooks), ...$book_ids);
-        call_user_func_array(
-            array($stmt, "bind_param"),
-            refValues(array_merge(
-                array(str_repeat('i', $nbooks)),
-                $book_ids
-            ))
-        );
+        $stmt->bind_param(str_repeat('i', $nbooks), ...$book_ids);
         $stmt->execute();
         $cart = $stmt->get_result();
     } else {
