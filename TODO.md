@@ -21,7 +21,7 @@
 ## Order
 - [x] Client-side validation of credit card attributes `R`
 - [x] Check duplicate credit card number
-- [ ] Use same style for credit card form
+- [ ] Use same style for credit card form `M`
 - [ ] Check items are not already bought `R`
 
 ## Other
