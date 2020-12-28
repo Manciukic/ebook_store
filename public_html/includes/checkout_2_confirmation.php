@@ -50,7 +50,14 @@ if (isset($_POST["action"])) {
                     FROM ebooks E
                     WHERE id IN (" . $book_ids_query . ")
                 ");
-            $insert_order_query->bind_param(str_repeat('i', $nbooks + 2), $_SESSION["user_id"], $_SESSION["card_id"], ...$book_ids);
+            // $insert_order_query->bind_param(str_repeat('i', $nbooks + 2), $_SESSION["user_id"], $_SESSION["card_id"], ...$book_ids);
+            call_user_func_array(
+                array($insert_order_query, "bind_param"),
+                refValues(array_merge(
+                    array(str_repeat('i', $nbooks + 2), $_SESSION["user_id"], $_SESSION["card_id"]),
+                    $book_ids
+                ))
+            );
             $insert_order_query->execute();
 
             $order_id = $mysqli->insert_id;
@@ -61,7 +68,14 @@ if (isset($_POST["action"])) {
                     FROM ebooks E
                     WHERE id IN (" . $book_ids_query . ")
                 ");
-            $insert_order_items_query->bind_param(str_repeat('i', $nbooks + 1), $order_id, ...$book_ids);
+            //$insert_order_items_query->bind_param(str_repeat('i', $nbooks + 1), $order_id, ...$book_ids);
+            call_user_func_array(
+                array($insert_order_items_query, "bind_param"),
+                refValues(array_merge(
+                    array(str_repeat('i', $nbooks + 1), $order_id),
+                    $book_ids
+                ))
+            );
             $insert_order_items_query->execute();
 
             $mysqli->commit();
