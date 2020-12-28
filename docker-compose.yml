@@ -1,0 +1,25 @@
+version: "3.7"
+services:
+  db:
+    image: mariadb
+    container_name: 'ebook_db'
+    volumes:
+      - ./sql/initial_scripts:/docker-entrypoint-initdb.d/
+    expose:
+      - 3306
+    environment: 
+      MYSQL_ROOT_PASSWORD: root
+
+  webapp:
+    depends_on: 
+      - db
+    build:
+      context: public_html
+      dockerfile: Dockerfile
+    volumes:
+      - ./public_html:/var/www/html/
+    expose:
+      - 80
+    ports:
+      - "80:80"
+      
