@@ -78,8 +78,9 @@ if (!$questions) {
 
             <div class="account_creation">
                 <div class="form-group">
-                    <div class="g-recaptcha"  data-sitekey="6LdDwBUaAAAAANeJEiFAqlhPazr46ZbrFog4NO74"</div>
-
+                    <div class="form-field">
+                        <div class="g-recaptcha"  data-sitekey="6LdDwBUaAAAAANeJEiFAqlhPazr46ZbrFog4NO74"</div>
+                    </div>
                 </div>
             </div>
             <div class="form-field">

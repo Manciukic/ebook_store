@@ -1091,4 +1091,11 @@ INSERT INTO ebook_genre VALUES
 (433,3),
 (433,19);
 
+
+DELETE FROM secret_questions;
+INSERT INTO secret_questions VALUES
+(1, 'What\'s your mother\'s last name?'),
+(2, 'In what city did your parents meet?'),
+(3, 'What was the name of your primary school?');
+
 SET FOREIGN_KEY_CHECKS=1;

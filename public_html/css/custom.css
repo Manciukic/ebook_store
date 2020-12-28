@@ -390,3 +390,11 @@ main {
     display: block;
     margin-bottom: 3rem;
 }
+
+.account_creation {
+    text-align: center;
+}
+
+.g-recaptcha {
+    display: inline-block;
+}
