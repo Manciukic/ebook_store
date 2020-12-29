@@ -157,8 +157,8 @@ try {
         $real_user = get_user_by_email($email);
         $msg = "Dear " . $real_user["full_name"] . ",\n" .
             "there was an attempt to register your email address in the " .
-            "ebook store. \n " .
-            "If it was you, we would like to inform you that you already" .
+            "ebook store. \n" .
+            "If it was you, we would like to inform you that you already " .
             "own an account and you can recover your password from a " .
             "link on the login form.\n" .
             "If it wasn't you, then someone is trying to hack into your " .
