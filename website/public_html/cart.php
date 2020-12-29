@@ -43,6 +43,15 @@ $cart_total = 0;
     <?php include "includes/header.php" ?>
     <main class="cart-page">
         <h1>Your current cart</h1>
+        <?php if(isset($_GET['notice'])){
+            $msg_assoc = array(
+                "removed_items" => "You already owned some items. They have been removed from your cart.",
+                "default" => "Hi"
+            );
+            $msg = $msg_assoc[$_GET['notice']] ?? $msg_assoc["default"];
+        ?>
+            <p><?= $msg ?></p>
+        <?php } ?>
         <table class="table">
             <tr>
                 <th class="cart-remove"></th>
