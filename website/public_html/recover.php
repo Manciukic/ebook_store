@@ -38,10 +38,19 @@ if (!$logged_in && isset($_POST['new_password']) && isset($_POST['link'])) {
         exit;
     }
 
+    $password = $_POST['new_password'];
+    if (!preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,127}$/", $password)) {
+        $error_code = 400;
+        $error_msg = "Password is not valid. A number, a lowercase and an uppercase char are needed. Password length can be 6 to 127";
+        include "includes/error.php";
+        exit;
+    }
+
+    $password = password_hash($password, PASSWORD_BCRYPT);    //Password hashing using BCRYPT
     $mysqli->begin_transaction();
     try {
         $query = $mysqli->prepare("UPDATE users SET password = ? WHERE id = ?");
-        $query->bind_param("si", $_POST['new_password'], $user["id"]);
+        $query->bind_param("si", $password, $user["id"]);
         $result=$query->execute();
         if(!$result){
             throw new mysqli_sql_exception();
@@ -107,7 +116,7 @@ if (!$logged_in && isset($_POST['new_password']) && isset($_POST['link'])) {
                         </p>
                         <div class="form-field">
                             <div class="password-field password-strength">
-                                <input class="registrationInput" name="new_password" id="new_password" placeholder="New password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,127}" oninput="validate(this);" />
+                                <input class="registrationInput" name="new_password" id="new_password" placeholder="New password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,127}" oninput="validate(this); update_security(this, 'password-counter');" />
                                 <p id="password-counter" class="field-error hidden"></p>
                             </div>
                             <p id="control_new_password" class="field-error hidden"></p>

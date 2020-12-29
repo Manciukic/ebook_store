@@ -40,6 +40,7 @@ if (
         exit;
     }
 
+    $new_password = password_hash($new_password, PASSWORD_BCRYPT);    //Password hashing using BCRYPT
     $query = $mysqli->prepare("
             UPDATE users
             SET password = ?
