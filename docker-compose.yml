@@ -14,10 +14,10 @@ services:
     depends_on: 
       - db
     build:
-      context: public_html
+      context: website
       dockerfile: Dockerfile
     volumes:
-      - ./public_html:/var/www/html/
+      - ./website/public_html:/var/www/html/
     expose:
       - 80
     ports:
