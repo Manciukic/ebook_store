@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once "includes/functions.php";
-require_once "includes/auth_functions.php";
 
 
 if (!isset($_GET["id"])){

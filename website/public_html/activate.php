@@ -1,6 +1,5 @@
 <?php
 
-require_once "includes/auth_functions.php";
 require_once "includes/sessionUtil.php";
 require_once "includes/functions.php";
 require_once "includes/db_connect.php";

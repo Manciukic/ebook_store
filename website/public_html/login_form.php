@@ -4,7 +4,8 @@ $ERRORS = array(
 	"inactive" => "Your account is not activated. We sent you a new activation link.",
 	"disabled" => "Your account has been temporarly disabled. Try later.",
 	"default" => "There was an error during login. Please try later."
-)
+);
+$submit_url = isset($_GET['redirect']) ? "authentication.php?redirect=".$_GET['redirect'] : "authentication.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -29,7 +30,7 @@ $ERRORS = array(
 				<p class="stage-error"><?php echo $error_msg ?></p>
 			</div>
 		<?php } ?>
-		<form action="./authentication.php" name="form_login" method="post" class="stage-form">
+		<form action="<?= $submit_url ?>" name="form_login" method="post" class="stage-form">
 			<h1>
 				Login
 			</h1>

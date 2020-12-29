@@ -17,58 +17,7 @@ if (isset($_SESSION['user_id'])) {
     exit;
 }
 
-require_once "includes/auth_functions.php";
-
 $_SESSION['stage'] = 0;
-
-$error = null;
-
-if (isset($_POST['user']) && isset($_POST['password'])) {
-    $user = login($_POST['user'], $_POST['password']);
-    if (!$user) {
-        $error = "Invalid username or password";
-    } elseif (!$user["enabled"]) {
-        $error = "Invalid username or password";
-    } elseif (!$user["activated"]) {
-        send_activation_link($user["id"]);
-        $error = "Your account is not activated. We sent you a new activation link.";
-    } else { 
-        include "includes/checkout_1_payment.php";
-        exit;
-    }
-}
+// redirect user to login
+header("location: login_form.php?redirect=checkout.php");
 ?>
-
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>
-        Checkout - Login required
-    </title>
-    <?php include "includes/include.php" ?>
-</head>
-
-<body>
-    <?php include "includes/header.php" ?>
-
-    <main>
-        <?php if ($error) { ?>
-            <div class="stage-error-container">
-                <p class="stage-error"><?php echo $error ?></p>
-            </div>
-        <?php } ?>
-
-        <form action="checkout.php" method="post" class="stage-form">
-            <label for="user">Username:</label>
-            <input type="text" name="user">
-            <label for="password">Password:</label>
-            <input type="password" name="password">
-            <button type="submit">Login</button>
-        </form>
-    </main>
-
-    <!-- TODO Create new account -->
-</body>
-
-</html>

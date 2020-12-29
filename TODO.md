@@ -15,7 +15,7 @@
 - [x] Add server-side controls to login and registration form `M`
 - [x] Change password `M`
 - [x] Recover password `M`
-- [ ] Unique "standard" login page in checkout `R`
+- [x] Unique "standard" login page in checkout `R`
 - [x] Improve failed attempts mail `R`
 
 ## Order
