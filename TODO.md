@@ -32,5 +32,5 @@
    them to HTML page. `Z`
 - [ ] Add secret_questions to population script `Z`
 - [ ] cart items as cookies (persist in session on checkout) `R`
-- [ ] Docker-ify `M`
+- [x] Docker-ify `M`
 - [ ] "pentesting" `Z`
