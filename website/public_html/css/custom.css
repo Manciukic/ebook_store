@@ -311,6 +311,10 @@ main {
     padding: 1rem 3rem;
 }
 
+.stage-error ul {
+    padding-left: 1.5rem;
+}
+
 .hidden {
     display: none;
 }
