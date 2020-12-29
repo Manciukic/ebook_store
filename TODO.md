@@ -31,7 +31,7 @@
 - [x] Orders page
 - [ ] Escape all user-inserted fields with htmlspecialchars before writing
    them to HTML page. `Z`
-- [ ] Add secret_questions to population script `Z`
-- [ ] cart items as cookies (persist in session on checkout) `R`
+- [x] Add secret_questions to population script `M`
+- [ ] ~~ cart items as cookies (persist in session on checkout) `R` ~~
 - [x] Docker-ify `M`
 - [ ] "pentesting" `Z`
