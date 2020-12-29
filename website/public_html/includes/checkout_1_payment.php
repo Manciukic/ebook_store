@@ -99,6 +99,7 @@ $card_result = get_credit_cards($_SESSION['user_id']);
 
 
         <form action="checkout.php" method="post" class="stage-form">
+            <h1>Payment</h1>
             <label for="card_id">Choose your payment method:</label>
             <select name="card_id" onselect="" onchange="showAddCard(this)">
                 <?php

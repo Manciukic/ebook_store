@@ -323,7 +323,11 @@ main {
 
 .confirm-credit-card {
     display: block;
-    padding: 0.5rem;
+    padding: 1rem;
+    margin: 1rem;
+    background-color: #ffffff;
+    border: 1px solid black;
+    color: #444;
 }
 
 .confirm-buttons > button {

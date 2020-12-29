@@ -115,6 +115,7 @@ $card = $card_result->fetch_array();
     <!-- TODO riepilogo -->
 
     <form action="checkout.php" method="post" class="stage-form">
+        <h1>Confirmation</h1>
         <p class="confirm-purchase-text">
             You're paying with
             <span class="confirm-credit-card">
