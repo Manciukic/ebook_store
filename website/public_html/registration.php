@@ -1,5 +1,6 @@
 <?php
 
+require_once "includes/validation_functions.php";
 require_once "includes/functions.php";
 require_once "includes/sessionUtil.php";
 require_once "includes/error.php";
@@ -32,13 +33,11 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 }
 
 // Password security validation
-if (!preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,127}$/", $password)) {
+if (!validate_password($password)) {
     error_page(400, "Password is not valid. A number, a lowercase and an uppercase char are needed. Password length can be 6 to 127");
 }
 
-// Name validation: filter out dangerous or safe-to-filter characters
-// Human names are unpredictable (yes, Elon, I'm talking to you >.< )
-if (!preg_match("/^[^\^<,\"@\/\{\}\(\)\*\$%\?=>:\|;#]+$/i", $name)) {
+if (!validate_name($name)) {
     error_page(400, "Valid names may only contain characters and spaces");
 }
 

@@ -1,4 +1,5 @@
 <?php
+require_once "includes/validation_functions.php";
 require_once "includes/functions.php";
 require_once "includes/error.php";
 
@@ -14,6 +15,14 @@ if($logged_in){
     include "includes/recovery_logged.php";
     exit;
 } 
+
+if (
+    (isset($_GET['link']) && !validate_link($_GET['link'])) ||
+    (isset($_POST['link']) && !validate_link($_POST['link']))
+){
+    error_page(400, "Malformed activation link. Make sure to copy the full link.");
+}
+
 
 if(!isset($_POST['email']) && !isset($_GET['link']) && !isset($_POST['link'])){
     // Firs step: we have to display the form for recovery request

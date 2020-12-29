@@ -1,5 +1,6 @@
 <?php
 require_once "includes/error.php";
+require_once "includes/validation_functions.php";
 
 // This is a new password set through the recovery link
 $user = check_recovery_link($_POST['link']);
@@ -8,7 +9,7 @@ if (!$user) {
 }
 
 $password = $_POST['new_password'];
-if (!preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,127}$/", $password)) {
+if (!validate_password($password)) {
     error_page(400, "Password is not valid. A number, a lowercase and an uppercase char are needed. Password length can be 6 to 127");
 }
 

@@ -46,4 +46,20 @@ function validate_card_cvv($exp){
         return true;
     }
 }
+
+function validate_link($link){
+    return preg_match("/^[a-zA-Z0-9]{64}$/", $_GET['link']) ? true : false;
+}
+
+function validate_password($password){
+    return preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,127}$/", $password) ? true : false;
+}
+
+/* 
+ * Name validation: filter out dangerous or safe-to-filter characters
+ * Human names are unpredictable (yes, Elon, I'm talking to you >.< )
+ */
+function validate_name($name){
+    return preg_match("/^[^\^<,\"@\/\{\}\(\)\*\$%\?=>:\|;#]+$/i", $name)? true : false;
+}
 ?>

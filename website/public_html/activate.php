@@ -2,10 +2,15 @@
 
 require_once "includes/sessionUtil.php";
 require_once "includes/functions.php";
+require_once "includes/validation_functions.php";
 require_once "includes/db_connect.php";
 require_once "includes/error.php";
 
 if (isset($_POST['link'])){
+    if (!validate_link($_POST['link'])){
+        error_page(400, "Malformed activation link. Make sure to copy the full link.");
+    }
+
     $user = check_activation_link($_POST['link']);
 
     if (!$user) {
@@ -20,7 +25,7 @@ if (isset($_POST['link'])){
     }
     // ok
 } else {
-    if (!isset($_GET['link'])) {
+    if (!isset($_GET['link']) || !validate_link($_GET['link'])) {
         error_page(400, "Malformed activation link. Make sure to copy the full link.");
     }
     // show form
