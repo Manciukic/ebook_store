@@ -17,11 +17,12 @@
 - [x] Recover password `M`
 - [x] Unique "standard" login page in checkout `R`
 - [x] Improve failed attempts mail `R`
+- [ ] Ask security answer in account recovery
 
 ## Order
 - [x] Client-side validation of credit card attributes `R`
 - [x] Check duplicate credit card number
-- [ ] Use same style for credit card form `M`
+- [x] Use same style for credit card form `M`
 - [x] Check items are not already bought `R`
 
 ## Other
