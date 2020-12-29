@@ -3,33 +3,25 @@
 require_once "includes/sessionUtil.php";
 require_once "includes/functions.php";
 require_once "includes/db_connect.php";
+require_once "includes/error.php";
 
 if (isset($_POST['link'])){
     $user = check_activation_link($_POST['link']);
 
     if (!$user) {
-        $error_code = 404;
-        $error_msg = "The activation link you clicked was either expired or not existing. Please generate a new link by logging in.";
-        include "includes/error.php";
-        exit;
+        error_page(404,"The activation link you clicked was either expired or not existing. Please generate a new link by logging in.");
     }
 
     $query = $mysqli->prepare("UPDATE users SET activated=1 WHERE id=?");
     $query->bind_param("i", $user["id"]);
     $result = $query->execute();
     if (!$result) {
-        $error_code = 500;
-        $error_msg = "There was an error activating your account. Please try again later with another activation link.";
-        include "includes/error.php";
-        exit;
+        error_page(500, "There was an error activating your account. Please try again later with another activation link.");
     }
     // ok
 } else {
     if (!isset($_GET['link'])) {
-        $error_code = 400;
-        $error_msg = "Malformed activation link. Make sure to copy the full link.";
-        include "includes/error.php";
-        exit;
+        error_page(400, "Malformed activation link. Make sure to copy the full link.");
     }
     // show form
 }

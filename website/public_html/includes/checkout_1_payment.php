@@ -1,24 +1,19 @@
 <?php
+require_once "includes/error.php";
 
 // check if user has items in cart
 if (empty($_SESSION['items'])) {
     // empty cart: how the hell did he get here?
 
     unset($_SESSION["stage"]);
-    $error_code = 400;
-    $error_msg = "Empty cart";
-    include "includes/error.php";
-    exit;
+    error_page(400, "Empty cart");
 }
 
 if (!isset($_SESSION['user_id'])) {
     // not logged in, wtf ?
 
     unset($_SESSION["stage"]);
-    $error_code = 403;
-    $error_msg = "You need to be logged in to see this page";
-    include "includes/error.php";
-    exit;
+    error_page(403, "You need to be logged in to see this page");
 }
 
 $_SESSION['stage'] = 1;

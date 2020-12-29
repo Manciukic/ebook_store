@@ -1,15 +1,13 @@
 <?php
-require_once("includes/db_connect.php");
+require_once "includes/db_connect.php";
+require_once "includes/error.php";
 
 // check if user has items in cart
 if (empty($_SESSION['items'])) {
     // empty cart: how the hell did he get here?
 
     unset($_SESSION["stage"]);
-    $error_code=400;
-    $error_msg="Empty cart";
-    include "includes/error.php";
-    exit;
+    error_page(400, "Empty cart");
 }
 
 if (isset($_SESSION['user_id'])) {

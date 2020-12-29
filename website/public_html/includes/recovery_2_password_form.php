@@ -1,10 +1,9 @@
 <?php
+require_once "includes/error.php";
+
 $user = check_recovery_link($_GET['link']);
 if (!$user) {
-    $error_code = 404;
-    $error_msg = "The recovery link you clicked was either expired or not existing. Please generate a new link.";
-    include "includes/error.php";
-    exit;
+    error_page(404, "The recovery link you clicked was either expired or not existing. Please generate a new link.");
 }
 ?>
 

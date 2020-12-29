@@ -1,5 +1,6 @@
 <?php
 require_once "includes/functions.php";
+require_once "includes/error.php";
 
 session_start();
 
@@ -27,4 +28,8 @@ if(!isset($_POST['email']) && !isset($_GET['link']) && !isset($_POST['link'])){
 } else if (isset($_POST['link']) && isset($_POST['new_password'])){
     // User provided the new password
     include "includes/recovery_3_password_change.php";
+} else {
+    error_page(400, "Malformed recovery link. Please retry.");
 }
+
+?>

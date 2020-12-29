@@ -1,19 +1,15 @@
 <?php
+require_once "includes/error.php";
+
 // This is a new password set through the recovery link
 $user = check_recovery_link($_POST['link']);
 if (!$user) {
-    $error_code = 404;
-    $error_msg = "The recovery link you clicked was either expired or not existing. Please generate a new link.";
-    include "includes/error.php";
-    exit;
+    error_page(404, "The recovery link you clicked was either expired or not existing. Please generate a new link.");
 }
 
 $password = $_POST['new_password'];
 if (!preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,127}$/", $password)) {
-    $error_code = 400;
-    $error_msg = "Password is not valid. A number, a lowercase and an uppercase char are needed. Password length can be 6 to 127";
-    include "includes/error.php";
-    exit;
+    error_page(400, "Password is not valid. A number, a lowercase and an uppercase char are needed. Password length can be 6 to 127");
 }
 
 $password = password_hash($password, PASSWORD_BCRYPT);    //Password hashing using BCRYPT
@@ -38,10 +34,7 @@ try {
 
 if (!$result) {
     $mysqli->rollback();
-    $error_code = 500;
-    $error_msg = "There was an error recovering your account. Please try again later with another recovery link.";
-    include "includes/error.php";
-    exit;
+    error_page(500, "There was an error recovering your account. Please try again later with another recovery link.");
 } else {
     $mysqli->commit();
 }

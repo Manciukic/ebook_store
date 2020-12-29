@@ -1,5 +1,6 @@
 <?php
 require_once "includes/functions.php";
+require_once "includes/error.php";
 
 
 if (isset($_GET['genre'])) {
@@ -8,11 +9,10 @@ if (isset($_GET['genre'])) {
     $result = get_by_genre($genre_id);
     $genre = get_genre_name($genre_id);
     if (!$genre) {
-        $error_code=404;
-        $error_msg="Genre not found";
-        include "includes/error.php";
-        exit;
+        error_page(404, "Genre not found");
     }
+} else {
+    error_page(400, "No genre provided");
 }
 ?>
 

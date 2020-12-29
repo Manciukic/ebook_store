@@ -1,12 +1,10 @@
 <?php
     require_once "includes/sessionUtil.php";
     require_once "includes/db_connect.php";
+    require_once "includes/error.php";
 
     if (!isset($_POST['email']) || !isset($_POST['password'])){
-        $error_code = 400;
-        $error_msg = "No email or password provided.";
-        include "includes/error.php";
-        exit;
+        error_page(400, "No email or password provided.");
     }
 
     $email = $_POST['email'];

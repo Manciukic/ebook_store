@@ -1,7 +1,8 @@
 <?php
 
-include  "includes/functions.php";
-include "includes/sessionUtil.php";
+require_once "includes/functions.php";
+require_once "includes/sessionUtil.php";
+require_once "includes/error.php";
 
 if (
     !isset($_POST['name']) ||
@@ -13,10 +14,7 @@ if (
     !isset($_POST['g-recaptcha-response'])
 ) {
 
-    $error_code = 400;
-    $error_msg = "Provide all parameters.";
-    include "includes/error.php";
-    exit;
+    error_page(400, "Provide all parameters.");
 }
 
 $name = $_POST['name'];
@@ -30,27 +28,18 @@ $secretQuestion = $_POST['secretQuestion'];
 
 // Email validation
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $error_code = 400;
-    $error_msg = "Email is not valid";
-    include "includes/error.php";
-    exit;
+    error_page(400, "Email is not valid");
 }
 
 // Password security validation
 if (!preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,127}$/", $password)) {
-    $error_code = 400;
-    $error_msg = "Password is not valid. A number, a lowercase and an uppercase char are needed. Password length can be 6 to 127";
-    include "includes/error.php";
-    exit;
+    error_page(400, "Password is not valid. A number, a lowercase and an uppercase char are needed. Password length can be 6 to 127");
 }
 
 // Name validation: filter out dangerous or safe-to-filter characters
 // Human names are unpredictable (yes, Elon, I'm talking to you >.< )
 if (!preg_match("/^[^\^<,\"@\/\{\}\(\)\*\$%\?=>:\|;#]+$/i", $name)) {
-    $error_code = 400;
-    $error_msg = "Valid names may only contain characters and spaces";
-    include "includes/error.php";
-    exit;
+    error_page(400, "Valid names may only contain characters and spaces");
 }
 
 
@@ -59,10 +48,7 @@ if (
     $secretQuestion != "new" && !get_question($secretQuestion)
     || $secretQuestion == "new" && $customedQuestion == ""
 ) {
-    $error_code = 400;
-    $error_msg = "No secret question provided.";
-    include "includes/error.php";
-    exit;
+    error_page(400, "No secret question provided.");
 }
 
 if ($secretQuestion == "new") {
@@ -83,10 +69,7 @@ try {
     if (!$result = $queryText->execute()) {
         error_log("Insert user failed: (" . $result->errno . ") " . $result->error);
         $mysqli->rollback();
-        $error_code = 500;
-        $error_msg = "There was an error creating this user. Please try again later.";
-        include "includes/error.php";
-        exit;
+        error_page(500, "There was an error creating this user. Please try again later.");
     }
 
     $queryText = $mysqli->prepare(      //To retrieve the user's id
@@ -100,10 +83,7 @@ try {
 
     if (!$userRow) {
         $mysqli->rollback();
-        $error_code = 500;
-        $error_msg = "There was an error creating this user. Please try again later.";
-        include "includes/error.php";
-        exit;
+        error_page(500, "There was an error creating this user. Please try again later.");
     }
     $userId = $userRow['id'];
 
@@ -115,10 +95,7 @@ try {
         if (!$result = $queryText->execute()) {
             error_log("Insert custom answer failed: (" . $result->errno . ") " . $result->error);
             $mysqli->rollback();
-            $error_code = 500;
-            $error_msg = "There was an error creating this user. Please try again later.";
-            include "includes/error.php";
-            exit;
+            error_page(500, "There was an error creating this user. Please try again later.");
         }
     } else {       //Insert answer to default question into secret_answers
         $queryText = $mysqli->prepare(
@@ -128,10 +105,7 @@ try {
         if (!$result = $queryText->execute()) {
             error_log("Insert secret answer failed: (" . $result->errno . ") " . $result->error);
             $mysqli->rollback();
-            $error_code = 500;
-            $error_msg = "There was an error creating this user. Please try again later.";
-            include "includes/error.php";
-            exit;
+            error_page(500, "There was an error creating this user. Please try again later.");
         }
     }
 
@@ -140,10 +114,7 @@ try {
     if (!$activation_link) {
         error_log("Error creating activation link");
         $mysqli->rollback();
-        $error_code = 500;
-        $error_msg = "There was an error creating this user. Please try again later.";
-        include "includes/error.php";
-        exit;
+        error_page(500, "There was an error creating this user. Please try again later.");
     }
 
     $mysqli->commit();
@@ -171,20 +142,14 @@ try {
         // continue as if nothing happened
     } else {
         error_log("SQL Error creating user(" . $exception->getCode() . "): " . $exception->getMessage());
-        $error_code = 500;
-        $error_msg = "There was an error creating this user. Please try again later.";
-        include "includes/error.php";
-        exit;
+        error_page(500, "There was an error creating this user. Please try again later.");
     }
 }
 
 // Captcha
 $result = CheckCaptcha($_POST['g-recaptcha-response']);
 if (!$result['success']) {
-    $error_code = 400;
-    $error_msg = "Captcha was not correctly solved";
-    include "includes/error.php";
-    exit;
+    error_page(400, "Captcha was not correctly solved");
 }
 ?>
 

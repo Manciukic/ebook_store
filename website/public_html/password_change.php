@@ -1,5 +1,6 @@
 <?php
 require_once "includes/functions.php";
+require_once "includes/error.php";
 
 session_start();
 
@@ -20,10 +21,7 @@ if (
 
     // validate new password
     if (!preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,127}$/", $new_password)) {
-        $error_code = 400;
-        $error_msg = "Password is not valid. A number, a lowercase and an uppercase char are needed. Password length can be 6 to 127";
-        include "includes/error.php";
-        exit;
+        error_page(400, "Password is not valid. A number, a lowercase and an uppercase char are needed. Password length can be 6 to 127");
     }
 
     // check the old password is the actual password
@@ -33,10 +31,7 @@ if (
         || strlen($old_password) > 127
         || !login($_SESSION['user_email'], $old_password)
     ) {
-        $error_code = 401;
-        $error_msg = "Wrong credentials";
-        include "includes/error.php";
-        exit;
+        error_page(401, "Wrong credentials");
     }
 
     $new_password = password_hash($new_password, PASSWORD_BCRYPT);    //Password hashing using BCRYPT
@@ -47,10 +42,7 @@ if (
         ");
     $query->bind_param("si", $new_password, $_SESSION['user_id']);
     if (!$query->execute()){
-        $error_code = 500;
-        $error_msg = "There was an error while changing the password. Please try again later.";
-        include "includes/error.php";
-        exit;
+        error_page(500, "There was an error while changing the password. Please try again later.");
     }
 
     $msg = "Dear " . $user['full_name'] . ",\n" .
