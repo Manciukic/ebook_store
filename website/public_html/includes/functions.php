@@ -238,7 +238,7 @@ function send_activation_link($user_id, $link=null){
             "following link within 24 hours. If the link expires, we can " .
             "send you a new one, just login in the Ebook Store with your " . 
             "credentials.\n" . 
-            "$BASE_URL/activate.php?link=$link\n" .
+            "${BASE_URL}activate.php?link=$link\n" .
             "Thank you for using the Ebook Store,\n" .
             "one of our automated penguins";
 
@@ -344,7 +344,7 @@ function get_question($question_id){
 
 function CheckCaptcha($userResponse) {
     global $RECAPTCHA_SECRET;
-    
+
     $fields_string = '';
     $fields = array(
         'secret' => $RECAPTCHA_SECRET,
