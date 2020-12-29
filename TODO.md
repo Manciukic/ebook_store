@@ -17,7 +17,8 @@
 - [x] Recover password `M`
 - [x] Unique "standard" login page in checkout `R`
 - [x] Improve failed attempts mail `R`
-- [ ] Ask security answer in account recovery
+- [ ] Ask security question in account recovery
+- [ ] Hash security question answers ?
 
 ## Order
 - [x] Client-side validation of credit card attributes `R`
