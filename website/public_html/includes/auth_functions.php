@@ -17,10 +17,9 @@
         $login_result = $login_query->get_result();
         $user_row = $login_result->fetch_array();
 
-        $user_row['enabled'] = $user_row["disabled_until_tc"] ? ($user_row["disabled_until_tc"] < time()) : true;
-        error_log(strtotime($user_row["disabled_until"])." <? ".time());
-
         if ($user_row) {    //Check wether the email exists
+            $user_row['enabled'] = $user_row["disabled_until_tc"] ? ($user_row["disabled_until_tc"] < time()) : true;
+            error_log(strtotime($user_row["disabled_until"])." <? ".time());
             if (password_verify($password,$user_row['password'])){  //Check wether the password is correct
                 if ($user_row['activated'] && $user_row['enabled']) {   //Set the session only if the user is activated and not disabled
                     setSession($user_row['email'], $user_row['id']);
