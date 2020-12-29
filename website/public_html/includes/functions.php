@@ -387,4 +387,26 @@ function path_to_ebook_auth($user_id, $ebook_id){
     }
 }
 
+function remove_owned_ebooks($user_id, $cart){
+    global $mysqli;
+    $nbooks =  count($cart);
+    $book_ids_query = implode(',', array_fill(0, $nbooks, '?'));
+
+    $stmt = $mysqli->prepare("
+        SELECT OE.ebook_id as id
+        FROM order_ebook OE 
+            INNER JOIN orders O ON OE.order_id = O.id
+        WHERE O.user_id = ? AND OE.ebook_id IN (" . $book_ids_query . ")
+    ");
+    $stmt->bind_param(str_repeat('i', $nbooks+1), $user_id, ...$cart);
+    $stmt->execute();
+    $results = $stmt->get_result();
+    $n = $results->num_rows;
+    foreach ($results as $book){
+        unset($cart[array_search($book['id'], $cart)]);
+    }
+
+    return array($n, $cart);
+}
+
 ?>
