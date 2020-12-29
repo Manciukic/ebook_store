@@ -9,4 +9,6 @@ $BASE_URL = "http://localhost/";
 
 $RECAPTCHA_SITEKEY = "";
 $RECAPTCHA_SECRET = "";
+
+$mail_headers = "From: EbookStore <ebookstore@localhost>";
 ?>

@@ -220,7 +220,7 @@ function create_activation_link($user_id){
 }
 
 function send_activation_link($user_id, $link=null){
-    global $BASE_URL;
+    global $BASE_URL, $mail_headers;
     if ($link === null){
         $link = create_activation_link($user_id);
         if (!$link){
@@ -242,7 +242,7 @@ function send_activation_link($user_id, $link=null){
             "Thank you for using the Ebook Store,\n" .
             "one of our automated penguins";
 
-    mail($user["email"], "Ebook Store: Account Activation", $msg);
+    mail($user["email"], "Ebook Store: Account Activation", $msg, $mail_headers);
 }
 
 function check_activation_link($link){
@@ -276,7 +276,7 @@ function create_recovery_link($user_id){
 
 
 function send_recovery_link($user_id, $link=null){
-    global $BASE_URL;
+    global $BASE_URL, $mail_headers;
     if ($link === null){
         $link = create_recovery_link($user_id);
         if (!$link){
@@ -297,7 +297,7 @@ function send_recovery_link($user_id, $link=null){
             "Thank you for using the Ebook Store,\n" .
             "one of our automated penguins";
 
-    mail($user["email"], "Ebook Store: Account Recovery", $msg);
+    mail($user["email"], "Ebook Store: Account Recovery", $msg, $mail_headers);
 }
 
 function check_recovery_link($link){

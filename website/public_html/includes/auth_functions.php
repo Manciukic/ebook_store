@@ -4,7 +4,7 @@
     require_once "includes/functions.php";
 
     function login($email, $password) {
-        global $mysqli;
+        global $mysqli, $mail_headers;
         //$password=password_hash($password, PASSWORD_BCRYPT);    //Password hashing using BCRYPT
         $login_query = $mysqli->prepare(
             "SELECT *, UNIX_TIMESTAMP(U.disabled_until) AS disabled_until_tc
@@ -47,7 +47,7 @@
                         $lock_query->bind_param("s",  $email);
                         $lock_query->execute();
 
-                        mail($email, "Failed login attempts", "OMG there are ".($user_row['failed_login_attempts']+1)." failed login attempts");
+                        mail($email, "Failed login attempts", "OMG there are ".($user_row['failed_login_attempts']+1)." failed login attempts", $mail_headers);
                     } else {
                         $new_attempt_query = $mysqli->prepare(  //number of failed attempts is increased
                                 "UPDATE users
