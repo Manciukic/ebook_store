@@ -47,7 +47,21 @@
                         $lock_query->bind_param("s",  $email);
                         $lock_query->execute();
 
-                        mail($email, "Failed login attempts", "OMG there are ".($user_row['failed_login_attempts']+1)." failed login attempts", $mail_headers);
+                        global $BASE_URL;
+
+                        $msg = "Dear ".$user_row["full_name"].",\n" .
+                            "you are receiving this email because your " .
+                            "account has been disabled for 5 minutes due to 5 ".
+                            "consecutive failed login attempts.\n" .
+                            "If you forgot your password, you can recover it " .
+                            "at the following link: " .
+                            $BASE_URL . "recover.php\n" .
+                            "If it wasn't you, we suggest you change your " .
+                            "password from within your profile page.\n" .
+                            "Thank you for using the Ebook Store,\n" .
+                            "one of our automated penguins";
+
+                        mail($email, "Ebook Store: Account Locked", $msg, $mail_headers);
                     } else {
                         $new_attempt_query = $mysqli->prepare(  //number of failed attempts is increased
                                 "UPDATE users

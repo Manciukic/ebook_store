@@ -16,7 +16,7 @@
 - [x] Change password `M`
 - [x] Recover password `M`
 - [ ] Unique "standard" login page in checkout `R`
-- [ ] Improve failed attempts mail `R`
+- [x] Improve failed attempts mail `R`
 
 ## Order
 - [x] Client-side validation of credit card attributes `R`
