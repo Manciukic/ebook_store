@@ -342,4 +342,28 @@ function get_question($question_id){
     return $result ? $result->fetch_array() : false;
 }
 
+function CheckCaptcha($userResponse) {
+    global $RECAPTCHA_SECRET;
+    
+    $fields_string = '';
+    $fields = array(
+        'secret' => $RECAPTCHA_SECRET,
+        'response' => $userResponse
+    );
+    foreach($fields as $key=>$value)
+        $fields_string .= $key . '=' . $value . '&';
+    $fields_string = rtrim($fields_string, '&');
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify');
+    curl_setopt($ch, CURLOPT_POST, count($fields));
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, True);
+
+    $res = curl_exec($ch);
+    curl_close($ch);
+
+    return json_decode($res, true);
+}
+
 ?>
