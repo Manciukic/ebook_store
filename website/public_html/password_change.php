@@ -30,7 +30,7 @@ if (
     if (
         strlen($old_password) < 6
         || strlen($old_password) > 127
-        || !login($_SESSION['user_email'], $old_password)
+        || !check_password($_SESSION['user_email'], $old_password)
     ) {
         error_page(401, "Wrong credentials");
     }

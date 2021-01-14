@@ -21,8 +21,13 @@
     );
 
     $login_query->bind_param("s", $email);
-    $login_query->execute();
+    if (!$login_query->execute()){
+        error_page(500, "There was an error. Retry later");
+    }
     $login_result = $login_query->get_result();
+    if (!$login_result){
+        error_page(500, "There was an error. Retry later");
+    }
     $user = $login_result->fetch_array();
 
     if (!$user) {    

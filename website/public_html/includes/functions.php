@@ -398,6 +398,33 @@ function CheckCaptcha($userResponse) {
     return json_decode($res, true);
 }
 
+function check_password($email, $password){
+    global $mysqli;
+
+    $login_query = $mysqli->prepare(
+        "SELECT password
+            FROM users U
+            WHERE U.email = ?"
+    );
+
+    $login_query->bind_param("s", $email);
+    if (!$login_query->execute()){
+        return false;
+    }
+
+    $login_result = $login_query->get_result();
+    if (!$login_result)
+        return false;
+
+    $user = $login_result->fetch_array();
+
+    if (!$user) {    
+        return false;
+    } 
+    
+    return password_verify($password,$user['password']);
+}
+
 function path_to_ebook_auth($user_id, $ebook_id){
     global $mysqli;
     $ownership_query = $mysqli->prepare(
