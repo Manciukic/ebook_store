@@ -48,7 +48,7 @@ function validate_card_cvv($exp){
 }
 
 function validate_link($link){
-    return preg_match("/^[a-zA-Z0-9]{64}$/", $_GET['link']) ? true : false;
+    return preg_match("/^[a-zA-Z0-9]{64}$/", $link) ? true : false;
 }
 
 function validate_password($password){
