@@ -32,7 +32,8 @@ if(!isset($_POST['email']) && !isset($_GET['link']) && !isset($_POST['link'])){
     // If it fails, we behave like nothing happened to prevent user enumeration
     include "includes/recovery_1_handle_req.php";
 } else if (isset($_GET['link']) && !isset($_POST['new_password'])){
-    // User clicked the recovery link, we handle it
+    // User clicked the recovery link
+    // we ask the security question and the new password
     include "includes/recovery_2_password_form.php";
 } else if (isset($_POST['link']) && isset($_POST['new_password'])){
     // User provided the new password

@@ -342,6 +342,38 @@ function get_question($question_id){
     return $result ? $result->fetch_array() : false;
 }
 
+function get_question_for_user($user_id){
+    global $mysqli;
+    $query = $mysqli->prepare("
+        SELECT IFNULL(SA.custom_question, SQ.question) AS question
+        FROM secret_answers SA
+        INNER JOIN secret_questions SQ
+        ON SA.question_id = SQ.id 
+        WHERE user_id = ?;
+    ");
+    $query->bind_param("i", $user_id);
+    if(!$query->execute()){
+        return false;
+    }
+    $result = $query->get_result();
+    return $result ? $result->fetch_array() : false;
+}
+
+function get_secret_answer($user_id){
+    global $mysqli;
+    $query = $mysqli->prepare("
+        SELECT answer
+        FROM secret_answers
+        WHERE user_id = ?;
+    ");
+    $query->bind_param("i", $user_id);
+    if(!$query->execute()){
+        return false;
+    }
+    $result = $query->get_result();
+    return $result ? $result->fetch_array() : false;
+}
+
 function CheckCaptcha($userResponse) {
     global $RECAPTCHA_SECRET;
 

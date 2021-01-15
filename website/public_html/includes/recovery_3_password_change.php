@@ -2,12 +2,20 @@
 require_once "includes/error.php";
 require_once "includes/validation_functions.php";
 
-// This is a new password set through the recovery link
+
 $user = check_recovery_link($_POST['link']);
 if (!$user) {
     error_page(404, "The recovery link you clicked was either expired or not existing. Please generate a new link.");
 }
 
+
+// Check the security answer
+$correct_answer = get_secret_answer($user['id']);
+if(!$correct_answer || $correct_answer['answer'] != $_POST['answer']){
+    error_page(400, "The secret answer you provided is different from the one you used to register on this site.");
+}
+
+// This is a new password set through the recovery link
 $password = $_POST['new_password'];
 if (!validate_password($password)) {
     error_page(400, "Password is not valid. A number, a lowercase and an uppercase char are needed. Password length can be 6 to 127");
