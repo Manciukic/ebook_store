@@ -1,6 +1,7 @@
 <?php
 require_once "includes/db_connect.php";
 require_once "includes/settings.php";
+require_once "includes/mail.php";
 
 function get_all_genres(){
     global $mysqli;
@@ -242,7 +243,7 @@ function send_activation_link($user_id, $link=null){
             "Thank you for using the Ebook Store,\n" .
             "one of our automated penguins";
 
-    mail($user["email"], "Ebook Store: Account Activation", $msg, $mail_headers);
+    sendmail($user["email"], "Ebook Store: Account Activation", $msg, $mail_headers);
 }
 
 function check_activation_link($link){
@@ -297,7 +298,7 @@ function send_recovery_link($user_id, $link=null){
             "Thank you for using the Ebook Store,\n" .
             "one of our automated penguins";
 
-    mail($user["email"], "Ebook Store: Account Recovery", $msg, $mail_headers);
+    sendmail($user["email"], "Ebook Store: Account Recovery", $msg, $mail_headers);
 }
 
 function check_recovery_link($link){

@@ -137,7 +137,7 @@ try {
             "person.\n" .
             "Thank you for using the Ebook Store,\n" .
             "one of our automated penguins";
-        mail($email, "Ebook Store: Security alert", $msg, $mail_headers);
+        sendmail($email, "Ebook Store: Security alert", $msg, $mail_headers);
         // continue as if nothing happened
     } else {
         error_log("SQL Error creating user(" . $exception->getCode() . "): " . $exception->getMessage());

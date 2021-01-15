@@ -68,7 +68,7 @@
                     "Thank you for using the Ebook Store,\n" .
                     "one of our automated penguins";
 
-                mail($email, "Ebook Store: Account Locked", $msg, $mail_headers);
+                sendmail($email, "Ebook Store: Account Locked", $msg, $mail_headers);
             } else {
                 // increase counter
                 $new_attempt_query = $mysqli->prepare(  //number of failed attempts is increased
