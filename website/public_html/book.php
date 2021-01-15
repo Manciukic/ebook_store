@@ -68,7 +68,7 @@ if (isset($_GET['id'])) {
             </div>
         </a>
         <div class="description">
-            <?php echo $book['description'] ?>
+            <?php echo htmlspecialchars($book['description']) ?>
         </div>
     </main>
 </body>
