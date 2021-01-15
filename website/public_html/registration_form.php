@@ -67,7 +67,7 @@ if (!$questions) {
             </div>
             <div class="form-field">
                 <label for="name">Name</label>
-                <input class="registrationInput" name="name" placeholder="Full name" pattern='^[^\^<,"@\/\{\}\(\)\*$%\?=>:|;#]+$' oninput="validate(this);" />
+                <input class="registrationInput" name="name" placeholder="Full name" pattern='^[^\^<,"@\/\{\}\(\)\*$%\?=>:|;#0-9]+$' oninput="validate(this);" />
                 <p id="control_name" class="field-error hidden"></p>
             </div>
             <div class="form-field">

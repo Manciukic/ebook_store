@@ -56,10 +56,10 @@ function validate_password($password){
 }
 
 /* 
- * Name validation: filter out dangerous or safe-to-filter characters
- * Human names are unpredictable (yes, Elon, I'm talking to you >.< )
+ * Name validation: whitelist 
+ * I'm sorry little X Æ A-12 but we're more secure like this
  */
 function validate_name($name){
-    return preg_match("/^[^\^<,\"@\/\{\}\(\)\*\$%\?=>:\|;#]+$/i", $name)? true : false;
+    return preg_match("/^[\pL \.\-']+$/", $name)? true : false;
 }
 ?>
