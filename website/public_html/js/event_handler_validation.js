@@ -22,9 +22,21 @@ function check_match(repeated_field, primary_field_id) {
     }
 }
 
-function update_security(pw_field, security_field_id){
+function update_security(pw_field, security_field_id, add_data, add_fields){
     var security_field = document.getElementById(security_field_id);
     var pw_len = pw_field.value.length;
+
+    for(var i = 0; i < add_fields.length; i++){
+        field_value = document.getElementById(add_fields[i]).value
+        add_data.push(field_value);
+        if(field_value.includes('@')){
+            add_data = add_data.concat(field_value.split('@'));
+        }
+    }
+
+    var pw_score = zxcvbn(pw_field.value, add_data).score;
+
+    console.log(add_data, pw_score)
 
     if(pw_len == 0){
         security_field.classList.add('hidden');
@@ -35,10 +47,10 @@ function update_security(pw_field, security_field_id){
         security_field.classList.remove("pw-strong");
     }
     
-    if(pw_len < 5 ){
+    if(pw_score <= 1 ){
         security_field.textContent = "very weak";
         security_field.classList.add('pw-very-weak')
-    } else if (pw_len < 7){
+    } else if (pw_score <= 2){
         security_field.textContent = "weak";
         security_field.classList.add('pw-weak')
     } else {

@@ -40,7 +40,7 @@ $secret_question = $secret_question['question'];
             <div class="form-field">
                 <div class="password-field password-strength">
                     <label for="new_password">Type your new password</label>
-                    <input class="registrationInput" name="new_password" id="new_password" placeholder="New password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,127}" oninput="validate(this); update_security(this, 'password-counter');" />
+                    <input class="registrationInput" name="new_password" id="new_password" placeholder="New password" type="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,127}" oninput="validate(this); update_security(this, 'password-counter', ['<?php echo $user['email'];?>', '<?php echo $user['full_name'];?>'] , []);" />
                     <p id="password-counter" class="field-error hidden"></p>
                 </div>
                 <p id="control_new_password" class="field-error hidden"></p>

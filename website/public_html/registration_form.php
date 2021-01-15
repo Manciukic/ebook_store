@@ -29,16 +29,21 @@ if (!$questions) {
                 // Note: browsers automatically check email type inputs to look like a proper email address. 
                 // The pattern is used as an additional check and, in this case, it is needed to ensure we have a tld part too
                 ?>
-                <input type="email" class="registrationInput"
+                <input type="email" id="email-field" class="registrationInput"
                 name="email" placeholder="Email"
                 pattern="^[a-zA-Z0-9\-_\.\+]+@[a-zA-Z0-9\-_\.\+]+(\.[a-zA-Z0-9\-_\.\+]+)+$" 
                 oninput="validate(this);"/>
                 <p id="control_email" class="field-error hidden"></p>
             </div>
             <div class="form-field">
+                <label for="name" >Name</label>
+                <input class="registrationInput" id="name-field" name="name" placeholder="Full name" pattern='^[^\^<,"@\/\{\}\(\)\*$%\?=>:|;#]+$' oninput="validate(this);" />
+                <p id="control_name" class="field-error hidden"></p>
+            </div>
+            <div class="form-field">
                 <label for="password">Password</label>
                 <div class="password-field password-strength">
-                    <input class="registrationInput" name="password" placeholder="Password" type="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,127}" oninput="validate(this); update_security(this, 'password-counter');" />
+                    <input class="registrationInput" name="password" placeholder="Password" type="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,127}" oninput="validate(this); update_security(this, 'password-counter', [], ['name-field', 'email-field']);" />
                     <p id="password-counter" class="field-error hidden"></p>
                 </div>
                 <p id="control_password" class="field-error hidden"></p>
@@ -46,11 +51,6 @@ if (!$questions) {
             <div class="form-field">
                 <input class="registrationInput" name="repassword" type="password" placeholder="Repassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,127}" oninput="check_match(this, 'password');"/>
                 <p id="control_repassword" class="field-error hidden"></p>
-            </div>
-            <div class="form-field">
-                <label for="name">Name</label>
-                <input class="registrationInput" name="name" placeholder="Full name" pattern='^[^\^<,"@\/\{\}\(\)\*$%\?=>:|;#]+$' oninput="validate(this);" />
-                <p id="control_name" class="field-error hidden"></p>
             </div>
             <div class="form-field">
                 <label for="secretQuestion">Secret question</label>
@@ -112,6 +112,7 @@ if(isset($_POST['submit']))
 }
 ?>
 
+<script type="text/javascript" src="js/zxcvbn.js"></script>
 <script src="./js/event_handler_registration.js"> </script>
 <script src="./js/event_handler_validation.js"> </script>
 
