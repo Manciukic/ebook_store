@@ -1,27 +1,43 @@
 <?php
 // Sample settings file
-$db_host = "127.0.0.1";
+
+// this configuration is valid for the docker-compose setup
+$db_host = "ebook_db";
 $db_username = "root";
-$db_password = "";
+$db_password = "root";
 $db_name = "EbookStore";
 
+// change it to your domain 
 $BASE_URL = "http://localhost/";
 
+// required for recaptcha to work
+// generate your secrets from recaptcha console
 $RECAPTCHA_SITEKEY = "";
 $RECAPTCHA_SECRET = "";
 
+// by default, uses sendmail
 $USE_PHPMAILER = false;
 // built-in mail options
 $mail_headers = "From: EbookStore <ebookstore@localhost>";
+
+// otherwise, you can set your own SMTP account
 // PHPMailer options (only if enabled)
 $SMTP_HOST = "smtp.gmail.com";
 $SMTP_USER = "ebookstore@gmail.com";
 $SMTP_PWD = "password";
 $MAIL_FROM_NAME = "Ebook Store";
 
-$AUTH_LOG_FILE = "/var/log/ebook_store_auth.log";
+// you can leave it empty to disable logging
+$AUTH_LOG_FILE = "/var/log/apache2/ebook_store_auth.log";
 
+
+// development error reporting
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
+// in production environment, disable reporting!!
+// ini_set('display_errors', 0);
+// ini_set('display_startup_errors', 0);
+// error_reporting(0);
 ?>
