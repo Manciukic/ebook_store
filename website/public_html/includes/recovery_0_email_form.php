@@ -6,6 +6,8 @@
         Recover account
     </title>
     <?php include "includes/include.php" ?>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 </head>
 
 <body>
@@ -16,6 +18,9 @@
                 Recover account
             </h1>
             <input class="loginInput" name="email" placeholder="Email" />
+            <div class="form-field">
+                <div class="g-recaptcha"  data-sitekey="<?= $RECAPTCHA_SITEKEY ?>"></div>
+            </div>
             <button type="submit" value="Set password" class="btn-form">Request recovery link</button>
         </form>
     </main>

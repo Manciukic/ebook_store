@@ -94,24 +94,6 @@ if (!$questions) {
 </body>
 
 
-<?php
-
-if(isset($_POST['submit']))
-{
-    // Call the function CheckCaptcha
-    $result = CheckCaptcha($_POST['g-recaptcha-response']);
-
-    if ($result['success']) {
-        //If the user has checked the Captcha box
-        echo "Captcha verified Successfully";
-
-    } else {
-        // If the CAPTCHA box wasn't checked
-        echo '<script>alert("Error Message");</script>';
-    }
-}
-?>
-
 <script src="./js/event_handler_registration.js"> </script>
 <script src="./js/event_handler_validation.js"> </script>
 
