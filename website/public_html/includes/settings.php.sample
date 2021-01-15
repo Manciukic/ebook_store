@@ -10,7 +10,9 @@ $BASE_URL = "http://localhost/";
 $RECAPTCHA_SITEKEY = "";
 $RECAPTCHA_SECRET = "";
 
-$mail_headers = "From: EbookStore <ebookstore@localhost>";
+$SMTP_HOST = "smtp.gmail.com";
+$SMTP_USER = "ebookstore@gmail.com";
+$SMTP_PWD = "password";
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
