@@ -6,6 +6,7 @@ require_once "includes/error.php";
 if (empty($_SESSION['items'])) {
     // empty cart: how the hell did he get here?
 
+    unset($_SESSION["items"]);
     unset($_SESSION["stage"]);
     error_page(400, "Empty cart");
 }
@@ -16,7 +17,9 @@ if (isset($_SESSION['user_id'])) {
     // check he owns no cart items 
     list($n, $new_cart) = remove_owned_ebooks($_SESSION['user_id'], $_SESSION["items"]);
     if ($n > 0){
-        $_SESSION["items"] = $new_cart;
+        unset($_SESSION["items"]);
+        unset($_SESSION["stage"]);
+        setcookie('items', implode(',', $new_cart), time()+3600*24*7);
 
         // some ebooks were already owned -> back to cart
         header("location: cart.php?notice=removed_items");

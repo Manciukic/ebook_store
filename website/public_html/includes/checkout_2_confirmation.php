@@ -4,6 +4,8 @@ require_once "includes/error.php";
 // check if user has items in cart
 if (empty($_SESSION['items'])) {
     // empty cart: how the hell did he get here?
+
+    unset($_SESSION["items"]);
     unset($_SESSION["stage"]);
     error_page(400, "Empty cart");
 }
@@ -11,6 +13,7 @@ if (empty($_SESSION['items'])) {
 if (!isset($_SESSION['user_id'])) {
     // not logged in, wtf ?
 
+    unset($_SESSION["items"]);
     unset($_SESSION["stage"]);
     error_page(403, "You need to be logged in to see this page");
 }
@@ -18,6 +21,7 @@ if (!isset($_SESSION['user_id'])) {
 if (!isset($_SESSION['card_id'])) {
     // no card inserted, wtf ?
 
+    unset($_SESSION["items"]);
     unset($_SESSION["stage"]);
     error_page(400, "No credit card selected");
 }
@@ -64,8 +68,9 @@ if (isset($_POST["action"])) {
         }
 
         unset($_SESSION["stage"]);
-        unset($_SESSION["items"]);
         unset($_SESSION["card_id"]);
+        unset($_SESSION["items"]);
+        setcookie('items', null, -1); 
         header("Location: order.php?id=$order_id");
         exit;
     } else{
@@ -80,6 +85,7 @@ $card_result = get_credit_card($_SESSION['card_id']);
 if ($card_result->num_rows === 0) {
     // Card not found
 
+    unset($_SESSION["items"]);
     unset($_SESSION["stage"]);
     error_page(400, "Invalid credit card");
 }

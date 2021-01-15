@@ -2,6 +2,14 @@
 session_start();
 require_once "includes/functions.php";
 
+if (isset($_GET['start'])){
+    unset($_SESSION['stage']);
+    if(!isset($_COOKIE['items'])){
+        error_page(400, "There are no items in the cart");
+    }
+    $_SESSION['items'] = explode(',', $_COOKIE['items']);
+}
+
 if (!isset($_SESSION['stage']) || $_SESSION['stage'] == 0){
     // first stage of checkout: login
 

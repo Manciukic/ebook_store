@@ -5,6 +5,7 @@ require_once "includes/error.php";
 if (empty($_SESSION['items'])) {
     // empty cart: how the hell did he get here?
 
+    unset($_SESSION["items"]);
     unset($_SESSION["stage"]);
     error_page(400, "Empty cart");
 }
@@ -12,6 +13,7 @@ if (empty($_SESSION['items'])) {
 if (!isset($_SESSION['user_id'])) {
     // not logged in, wtf ?
 
+    unset($_SESSION["items"]);
     unset($_SESSION["stage"]);
     error_page(403, "You need to be logged in to see this page");
 }

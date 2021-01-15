@@ -2,31 +2,40 @@
 session_start();
 require_once "includes/functions.php";
 
-if (!isset($_SESSION['items'])) {
-    $_SESSION['items'] = array();
+if (!isset($_COOKIE['items'])) {
+    $items = array();
+} else {
+    $items = explode(',', $_COOKIE['items']);
 }
+
+$change = false;
 
 if (isset($_GET['add']) && is_numeric($_GET['add'])) {
     // Adding a new item to the cart
     $book_id = $_GET['add'];
-    if (!in_array($book_id, $_SESSION['items'])) {
-        array_push($_SESSION['items'], $book_id);
+    if (!in_array($book_id, $items)) {
+        array_push($items, $book_id);
+        $change = true;
     }
 }
 
 if (isset($_GET['remove']) && is_numeric($_GET['remove'])) {
     // Removing a new item from the cart
     $book_id = $_GET['remove'];
-    $index = array_search($book_id, $_SESSION['items']);
+    $index = array_search($book_id, $items);
     if ($index !== false) {
-        unset($_SESSION['items'][$index]);
+        unset($items[$index]);
+        $change = true;
     }
 }
 
 // Create a prepared statement based on the number of books I need
-$book_ids = $_SESSION['items'];
-$cart = get_books($book_ids);
+$cart = get_books($items);
 $cart_total = 0;
+
+if ($change){
+    setcookie("items", implode(',', $items), time()+3600*24*7);
+}
 ?>
 
 <!DOCTYPE html>
@@ -101,9 +110,9 @@ $cart_total = 0;
                 </span>
                 &#8364;
             </p>
-            <?php if (!empty($book_ids)){ ?>
+            <?php if (!empty($items)){ ?>
                 <div class="cart-buy-button">
-                    <a href="checkout.php">
+                    <a href="checkout.php?start">
                         Buy now!
                     </a>
                 </div>
