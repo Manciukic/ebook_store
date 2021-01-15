@@ -1,4 +1,14 @@
 <?php
+$ERRORS = array(
+	"name" => "Please, provide a valid name. Names may include only letters, spaces, '.' and '-'.",
+    "password" => "Your password does not satisfy our safety requirements.",
+    "answer" => "Please provide a valid secret answer.",
+    "question" => "Please provide a valid secret question.",
+    "email" => "Please provide a valid email.",
+    "missing" => "Some fields are missing.",
+    "captcha" => "Captcha validation failed. Retry.",
+	"default" => "Please provide all correct fields"
+);
 require_once("includes/functions.php");
 $questions = get_questions();
 if (!$questions) {
@@ -23,6 +33,14 @@ if (!$questions) {
             <h1>
                 Registration
             </h1>
+            <?php
+                if (isset($_GET['error'])) {
+                    $error_msg = $ERRORS[$_GET['error']] ?? $ERRORS["default"];
+            ?>
+                    <div class="stage-error-container">
+                        <p class="stage-error"><?php echo $error_msg ?></p>
+                    </div>
+            <?php } ?>
             <div class="form-field">
                 <label for="email">Email</label>
                 <?php

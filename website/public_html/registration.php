@@ -15,7 +15,8 @@ if (
     !isset($_POST['g-recaptcha-response'])
 ) {
 
-    error_page(400, "Provide all parameters.");
+    header('location: registration_form.php?error=missing');
+    exit;
 }
 
 $name = $_POST['name'];
@@ -29,16 +30,19 @@ $secretQuestion = $_POST['secretQuestion'];
 
 // Email validation
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    error_page(400, "Email is not valid");
+    header('location: registration_form.php?error=email');
+    exit;
 }
 
 // Password security validation
 if (!validate_password($password)) {
-    error_page(400, "Password is not valid. A number, a lowercase and an uppercase char are needed. Password length can be 6 to 127");
+    header('location: registration_form.php?error=password');
+    exit;
 }
 
 if (!validate_name($name)) {
-    error_page(400, "Valid names may only contain characters and spaces");
+    header('location: registration_form.php?error=name');
+    exit;
 }
 
 
@@ -47,7 +51,8 @@ if (
     $secretQuestion != "new" && !get_question($secretQuestion)
     || $secretQuestion == "new" && $customedQuestion == ""
 ) {
-    error_page(400, "No secret question provided.");
+    header('location: registration_form.php?error=question');
+    exit;
 }
 
 if ($secretQuestion == "new") {
@@ -151,7 +156,8 @@ try {
 // Captcha
 $result = CheckCaptcha($_POST['g-recaptcha-response']);
 if (!$result['success']) {
-    error_page(400, "Captcha was not correctly solved");
+    header('location: registration_form.php?error=captcha');
+    exit;
 }
 ?>
 
