@@ -348,7 +348,7 @@ function get_question_for_user($user_id){
     $query = $mysqli->prepare("
         SELECT IFNULL(SA.custom_question, SQ.question) AS question
         FROM secret_answers SA
-        INNER JOIN secret_questions SQ
+        LEFT OUTER JOIN secret_questions SQ
         ON SA.question_id = SQ.id 
         WHERE user_id = ?;
     ");
