@@ -51,7 +51,7 @@ if (
         "has been changed successfully.\n" .
         "Thank you for using the Ebook Store,\n" .
         "one of our automated penguins";
-    sendmail($_SESSION['user_email'], "Ebook Store: password changed", $msg, $mail_headers);
+    sendmail($_SESSION['user_email'], "Ebook Store: password changed", $msg);
 
     $success_msg = "Your password has been changed successfully!";
 }

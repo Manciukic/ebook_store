@@ -221,7 +221,7 @@ function create_activation_link($user_id){
 }
 
 function send_activation_link($user_id, $link=null){
-    global $BASE_URL, $mail_headers;
+    global $BASE_URL;
     if ($link === null){
         $link = create_activation_link($user_id);
         if (!$link){
@@ -243,7 +243,7 @@ function send_activation_link($user_id, $link=null){
             "Thank you for using the Ebook Store,\n" .
             "one of our automated penguins";
 
-    sendmail($user["email"], "Ebook Store: Account Activation", $msg, $mail_headers);
+    sendmail($user["email"], "Ebook Store: Account Activation", $msg);
 }
 
 function check_activation_link($link){
@@ -277,7 +277,7 @@ function create_recovery_link($user_id){
 
 
 function send_recovery_link($user_id, $link=null){
-    global $BASE_URL, $mail_headers;
+    global $BASE_URL;
     if ($link === null){
         $link = create_recovery_link($user_id);
         if (!$link){
@@ -294,11 +294,11 @@ function send_recovery_link($user_id, $link=null){
             "the recovery of your Ebook Store account.\n" . 
             "Following the link below, which expires in 24 hours, " .
             "will allow you to reset your password.\n" . 
-            "$BASE_URL/recover.php?link=$link\n" .
+            "${BASE_URL}recover.php?link=$link\n" .
             "Thank you for using the Ebook Store,\n" .
             "one of our automated penguins";
 
-    sendmail($user["email"], "Ebook Store: Account Recovery", $msg, $mail_headers);
+    sendmail($user["email"], "Ebook Store: Account Recovery", $msg);
 }
 
 function check_recovery_link($link){
