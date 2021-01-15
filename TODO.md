@@ -18,7 +18,7 @@
 - [x] Unique "standard" login page in checkout `R`
 - [x] Improve failed attempts mail `R`
 - [x] Ask security question in account recovery
-- [ ] Hash security question answers ?
+- [x] Hash security question answers ?
 
 ## Order
 - [x] Client-side validation of credit card attributes `R`
@@ -30,11 +30,10 @@
 - [x] User profile page
 - [x] Owned e-books page
 - [x] Orders page
-- [ ] Escape all user-inserted fields with htmlspecialchars before writing
+- [x] Escape all user-inserted fields with htmlspecialchars before writing
    them to HTML page. `Z`
 - [x] Add secret_questions to population script `M`
 - [x] cart items as cookies (persist in session on checkout) `R`
 - [x] Docker-ify `M`
 - [x] "pentesting" `Z`
-- [ ] make user type security question answer twice in registration
-- [ ] check mysqli execute and get_results return values
+- [x] check mysqli execute and get_results return values
