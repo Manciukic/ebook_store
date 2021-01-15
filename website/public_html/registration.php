@@ -86,6 +86,7 @@ try {
     }
     $userId = $userRow['id'];
 
+    $answer = password_hash($answer, PASSWORD_BCRYPT);
     if ($questionIndex == -1) {            //Insert answer to customed question into secret_answers
         $queryText = $mysqli->prepare(
             "INSERT INTO secret_answers(answer,custom_question,user_id) VALUES(?,?,?)"

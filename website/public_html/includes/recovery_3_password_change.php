@@ -11,7 +11,7 @@ if (!$user) {
 
 // Check the security answer
 $correct_answer = get_secret_answer($user['id']);
-if(!$correct_answer || $correct_answer['answer'] != $_POST['answer']){
+if(!$correct_answer || !password_verify($_POST['answer'], $correct_answer['answer'])){
     error_page(400, "The secret answer you provided is different from the one you used to register on this site.");
 }
 
