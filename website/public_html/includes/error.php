@@ -37,7 +37,7 @@ function fatal_error_page(){
 
     <head>
         <title>Internal Server Error</title>
-        <?php include "includes/include.php" ?>
+        <link rel="stylesheet" href="css/custom.css" >
     </head>
 
     <body>
