@@ -28,6 +28,12 @@ if(!isset($_POST['email']) && !isset($_GET['link']) && !isset($_POST['link'])){
     // Firs step: we have to display the form for recovery request
     include "includes/recovery_0_email_form.php";
 } else if (isset($_POST['email'])){
+    // Captcha
+    $result = CheckCaptcha($_POST['g-recaptcha-response']);
+    if (!$result['success']) {
+        error_page(400, "Captcha was not correctly solved");
+    }
+
     // This is where we handle the request for a recovery link to be sent
     // If it fails, we behave like nothing happened to prevent user enumeration
     include "includes/recovery_1_handle_req.php";

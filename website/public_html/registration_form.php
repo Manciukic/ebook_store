@@ -1,4 +1,14 @@
 <?php
+$ERRORS = array(
+	"name" => "Please, provide a valid name. Names may include only letters, spaces, '.' and '-'.",
+    "password" => "Your password does not satisfy our safety requirements.",
+    "answer" => "Please provide a valid secret answer.",
+    "question" => "Please provide a valid secret question.",
+    "email" => "Please provide a valid email.",
+    "missing" => "Some fields are missing.",
+    "captcha" => "Captcha validation failed. Retry.",
+	"default" => "Please provide all correct fields"
+);
 require_once("includes/functions.php");
 $questions = get_questions();
 if (!$questions) {
@@ -23,6 +33,14 @@ if (!$questions) {
             <h1>
                 Registration
             </h1>
+            <?php
+                if (isset($_GET['error'])) {
+                    $error_msg = $ERRORS[$_GET['error']] ?? $ERRORS["default"];
+            ?>
+                    <div class="stage-error-container">
+                        <p class="stage-error"><?php echo $error_msg ?></p>
+                    </div>
+            <?php } ?>
             <div class="form-field">
                 <label for="email">Email</label>
                 <?php
@@ -36,8 +54,8 @@ if (!$questions) {
                 <p id="control_email" class="field-error hidden"></p>
             </div>
             <div class="form-field">
-                <label for="name" >Name</label>
-                <input class="registrationInput" id="name-field" name="name" placeholder="Full name" pattern='^[^\^<,"@\/\{\}\(\)\*$%\?=>:|;#]+$' oninput="validate(this);" />
+                <label for="name">Name</label>
+                <input class="registrationInput" id="name-field" name="name" placeholder="Full name" pattern='^[^\^<,"@\/\{\}\(\)\*$%\?=>:|;#0-9]+$' oninput="validate(this);" />
                 <p id="control_name" class="field-error hidden"></p>
             </div>
             <div class="form-field">
@@ -52,6 +70,7 @@ if (!$questions) {
                 <input class="registrationInput" name="repassword" type="password" placeholder="Repassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,127}" oninput="check_match(this, 'password');"/>
                 <p id="control_repassword" class="field-error hidden"></p>
             </div>
+
             <div class="form-field">
                 <label for="secretQuestion">Secret question</label>
                 <select name="secretQuestion" onchange="showCustomSecretQuestion(this)">
