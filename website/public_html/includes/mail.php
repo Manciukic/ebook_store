@@ -10,7 +10,7 @@ require 'includes/vendor/PHPMailer/src/SMTP.php';
 require_once "includes/settings.php";
 
 function sendmail($to, $subject, $message){
-    global $SMTP_HOST, $SMTP_USER, $SMTP_PWD;
+    global $SMTP_HOST, $SMTP_USER, $SMTP_PWD, $MAIL_FROM_NAME;
 
     // Instantiation and passing `true` enables exceptions
     $mail = new PHPMailer(true);
@@ -26,7 +26,7 @@ function sendmail($to, $subject, $message){
         $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
         //Recipients
-        $mail->setFrom($SMTP_USER);
+        $mail->setFrom($SMTP_USER, $MAIL_FROM_NAME);
         $mail->addAddress($to);
 
         $mail->Subject = $subject;
