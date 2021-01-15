@@ -11,6 +11,7 @@ if (isset($_SESSION['user_id'])) {
     $user_exists = true;
 }
 
+
 if (
     $user_exists
     && isset($_POST['new_password'])
@@ -34,6 +35,11 @@ if (
     ) {
         auth_log($user['email'], 'change_password', false);
         error_page(401, "Wrong credentials");
+    }
+
+    $result = CheckCaptcha($_POST['g-recaptcha-response']);
+    if (!$result['success']) {
+        error_page(400, "Captcha was not correctly solved");
     }
 
     $new_password = password_hash($new_password, PASSWORD_BCRYPT);    //Password hashing using BCRYPT
@@ -67,6 +73,8 @@ if (
         Password change
     </title>
     <?php include "includes/include.php" ?>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 </head>
 
 <body>
@@ -110,6 +118,10 @@ if (
                     <input class="registrationInput" name="repassword" type="password" placeholder="Repeat new password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,127}" oninput="check_match(this, 'new_password');" />
                     <p id="control_repassword" class="field-error hidden"></p>
                 </div>
+                <div class="form-field">
+                    <div class="g-recaptcha"  data-sitekey="<?= $RECAPTCHA_SITEKEY ?>"></div>
+                </div>
+
                 <button type="submit" value="Change password" class="btn-form">Change password</button>
             </form>
         <?php
@@ -118,5 +130,8 @@ if (
     </main>
     <script src="js/event_handler_validation.js"></script>
 </body>
+
+
+
 
 </html>
