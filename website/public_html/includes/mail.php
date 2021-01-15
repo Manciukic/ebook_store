@@ -10,8 +10,14 @@ require 'includes/vendor/PHPMailer/src/SMTP.php';
 require_once "includes/settings.php";
 
 function sendmail($to, $subject, $message){
-    global $SMTP_HOST, $SMTP_USER, $SMTP_PWD, $MAIL_FROM_NAME;
+    global $USE_PHPMAILER;
 
+    if (!$USE_PHPMAILER){
+        global $mail_headers;
+        return mail($to, $subject, $message, $mail_headers);
+    }
+
+    global $SMTP_HOST, $SMTP_USER, $SMTP_PWD, $MAIL_FROM_NAME;
     // Instantiation and passing `true` enables exceptions
     $mail = new PHPMailer(true);
 

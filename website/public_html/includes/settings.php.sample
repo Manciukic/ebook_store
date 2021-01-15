@@ -10,6 +10,10 @@ $BASE_URL = "http://localhost/";
 $RECAPTCHA_SITEKEY = "";
 $RECAPTCHA_SECRET = "";
 
+$USE_PHPMAILER = false;
+// built-in mail options
+$mail_headers = "From: EbookStore <ebookstore@localhost>";
+// PHPMailer options (only if enabled)
 $SMTP_HOST = "smtp.gmail.com";
 $SMTP_USER = "ebookstore@gmail.com";
 $SMTP_PWD = "password";
