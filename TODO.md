@@ -17,7 +17,7 @@
 - [x] Recover password `M`
 - [x] Unique "standard" login page in checkout `R`
 - [x] Improve failed attempts mail `R`
-- [ ] Ask security question in account recovery
+- [x] Ask security question in account recovery
 - [ ] Hash security question answers ?
 
 ## Order
@@ -33,6 +33,8 @@
 - [ ] Escape all user-inserted fields with htmlspecialchars before writing
    them to HTML page. `Z`
 - [x] Add secret_questions to population script `M`
-- [ ] ~~ cart items as cookies (persist in session on checkout) `R` ~~
+- [x] cart items as cookies (persist in session on checkout) `R`
 - [x] Docker-ify `M`
-- [ ] "pentesting" `Z`
+- [x] "pentesting" `Z`
+- [ ] make user type security question answer twice in registration
+- [ ] check mysqli execute and get_results return values
