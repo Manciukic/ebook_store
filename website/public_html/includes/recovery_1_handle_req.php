@@ -2,9 +2,17 @@
 // This is a request for a recovery link to be sent
 // If it fails, we behave like nothing happened to prevent user enumeration
 if ($user_email = get_user_by_email($_POST['email'])) {
-    send_recovery_link($user_email['id']);
-} 
-auth_log($_POST['email'], 'recover_send', true);
+    if ($user_email['activated']){
+        send_recovery_link($user_email['id']);
+        auth_log($_POST['email'], 'recover_send', true);
+    } else {
+        send_activation_link($user_email['id']);
+        auth_log($_POST['email'], 'recover_send', false);
+    }
+} else {
+    auth_log($_POST['email'], 'recover_send', false);
+}
+
 ?>
 
 <!DOCTYPE html>

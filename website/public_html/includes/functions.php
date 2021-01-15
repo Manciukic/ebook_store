@@ -153,7 +153,7 @@ function get_user($user_id){
 function get_user_by_email($email){
     global $mysqli;
     $user_query = $mysqli->prepare("
-        SELECT id, full_name
+        SELECT id, full_name, activated
         FROM users
         WHERE email = ?
     ");
