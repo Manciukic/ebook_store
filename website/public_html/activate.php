@@ -56,7 +56,7 @@ if (isset($_POST['link'])){
             <p>
                 Activate your account by clicking the button below.
             </p>
-            <input type="hidden" name="link" value="<?php echo htmlspecialchars()$_GET['link']) ?>" />
+            <input type="hidden" name="link" value="<?php echo htmlspecialchars($_GET['link']) ?>" />
             <button type="submit" value="Click here to activate" class="btn-form">Click here to activate</button>
         </form>
     </main>
