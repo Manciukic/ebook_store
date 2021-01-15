@@ -34,3 +34,8 @@ Apache).
         - `js`: included javascript files
     - `Dockerfile`: website Dockerfile
     - `startup.sh`: entry point for Docker container
+
+## Authors
+ - Zaccaria Essaid [@zaccaria97](https://github.com/zaccaria97)
+ - Mirko Laruina [@mirko-laruina](https://github.com/mirko-laruina)
+ - Riccardo Mancini [@manciukic](https://github.com/manciukic)
