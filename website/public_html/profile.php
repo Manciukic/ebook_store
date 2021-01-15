@@ -36,7 +36,7 @@ if (isset($_SESSION['user_id'])) {
                 User profile: <?php echo htmlspecialchars($user['full_name']); ?>
             </h1>
             <h2>
-                <?php echo htmlspecialchars($user['full_name']); ?> - <?php echo htmlspecialchars($user['email']); ?>
+                <?php echo htmlspecialchars($user['full_name']); ?> - <?php echo $user['email']; ?>
             </h2>
 
             <div class="profile-links">
