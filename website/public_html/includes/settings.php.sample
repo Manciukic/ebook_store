@@ -19,6 +19,8 @@ $SMTP_USER = "ebookstore@gmail.com";
 $SMTP_PWD = "password";
 $MAIL_FROM_NAME = "Ebook Store";
 
+$AUTH_LOG_FILE = "/var/log/ebook_store_auth.log";
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);

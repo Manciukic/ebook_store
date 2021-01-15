@@ -469,4 +469,13 @@ function remove_owned_ebooks($user_id, $cart){
     return array($n, $cart);
 }
 
+function auth_log($email, $action, $success){
+    global $AUTH_LOG_FILE;
+    if (!empty($AUTH_LOG_FILE)){
+        $success_code = $success ? "1" : "0";
+        $remote_ip = $_SERVER['REMOTE_ADDR'];
+        error_log("$remote_ip $email $action $success_code\n", 3, $AUTH_LOG_FILE);
+    }
+}
+
 ?>

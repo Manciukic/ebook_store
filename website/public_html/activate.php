@@ -23,6 +23,7 @@ if (isset($_POST['link'])){
     if (!$result) {
         error_page(500, "There was an error activating your account. Please try again later with another activation link.");
     }
+    auth_log($user['email'], 'activate', true);
     // ok
 } else {
     if (!isset($_GET['link']) || !validate_link($_GET['link'])) {

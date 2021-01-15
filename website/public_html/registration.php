@@ -119,6 +119,7 @@ try {
     $mysqli->commit();
 
     send_activation_link($userId, $activation_link);
+    auth_log($email, 'register', true);
 } catch (mysqli_sql_exception $exception) {
     $mysqli->rollback();
 
@@ -138,6 +139,7 @@ try {
             "Thank you for using the Ebook Store,\n" .
             "one of our automated penguins";
         sendmail($email, "Ebook Store: Security alert", $msg);
+        auth_log($email, 'register', false);
         // continue as if nothing happened
     } else {
         error_log("SQL Error creating user(" . $exception->getCode() . "): " . $exception->getMessage());

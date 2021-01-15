@@ -1,6 +1,7 @@
 <?php
 require_once "includes/functions.php";
 session_start();
+auth_log($_SESSION['user_email'], 'logout', true);
 session_destroy();
 //exit;
 ?>

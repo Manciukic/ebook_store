@@ -32,6 +32,7 @@ if (
         || strlen($old_password) > 127
         || !check_password($_SESSION['user_email'], $old_password)
     ) {
+        auth_log($user['email'], 'change_password', false);
         error_page(401, "Wrong credentials");
     }
 
@@ -54,6 +55,7 @@ if (
     sendmail($_SESSION['user_email'], "Ebook Store: password changed", $msg);
 
     $success_msg = "Your password has been changed successfully!";
+    auth_log($user['email'], 'change_password', true);
 }
 ?>
 

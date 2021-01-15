@@ -46,6 +46,7 @@ if (!$result) {
     error_page(500, "There was an error recovering your account. Please try again later with another recovery link.");
 } else {
     $mysqli->commit();
+    auth_log($user['email'], 'recover_change', true);
 }
 ?>
 

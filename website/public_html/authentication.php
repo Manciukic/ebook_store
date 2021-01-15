@@ -2,6 +2,7 @@
     require_once "includes/sessionUtil.php";
     require_once "includes/db_connect.php";
     require_once "includes/error.php";
+    require_once "includes/functions.php";
 
     if (!isset($_POST['email']) || !isset($_POST['password'])){
         error_page(400, "No email or password provided.");
@@ -33,6 +34,7 @@
     if (!$user) {    
         // Email does not exists
         header("location: $error_url=invalid");
+        auth_log($email, 'login', false);
         exit;
     } 
 
@@ -82,18 +84,22 @@
             }
         }
 
+        auth_log($user['email'], 'login', false);
+
         // in any case show generic error
         header("location: $error_url=invalid");
         exit;
     } 
 
     if (!$user['enabled']){
+        auth_log($user['email'], 'login', false);
         // user is not enabled
         header("location: $error_url=invalid");
         exit;
     } 
     
     if (!$user['activated']){
+        auth_log($user['email'], 'login', false);
         // user is not activated
         send_activation_link($user["id"]);
         header("location: $error_url=inactive");
@@ -111,6 +117,8 @@
         $reset_attempts_query->bind_param("s",  $email);
         $reset_attempts_query->execute();
     }
+
+    auth_log($user['email'], 'login', true);
 
     header("location: $redirect");
 ?>
